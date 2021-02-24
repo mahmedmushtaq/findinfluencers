@@ -1,5 +1,5 @@
 import { Box, Text } from "theme-ui";
-import { bgImageStyle } from "../commonStyle";
+import { bgImageStyle } from "../../../styles/commonStyle";
 
 const fullWidth = {
   width: "100%",

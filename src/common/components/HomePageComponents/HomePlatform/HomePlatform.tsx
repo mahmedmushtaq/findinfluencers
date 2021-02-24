@@ -4,7 +4,7 @@ import {
   bgImageStyle,
   borderBottomLeftRadiusLaptop,
   borderBottomLeftRadiusMobile,
-} from "../commonStyle";
+} from "../../../styles/commonStyle";
 
 const popularPlatform = [
   {
@@ -71,7 +71,7 @@ const Platform = () => {
         </Flex>
       </Box>
       <Box>
-        <Link href="#">
+        <Link href="/">
           <LinkStyle>
             <Styled.h4 style={{ cursor: "pointer" }}>
               All Platforms &rarr;

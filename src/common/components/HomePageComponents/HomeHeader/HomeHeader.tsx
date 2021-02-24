@@ -1,6 +1,11 @@
 import { Flex, Box } from "theme-ui";
-import Search from "../Search/Search";
-import { bgImageStyle } from "../commonStyle";
+import Search from "../HomeSearch/HomeSearch";
+import NavBar from "../../NavBar/NavBar";
+import {
+  bgImageStyle,
+  standardShortWidthLaptop,
+  standardShortWidthMobile,
+} from "../../../styles/commonStyle";
 const Header = () => {
   return (
     <Flex
@@ -20,7 +25,9 @@ const Header = () => {
             "url('https://images.unsplash.com/photo-1592329347810-258afdd206bb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1189&q=80')",
         }}
         sx={{ borderBottomLeftRadius: [50, 100, 150] }}
-      ></Box>
+      >
+        <NavBar />
+      </Box>
 
       {/* <img
         src="https://images.unsplash.com/photo-1592329347810-258afdd206bb?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1189&q=80"
@@ -30,7 +37,13 @@ const Header = () => {
 
       <Box
         style={{ position: "absolute", margin: "auto", bottom: -50 }}
-        sx={{ width: ["95%", "95%", "70%"] }}
+        sx={{
+          width: [
+            standardShortWidthMobile,
+            standardShortWidthMobile,
+            standardShortWidthLaptop,
+          ],
+        }}
       >
         <Search />
       </Box>

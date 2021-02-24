@@ -4,7 +4,7 @@ import { Grid, Styled, Flex, Box, Text } from "theme-ui";
 import PlatformDropDown from "./PlatformDropDown";
 import CategoryDropDown from "./CategoryDropDown";
 import { useToCheckOutSideClick } from "../../../hooks";
-import { borderBottomLeftRadiusLaptop } from "../commonStyle";
+import { borderBottomLeftRadiusLaptop } from "../../../styles/commonStyle";
 
 const initialState = {
   platform: false,
@@ -38,9 +38,9 @@ const Search = () => {
         mr: "auto",
       }}
     >
-      <Styled.h1>
+      <Styled.h2>
         <Text sx={{ color: "white" }}>Find Influencers For Your Business</Text>
-      </Styled.h1>
+      </Styled.h2>
       <Grid
         ref={ref}
         columns={["1fr 1fr .5fr", "1fr 1fr 1fr .2fr"]}
