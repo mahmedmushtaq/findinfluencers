@@ -2,48 +2,53 @@ import { Box } from "theme-ui";
 import { useRef } from "react";
 import useSideBarHook from "./useSideBarHook";
 import { SideBarPropsType } from "./sideBarProps";
+import { motion, AnimatePresence } from "framer-motion";
 
 const sideBarStyleContainer: any = {
   position: "absolute",
   transition: "all 1.4s ease",
-  height: "100vh",
+  height: "100%",
+  backgroundColor: "red",
   boxShadow: "0 0 1px rgba(0,0,0,.5)",
 };
 
+/**
+ *
+ * @param props
+ * direction,width and background props is not working
+ *
+ *
+ */
 const SideBar = (props: SideBarPropsType) => {
   const { openSideBar, setOpenSideBar, direction, width } = props;
-  const sidebarDirection = direction || "left";
-  const defaultWidth = width || 150;
-  const wrapperRef = useRef(null);
-  const background = props.bg || "background";
 
-  const { translation } = useSideBarHook({
-    ref: wrapperRef,
-    openSideBar,
-    setOpenSideBar,
-  });
+  //const translateX = sidebarDirection === "left" ? "-100%" : "100%";
 
-  const translateX = sidebarDirection === "left" ? "-100%" : "100%";
-
+  const initialHideStyle = { x: "100%" };
+  const finalStyle = { x: "-70%", display: "block" };
   return (
-    <Box>
-      <Box
-        ref={wrapperRef}
-        onMouseLeave={() => console.log("mouse leave")}
-        style={{
-          ...sideBarStyleContainer,
-          width: defaultWidth,
-          zIndex: 10000,
-          overflow: "hidden",
-          transform: `translateX(${!translation ? translateX : "0"})`,
-          right: sidebarDirection === "right" ? 0 : undefined,
-          top: 0,
-          left: sidebarDirection === "left" ? 0 : undefined,
-        }}
-        sx={{ bg: "background" }}
-      >
-        <div style={{}}>{props.children}</div>
-      </Box>
+    <Box sx={{}}>
+      <AnimatePresence>
+        {openSideBar && (
+          <motion.div
+            style={{
+              position: "fixed",
+              top: 0,
+              backgroundColor: "white",
+              height: "100vh",
+              zIndex: 10000,
+              padding: "0 30px",
+              width,
+            }}
+            initial={initialHideStyle}
+            animate={finalStyle}
+            transition={{ duration: 1.2 }}
+            exit={{ x: "100%" }}
+          >
+            {props.children}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Box>
   );
 };

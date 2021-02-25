@@ -1,1 +1,2 @@
-export { default as BasicLayout } from "./BasicLayout/BasicLayout";
+export { default as FrontLayout } from "./FrontLayout/FrontLayout";
+export { default as PanelLayout } from "./PanelLayout/PanelLayout";

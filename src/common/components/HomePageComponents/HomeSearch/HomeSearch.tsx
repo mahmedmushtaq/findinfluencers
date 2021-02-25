@@ -113,7 +113,7 @@ const Search = () => {
 
         {/* search icon */}
         <Box style={{ marginLeft: "auto" }} sx={{ marginRight: [0, 0, 50] }}>
-          <img width={30} src="/images/search.svg" alt="Search icon" />
+          <img width={30} src="/images/icons/search.svg" alt="Search icon" />
         </Box>
       </Grid>
     </Grid>

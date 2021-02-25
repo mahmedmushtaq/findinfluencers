@@ -4,6 +4,7 @@ import {
   borderBottomLeftRadiusLaptop,
   borderBottomLeftRadiusMobile,
 } from "../../../styles/commonStyle";
+import Link from "next/link";
 
 const JoinInfluencer = () => {
   return (
@@ -38,16 +39,24 @@ const JoinInfluencer = () => {
           <Text mt={2} sx={{ fontFamily: "gilroy", fontSize: 20 }}>
             &#10003; · 24/7 Customer Support
           </Text>
-
-          <Button
-            mt={4}
-            style={{
-              cursor: "pointer",
-              borderBottomLeftRadius: borderBottomLeftRadiusMobile + 10,
-            }}
-          >
-            <Styled.h4>Start Earning</Styled.h4>
-          </Button>
+          <Link href="/join">
+            <Button
+              mt={4}
+              style={{
+                cursor: "pointer",
+                borderBottomLeftRadius: borderBottomLeftRadiusMobile + 10,
+              }}
+              sx={{
+                ":focus": {
+                  outline: "none",
+                },
+              }}
+            >
+              <Styled.h4>
+                <a>Start Earning</a>
+              </Styled.h4>
+            </Button>
+          </Link>
         </Box>
       </Grid>
     </Box>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Box, Text } from "theme-ui";
 import { bgImageStyle } from "../../../styles/commonStyle";
 
@@ -24,7 +25,7 @@ const commonDesign = {
 const HomeInfluencerGridItem = (props: props) => {
   const MAX_WIDTH = 210;
   const MAX_HEIGHT = 210;
-  const { name, platform, category, title, image } = props;
+  const { name, platform, category, title, image, slug } = props;
   return (
     <Box style={{ cursor: "pointer" }}>
       <Box
@@ -36,36 +37,38 @@ const HomeInfluencerGridItem = (props: props) => {
           height: [MAX_HEIGHT - 100, MAX_HEIGHT - 40, MAX_HEIGHT],
         }}
       >
-        <Box
-          style={{
-            ...bgImageStyle,
-            backgroundImage: `url(${image})`,
-            ...fullWidth,
+        <Link href={{ pathname: "/influencers/[slug]", query: { slug } }}>
+          <a>
+            <Box
+              style={{
+                ...bgImageStyle,
+                backgroundImage: `url(${image})`,
+                ...fullWidth,
 
-            height: "100%",
-          }}
-          sx={{
-            ...commonDesign,
-            borderBottomLeftRadius: [20, 20, 40],
-          }}
-        >
-          <Text
-            sx={{ fontSize: 1, borderBottomLeftRadius: [20, 50, 50] }}
-            style={{
-              // position: "absolute",
-              marginTop: "auto",
+                height: "100%",
+              }}
+              sx={{
+                ...commonDesign,
+                borderBottomLeftRadius: [20, 20, 40],
+              }}
+            >
+              <Text
+                sx={{ fontSize: 1, borderBottomLeftRadius: [20, 50, 50] }}
+                style={{
+                  marginTop: "auto",
 
-              color: "white",
-              padding: "10px 30px",
-              ...fullWidth,
+                  color: "white",
+                  padding: "10px 30px",
+                  ...fullWidth,
 
-              background: "linear-gradient(to right, #ef3b36, #ffffff)",
-            }}
-          >
-            {name}
-          </Text>
-        </Box>
-        {/* <img src={`${image}`} alt="Influencer" style={{}} /> */}
+                  background: "linear-gradient(to right, #ef3b36, #ffffff)",
+                }}
+              >
+                {name}
+              </Text>
+            </Box>
+          </a>
+        </Link>
       </Box>
       <Text
         as="h4"

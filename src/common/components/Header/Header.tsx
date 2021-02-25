@@ -1,11 +1,11 @@
 import { Flex, Box } from "theme-ui";
-import Search from "../HomeSearch/HomeSearch";
-import NavBar from "../../NavBar/NavBar";
+import Search from "../HomePageComponents/HomeSearch/HomeSearch";
+import NavBar from "../NavBar/FrontNavBar/NavBar";
 import {
   bgImageStyle,
   standardShortWidthLaptop,
   standardShortWidthMobile,
-} from "../../../styles/commonStyle";
+} from "../../styles/commonStyle";
 const Header = () => {
   return (
     <Flex

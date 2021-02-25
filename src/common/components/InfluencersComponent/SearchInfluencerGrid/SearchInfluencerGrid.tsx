@@ -1,8 +1,8 @@
 import { Box, Grid, Styled } from "theme-ui";
-import Item from "../HomeInfluencerGridItem/HomeInfluencerGridItem";
+import Item from "../SearchInfluencerGridItem/SearchInfluencerGridItem";
 import { categories } from "./influencerDummyData";
 
-const HomeInfluencerGrid = () => {
+const SearchInfluencerGrid = () => {
   return (
     <Box>
       {categories.map((singleCategory) => (
@@ -31,4 +31,4 @@ const HomeInfluencerGrid = () => {
   );
 };
 
-export default HomeInfluencerGrid;
+export default SearchInfluencerGrid;

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Box, Grid, Styled, Text, Button } from "theme-ui";
 import {
   bgImageStyle,
@@ -27,15 +28,24 @@ const HomeInfluencerFind = () => {
           &#10003; · Money Back Gurantee
         </Text>
 
-        <Button
-          mt={4}
-          style={{
-            cursor: "pointer",
-            borderBottomLeftRadius: borderBottomLeftRadiusMobile + 10,
-          }}
-        >
-          <Styled.h4>Search Influencers</Styled.h4>
-        </Button>
+        <Link href="/influencers/searchinfluencers">
+          <Button
+            mt={4}
+            style={{
+              cursor: "pointer",
+              borderBottomLeftRadius: borderBottomLeftRadiusMobile + 10,
+            }}
+            sx={{
+              ":focus": {
+                outline: "none",
+              },
+            }}
+          >
+            <Styled.h4>
+              <a>Search Influencers</a>
+            </Styled.h4>
+          </Button>
+        </Link>
       </Box>
       <Box
         sx={{
