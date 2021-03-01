@@ -1,1 +1,0 @@
-export { statsData } from "./statsData";
