@@ -1,0 +1,29 @@
+@font-face {
+  font-family: "Gilroy";
+  src: url("./fonts/Gilroy-Light.woff2") format("woff2"),
+    url("./fonts/Gilroy-Light.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Gilroy-bold";
+  src: url("./fonts/Gilroy-extraBold.woff2") format("woff2"),
+    url("./fonts/Gilroy-ExtraBold.woff") format("woff");
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
