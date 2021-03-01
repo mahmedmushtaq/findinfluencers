@@ -1,19 +1,21 @@
 import jwt from "jsonwebtoken";
+import { UserRole } from "../models/user";
 
 export interface UserPayload {
   id: string;
   email: string;
-  userType?: "connected_player";
+  role: UserRole;
 }
 
 class JWT {
   constructor() {}
 
-  async generateJWt({ id, email }: UserPayload) {
+  async generateJWt({ id, email, role }: UserPayload) {
     const signJWT = await jwt.sign(
       {
         id,
         email,
+        role,
       },
       process.env!.JWT_SECRET!
     );

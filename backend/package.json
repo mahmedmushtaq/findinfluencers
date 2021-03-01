@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-start": "ts-node-dev --poll src/index.ts"
+    "dev": "ts-node-dev --poll src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +20,7 @@
     "express-validator": "^6.10.0",
     "graphql": "^15.5.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.18",
+    "mongoose": "^5.11.15",
     "ts-node-dev": "^1.1.6"
   }
 }
