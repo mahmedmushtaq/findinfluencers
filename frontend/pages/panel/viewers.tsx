@@ -1,6 +1,6 @@
 import { Box, Grid, Styled, Flex, Text } from "theme-ui";
 
-import { PanelLayout } from "../../common/layouts";
+import { PanelLayout } from "../../src/common/layouts";
 const Viewer = () => {
   return (
     <PanelLayout>

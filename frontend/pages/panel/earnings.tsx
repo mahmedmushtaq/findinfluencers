@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Box, Grid, Styled, Text } from "theme-ui";
-import { PanelLayout } from "../../common/layouts";
+import { PanelLayout } from "../../src/common/layouts";
 import {
   borderBottomLeftRadiusLaptop,
   borderBottomLeftRadiusMobile,
-} from "../../common/styles/commonStyle";
+} from "../../styles/commonStyle";
 
 const boxStyle: any = {
   boxShadow: "0 0 1px 1px rgba(0,0,0,.4)",

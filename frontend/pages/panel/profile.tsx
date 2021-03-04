@@ -2,13 +2,13 @@ import { platform } from "os";
 import React from "react";
 import { useState } from "react";
 import { Box, Styled, Select, Text, Input, Button } from "theme-ui";
-import { InfluencerPanelProfilePlatform } from "../../common/components";
-import { PanelLayout } from "../../common/layouts";
+import { InfluencerPanelProfilePlatform } from "../../src/common/components";
+import { PanelLayout } from "../../src/common/layouts";
 import {
   borderBottomLeftRadiusLaptop,
   borderBottomLeftRadiusMobile,
   standardShortWidthLaptop,
-} from "../../common/styles/commonStyle";
+} from "../../styles/commonStyle";
 
 const Profile = () => {
   const [state, setState] = useState({ category: [], selectedPlatform: [] });

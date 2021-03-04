@@ -1,10 +1,10 @@
 import { BarChart2, Bell, MessageCircle } from "react-feather";
 import React from "react";
 import { Button, Text } from "theme-ui";
-import { borderBottomLeftRadiusMobile } from "../../../styles/commonStyle";
+import { borderBottomLeftRadiusMobile } from "../../../../../styles/commonStyle";
 
 export const influencerPanelNavBarData = [
-  { id: 1, icon: BarChart2, text: "Stats", link: "/panel/influencer" },
+  { id: 1, icon: BarChart2, text: "Stats", link: "/panel" },
   { id: 2, icon: MessageCircle, text: "Messages", link: "/panel/messages" },
   { id: 3, icon: Bell, text: "Notification", link: "/panel/notifications" },
   {

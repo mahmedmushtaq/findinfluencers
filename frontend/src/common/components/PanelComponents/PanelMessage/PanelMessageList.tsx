@@ -1,5 +1,5 @@
 import { Box, Flex, Grid, Text, Styled } from "theme-ui";
-import { scrollBarStyle } from "../../../styles/commonStyle";
+import { scrollBarStyle } from "../../../../../styles/commonStyle";
 
 const ConversationListStyle: any = {
   height: "100vh",

@@ -5,9 +5,9 @@ import {
   HomePlatform,
   HomeInfluencerFind,
   HomeJoinInfluencer,
-} from "../common/components";
+} from "../src/common/components";
 import { Box, Text, Flex } from "theme-ui";
-import { FrontLayout } from "../common/layouts";
+import { FrontLayout } from "../src/common/layouts";
 import Head from "next/head";
 
 const Index = (props: any) => {

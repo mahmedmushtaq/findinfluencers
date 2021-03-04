@@ -2,7 +2,7 @@ import { Grid, Box, Flex, Styled, Text, Button } from "theme-ui";
 import {
   borderBottomLeftRadiusMobile,
   standardShortWidthLaptop,
-} from "../../../styles/commonStyle";
+} from "../../../../../styles/commonStyle";
 import SideBarItemWithIcon from "../../SideBar/SideBarItemsWithIcons";
 import {
   influencerPanelNavBarData,

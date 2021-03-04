@@ -1,10 +1,10 @@
 import { Box, Text, Styled } from "theme-ui";
-import { Header } from "../common/components";
-import { FrontLayout } from "../common/layouts";
+import { Header } from "../src/common/components";
+import { FrontLayout } from "../src/common/layouts";
 import {
   standardShortWidthLaptop,
   standardShortWidthMobile,
-} from "../common/styles/commonStyle";
+} from "../styles/commonStyle";
 import Head from "next/head";
 
 const WhyUs = () => {

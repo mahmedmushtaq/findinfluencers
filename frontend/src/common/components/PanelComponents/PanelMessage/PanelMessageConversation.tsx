@@ -3,7 +3,7 @@ import { Box, Text, Flex, Button, Input } from "theme-ui";
 import {
   borderBottomLeftRadiusMobile,
   scrollBarStyle,
-} from "../../../styles/commonStyle";
+} from "../../../../../styles/commonStyle";
 
 const PanelMessageConversation = (props: { isBusinessPanel?: boolean }) => {
   return (

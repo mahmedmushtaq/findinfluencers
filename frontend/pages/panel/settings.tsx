@@ -1,10 +1,10 @@
 import { Box, Button, Grid, Input, Styled } from "theme-ui";
-import { PanelLayout } from "../../common/layouts";
+import { PanelLayout } from "../../src/common/layouts";
 import {
   borderBottomLeftRadiusMobile,
   standardShortWidthLaptop,
   standardShortWidthMobile,
-} from "../../common/styles/commonStyle";
+} from "../../styles/commonStyle";
 
 const Settings = (props: { isBusinessPanel?: boolean }) => {
   return (

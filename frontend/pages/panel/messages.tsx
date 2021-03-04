@@ -1,9 +1,9 @@
 import { Box, Button, Flex, Grid, Input, Styled, Text } from "theme-ui";
-import { PanelLayout } from "../../common/layouts";
+import { PanelLayout } from "../../src/common/layouts";
 import {
   PanelMessageConversation,
   PanelMessageList,
-} from "../../common/components";
+} from "../../src/common/components";
 
 const Messages = (props: { isBusinessPanel?: boolean }) => {
   const { isBusinessPanel } = props;

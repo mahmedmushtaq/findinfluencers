@@ -1,6 +1,6 @@
 import { Box, Grid } from "theme-ui";
-import { BusinessPanelDashboard } from "../../../common/components";
-import { PanelLayout } from "../../../common/layouts";
+import { BusinessPanelDashboard } from "../../../src/common/components";
+import { PanelLayout } from "../../../src/common/layouts";
 
 const BusinessHomePage = () => {
   return (

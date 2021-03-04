@@ -1,12 +1,12 @@
 import { Grid, Flex, Styled, Text } from "theme-ui";
-import InfluencerPanel from "../../../../../pages/panel/influencer";
+import InfluencerPanel from "../../../../../../pages/panel";
 import { statsData } from "../../../../data";
 import {
   borderBottomLeftRadiusLaptop,
   borderBottomLeftRadiusMobile,
   standardShortWidthLaptop,
   standardShortWidthMobile,
-} from "../../../../styles/commonStyle";
+} from "../../../../../../styles/commonStyle";
 import Link from "next/link";
 
 const boxStyle: any = {

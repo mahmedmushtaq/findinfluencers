@@ -4,7 +4,7 @@ import {
   bgImageStyle,
   borderBottomLeftRadiusLaptop,
   borderBottomLeftRadiusMobile,
-} from "../../../styles/commonStyle";
+} from "../../../../../styles/commonStyle";
 
 const popularPlatform = [
   {

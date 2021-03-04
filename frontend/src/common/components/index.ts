@@ -12,3 +12,4 @@ export * from "./HomePageComponents";
 export * from "./InfluencersComponent";
 export * from "./NavBar";
 export * from "./PanelComponents";
+export * from "./JoinComponent";

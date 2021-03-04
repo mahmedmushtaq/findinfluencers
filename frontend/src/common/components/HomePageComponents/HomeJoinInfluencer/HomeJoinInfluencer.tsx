@@ -3,7 +3,7 @@ import {
   bgImageStyle,
   borderBottomLeftRadiusLaptop,
   borderBottomLeftRadiusMobile,
-} from "../../../styles/commonStyle";
+} from "../../../../../styles/commonStyle";
 import Link from "next/link";
 
 const JoinInfluencer = () => {

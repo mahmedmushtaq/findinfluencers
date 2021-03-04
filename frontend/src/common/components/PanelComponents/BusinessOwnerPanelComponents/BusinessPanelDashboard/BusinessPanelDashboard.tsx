@@ -5,7 +5,7 @@ import {
   borderBottomLeftRadiusMobile,
   standardShortWidthLaptop,
   standardShortWidthMobile,
-} from "../../../../styles/commonStyle";
+} from "../../../../../../styles/commonStyle";
 import Link from "next/link";
 
 const boxStyle: any = {

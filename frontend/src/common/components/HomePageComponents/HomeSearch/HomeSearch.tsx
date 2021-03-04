@@ -4,7 +4,7 @@ import { Grid, Styled, Flex, Box, Text } from "theme-ui";
 import PlatformDropDown from "./PlatformDropDown";
 import CategoryDropDown from "./CategoryDropDown";
 import { useToCheckOutSideClick } from "../../../hooks";
-import { borderBottomLeftRadiusLaptop } from "../../../styles/commonStyle";
+import { borderBottomLeftRadiusLaptop } from "../../../../../styles/commonStyle";
 
 const initialState = {
   platform: false,

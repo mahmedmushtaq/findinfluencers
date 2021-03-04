@@ -4,7 +4,7 @@ import {
   standardShortWidthLaptop,
   standardShortWidthMobile,
   borderBottomLeftRadiusMobile,
-} from "../../../styles/commonStyle";
+} from "../../../../../styles/commonStyle";
 
 const NavBar = () => {
   return (

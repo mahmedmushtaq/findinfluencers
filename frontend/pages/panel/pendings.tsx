@@ -1,5 +1,5 @@
 import { Box, Flex, Styled, Text } from "theme-ui";
-import { PanelLayout } from "../../common/layouts";
+import { PanelLayout } from "../../src/common/layouts";
 
 // pending projects
 const PendingProjects = (props: { isBusinessPanel?: boolean }) => {

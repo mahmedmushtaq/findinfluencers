@@ -1,7 +1,7 @@
 import { Grid, Box, Styled, Text, Flex, Button } from "theme-ui";
-import { FrontLayout } from "../../common/layouts";
+import { FrontLayout } from "../../src/common/layouts";
 import { useRouter } from "next/router";
-import { InfluencerGallery } from "../../common/components";
+import { InfluencerGallery } from "../../src/common/components";
 import Link from "next/link";
 
 const Influencer = () => {

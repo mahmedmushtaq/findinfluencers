@@ -1,6 +1,6 @@
 import { Box, Styled, Text } from "theme-ui";
-import { FrontLayout } from "../../common/layouts";
-import { SearchInfluencerGrid } from "../../common/components";
+import { FrontLayout } from "../../src/common/layouts";
+import { SearchInfluencerGrid } from "../../src/common/components";
 
 const SearchInfluencers = () => {
   return (

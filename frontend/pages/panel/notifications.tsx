@@ -1,9 +1,9 @@
 import { Box, Flex, Grid, Styled, Text } from "theme-ui";
-import { PanelLayout } from "../../common/layouts";
+import { PanelLayout } from "../../src/common/layouts";
 import {
   standardShortWidthLaptop,
   standardShortWidthMobile,
-} from "../../common/styles/commonStyle";
+} from "../../styles/commonStyle";
 
 const Notification = (props: { isBusinessPanel?: boolean }) => {
   return (

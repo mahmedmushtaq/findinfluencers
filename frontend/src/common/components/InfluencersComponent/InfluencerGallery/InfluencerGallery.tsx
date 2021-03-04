@@ -1,5 +1,5 @@
 import { Grid, Box } from "theme-ui";
-import { borderBottomLeftRadiusLaptop } from "../../../styles/commonStyle";
+import { borderBottomLeftRadiusLaptop } from "../../../../../styles/commonStyle";
 
 const InfluencerGallery = (props: any) => {
   return (

@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/pages/_app.js", "src/common/components/SideBar/SideBar.jsx", "src/common/components/HomePageComponents/WhyCMSkill/WhyYouChoseUs.tsx"  ],
+, "pages/_app.js", "src/common/components/SideBar/SideBar.jsx", "src/common/components/HomePageComponents/WhyCMSkill/WhyYouChoseUs.tsx", "src/lib/apollosetup.js", "pages/api/auth/index.js"  ],
   "exclude": [
     "node_modules"
   ]

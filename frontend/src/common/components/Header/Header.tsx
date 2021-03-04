@@ -5,7 +5,7 @@ import {
   bgImageStyle,
   standardShortWidthLaptop,
   standardShortWidthMobile,
-} from "../../styles/commonStyle";
+} from "../../../../styles/commonStyle";
 const Header = () => {
   return (
     <Flex
