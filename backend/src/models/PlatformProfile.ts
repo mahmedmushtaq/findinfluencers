@@ -1,9 +1,7 @@
 import mongoose from "mongoose";
 import { transformMongooseResponse } from "../utils/utils";
 
-
-
-interface ProfilePlatformAttrs {
+interface PlatformProfileAttrs {
   platformId: string;
   profileName: string;
   profileUrl: string;
@@ -11,11 +9,11 @@ interface ProfilePlatformAttrs {
   userId: string;
 }
 
-interface ProfilePlatformModel extends mongoose.Model<ProfilePlatformDoc> {
-  build(attrs: ProfilePlatformAttrs): ProfilePlatformDoc;
+interface PlatformProfileModel extends mongoose.Model<PlatformProfileDOc> {
+  build(attrs: PlatformProfileAttrs): PlatformProfileDOc;
 }
 
-interface ProfilePlatformDoc extends mongoose.Document, ProfilePlatformAttrs {}
+interface PlatformProfileDOc extends mongoose.Document, PlatformProfileAttrs {}
 
 const profilePlatformSchema = new mongoose.Schema(
   {
@@ -45,13 +43,13 @@ const profilePlatformSchema = new mongoose.Schema(
   transformMongooseResponse
 );
 
-profilePlatformSchema.statics.build = (attrs: ProfilePlatformAttrs) => {
-  return new ProfilePlatform(attrs);
+profilePlatformSchema.statics.build = (attrs: PlatformProfileAttrs) => {
+  return new PlatformProfile(attrs);
 };
 
-const ProfilePlatform = mongoose.model<
-  ProfilePlatformDoc,
-  ProfilePlatformModel
->("profile-plaform", profilePlatformSchema);
+const PlatformProfile = mongoose.model<
+  PlatformProfileDOc,
+  PlatformProfileModel
+>("plaform-profile", profilePlatformSchema);
 
-export { ProfilePlatform };
+export { PlatformProfile };

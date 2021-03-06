@@ -1,6 +1,6 @@
 import { IResolvers } from "apollo-server-express";
 import { authenticated, authorized } from "../../middlewares/auth";
-import { ProfilePlatform } from "../../models";
+import { PlatformProfile } from "../../models";
 import { Platform } from "../../models/platform";
 import { UserRole } from "../../models/user";
 import { saveFile } from "../../utils/utils";
@@ -54,7 +54,7 @@ const platformResolver: IResolvers = {
     async platformProfileInfo(parent) {
       const id = parent.id;
       //fetch all data
-      const profilePlatform = await ProfilePlatform.find({ platformId: id });
+      const profilePlatform = await PlatformProfile.find({ platformId: id });
       return profilePlatform;
     },
   },

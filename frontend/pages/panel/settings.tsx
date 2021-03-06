@@ -5,8 +5,15 @@ import {
   standardShortWidthLaptop,
   standardShortWidthMobile,
 } from "../../styles/commonStyle";
+import { useRouter } from "next/router";
 
 const Settings = (props: { isBusinessPanel?: boolean }) => {
+  const router = useRouter();
+  const logout = async () => {
+    await fetch("/api/auth/logout");
+
+    router.push("/");
+  };
   return (
     <PanelLayout bodyTopMargin={40} businessPanel={props.isBusinessPanel}>
       <Grid
@@ -26,9 +33,30 @@ const Settings = (props: { isBusinessPanel?: boolean }) => {
           <Input mt={4} type="password" placeholder="Change Password" />
           <Button
             mt={3}
-            sx={{ borderBottomLeftRadius: borderBottomLeftRadiusMobile }}
+            sx={{
+              borderBottomLeftRadius: borderBottomLeftRadiusMobile,
+              ":focus": {
+                outline: "none",
+              },
+            }}
           >
             <Styled.h5>Update</Styled.h5>
+          </Button>
+
+          <Button
+            mt={3}
+            ml={3}
+            sx={{
+              borderBottomLeftRadius: borderBottomLeftRadiusMobile,
+              bg: "secondary",
+              cursor: "pointer",
+              ":focus": {
+                outline: "none",
+              },
+            }}
+            onClick={logout}
+          >
+            <Styled.h5>logout</Styled.h5>
           </Button>
         </Box>
       </Grid>

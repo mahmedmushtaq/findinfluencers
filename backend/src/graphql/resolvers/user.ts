@@ -3,7 +3,7 @@ import {
   AuthenticationError,
   ApolloError,
 } from "apollo-server-express";
-import { User } from "../../models/user";
+import { User, UserRole } from "../../models/user";
 import { JWT } from "../../classes";
 import { authenticated } from "../../middlewares/auth";
 import { contextType } from "../../types/apolloContextType";
@@ -18,9 +18,14 @@ const userResolver = {
       return user;
     }),
   },
+
   Mutation: {
     async signUp(_: void, { input }: any) {
       const { full_name, email, password, role } = input;
+
+      if (role === UserRole.admin) {
+        throw new ApolloError("Only admin can make a new admin");
+      }
       // check if user is already present then throw error
       const isUserPresent = await User.findOne({ email });
       if (isUserPresent) {
@@ -47,12 +52,12 @@ const userResolver = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError("Invalid details");
+        throw new AuthenticationError("Invalid credentials");
       }
 
       const isCorrectPassword = await Password.compare(user.password, password);
       if (!isCorrectPassword) {
-        throw new AuthenticationError("Invalid details");
+        throw new AuthenticationError("Invalid credentials");
       }
 
       const token = await JWT.generateJWt({

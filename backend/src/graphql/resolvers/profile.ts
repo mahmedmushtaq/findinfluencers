@@ -1,12 +1,13 @@
 import { IResolvers } from "apollo-server-express";
 import { authenticated, authorized } from "../../middlewares/auth";
-import { Category, Platform, Profile, ProfilePlatform } from "../../models";
+import { Category, Platform, Profile, PlatformProfile } from "../../models";
 import { User, UserRole } from "../../models/user";
 import { contextType } from "../../types/apolloContextType";
 import { addProfileInfoController } from "./controllers/profileController/profileController";
 import {
   updateInputProfileInfo,
   updateProfileImages,
+  deletePlatformInfo,
 } from "./controllers/profileController/updateProfileController";
 
 const profileResolver: IResolvers = {
@@ -40,14 +41,19 @@ const profileResolver: IResolvers = {
       async (_: void, { input, images }: any, context: contextType) => {
         let profile;
 
-        if (input && !images) {
-          profile = await updateInputProfileInfo(input, context);
-
-          // update only category, platformInfo not images
-        } else if (!input && images) {
-          profile = await updateProfileImages(images, context);
+        if (images) {
+          await updateProfileImages(images, context);
         }
 
+        profile = updateInputProfileInfo(input, context);
+
+        return profile;
+      }
+    ),
+
+    deletePlatformProfile: authenticated(
+      async (_: void, { id }: any, context: contextType) => {
+        const profile = await deletePlatformInfo(id, context);
         return profile;
       }
     ),
@@ -60,8 +66,8 @@ const profileResolver: IResolvers = {
       return user;
     },
     platformProfileInfo: async (parent) => {
-      const profilePlatformInfo = await ProfilePlatform.find({
-        _id: parent.profilePlatformIds,
+      const profilePlatformInfo = await PlatformProfile.find({
+        _id: parent.platformProfileIds,
       });
 
       return profilePlatformInfo;

@@ -26,7 +26,6 @@ export function initializeApollo(initialState = null) {
 }
 
 export function useApollo(initialState) {
-  console.log("initialState is = ", initialState);
   const store = useMemo(() => initializeApollo(initialState), [initialState]);
   return store;
 }

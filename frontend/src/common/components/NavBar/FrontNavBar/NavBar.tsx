@@ -5,8 +5,10 @@ import {
   standardShortWidthMobile,
   borderBottomLeftRadiusMobile,
 } from "../../../../../styles/commonStyle";
+import { setHeading } from "./utils";
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
+  const { url, heading } = setHeading({});
   return (
     <Grid
       columns={2}
@@ -47,8 +49,8 @@ const NavBar = () => {
                 padding: "0 20px",
               }}
             >
-              <Link href="/join">
-                <a> Join</a>
+              <Link href={url}>
+                <a> {heading}</a>
               </Link>
             </Text>
           </Styled.h4>
@@ -58,4 +60,10 @@ const NavBar = () => {
   );
 };
 
+NavBar.getInitialProps = (ctx, user) => {
+  console.log("ctx is = ", ctx, user);
+  return {
+    user,
+  };
+};
 export default NavBar;

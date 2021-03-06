@@ -5,7 +5,7 @@ import { ApolloServer, gql } from "apollo-server-express";
 import { typeDefs, resolvers } from "./graphql";
 import { JWT } from "./classes";
 import path from "path";
-import url from "url";
+import cors from "cors";
 
 const app = express();
 

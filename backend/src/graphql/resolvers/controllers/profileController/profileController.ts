@@ -1,4 +1,4 @@
-import { Profile, ProfilePlatform } from "../../../../models";
+import { Profile, PlatformProfile } from "../../../../models";
 import { contextType } from "../../../../types/apolloContextType";
 import { saveFile } from "../../../../utils";
 
@@ -7,9 +7,12 @@ export const addProfileInfoController = async (
   images: any,
   context: contextType
 ) => {
-  const allImages = await Promise.all(images);
+  const allImages = await Promise.all(images[0]);
 
-  const profilePlatformIdsMap = input.platform.map(
+  const isProfilePresent = await Profile.findOne({ userId: context.user.id });
+  if (isProfilePresent) return isProfilePresent;
+
+  const platformProfileIdsMap = input.platforms.map(
     async ({
       platformId,
       profileName,
@@ -21,7 +24,7 @@ export const addProfileInfoController = async (
       profileUrl: string;
       profileFollowers: number;
     }) => {
-      const profilePlatform = await ProfilePlatform.build({
+      const profilePlatform = await PlatformProfile.build({
         userId: context.user.id,
         platformId,
         profileName,
@@ -34,7 +37,7 @@ export const addProfileInfoController = async (
     }
   );
 
-  const profilePlatformIds: string[] = await Promise.all(profilePlatformIdsMap);
+  const platformProfileIds: string[] = await Promise.all(platformProfileIdsMap);
 
   //@ts-ignore
   const imagesPathMap = allImages.map(async (singleImage: File) => {
@@ -54,7 +57,7 @@ export const addProfileInfoController = async (
 
   const profile = await Profile.build({
     categoryIds,
-    profilePlatformIds,
+    platformProfileIds: platformProfileIds,
     userId: context.user.id,
     images: imagesUrls,
   });
@@ -63,5 +66,3 @@ export const addProfileInfoController = async (
 
   return profile;
 };
-
-

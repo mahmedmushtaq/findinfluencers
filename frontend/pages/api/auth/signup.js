@@ -3,17 +3,17 @@ import withSession from "../../../src/lib/session";
 
 export default withSession(async (req, res) => {
   if (req.method === "POST") {
-    const { email, password } = req.body;
+    const { email, password, full_name, role } = req.body;
 
-    if (!email || !password) {
-      res.send({ message: "Please provide email and password" });
+    if (!email || !password || !full_name || !role) {
+      res.send({
+        message: "Please provide email, full_name, role and password",
+      });
       return;
     }
 
     const url = process.env.GRAPHQL_SERVER_HOST;
-    const input = { email, password };
-
-    console.log("input Is = ", input);
+    const input = { email, password, full_name, role };
 
     try {
       // we check that the user exists on GitHub and store some data in session
@@ -22,12 +22,11 @@ export default withSession(async (req, res) => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           query: `
-      mutation($input: SignInInput!) {
-        signIn(input: $input) {
+      mutation($input: SignUpInput!) {
+        signUp(input: $input) {
           token
           email
           id
-          role
         }
       }`,
 
@@ -44,11 +43,11 @@ export default withSession(async (req, res) => {
         return;
       }
 
-      const signIn = responseData.data.signIn;
-      req.session.set("user", signIn);
+      const signUp = responseData.data.signUp;
+      req.session.set("user", signUp);
       await req.session.save();
 
-      const userData = { isLoggedIn: true, ...signIn };
+      const userData = { isLoggedIn: true, ...signUp };
 
       res.send(userData);
     } catch (error) {

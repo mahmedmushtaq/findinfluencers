@@ -2,53 +2,62 @@ import { Box, Flex, Input, Styled, Text } from "theme-ui";
 import React from "react";
 import { X } from "react-feather";
 
-const PanelProfilePlatformInfo = (props: {
-  platformName: string;
+interface PropsType {
   setState: Function;
-  state: any;
+  platform: {
+    profileName: string;
+    profileUrl: string;
+    profileFollowers: string;
+    platform: { id: string; name: string };
+  };
   deletePlatform: Function;
-}) => {
-  const { platformName, setState, state, deletePlatform } = props;
-  const onChange = (e: React.ChangeEvent<{ name: string; value: string }>) => {
+}
+
+const PanelProfilePlatformInfo = (props: PropsType) => {
+  const { platform, setState, deletePlatform } = props;
+  const onChange = (
+    e: React.ChangeEvent<{ name: string; value: string | number }>,
+    isNumebr?: boolean
+  ) => {
     setState({
-      platformName,
-      name: e.target.name.trim(),
-      value: e.target.value.trim(),
+      platform,
+      name: e.target.name,
+      value: isNumebr ? +e.target.value : e.target.value,
     });
   };
 
   return (
     <Box mt={3} mb={3}>
       <Flex sx={{ justifyContent: "space-between" }}>
-        <Styled.h5>{platformName}</Styled.h5>
+        <Styled.h5>{platform.platform.name}</Styled.h5>
         <Box
           sx={{ cursor: "pointer" }}
-          onClick={() => deletePlatform(platformName)}
+          onClick={() => deletePlatform(platform)}
         >
           <X />
         </Box>
       </Flex>
       <Input
-        name={`platformName_${platformName}`}
-        placeholder={`Your ${platformName} name`}
-        value={state[`platformName_${platformName}`]}
+        name={`profileName`}
+        placeholder={`Your ${platform.platform.name} name`}
+        value={platform.profileName}
         onChange={onChange}
       />
       <Input
-        name={`platformUrl_${platformName}`}
+        name={`profileUrl`}
         mt={3}
-        placeholder={`Your ${platformName} profile url`}
-        value={state[`platformUrl_${platformName}`]}
+        placeholder={`Your ${platform.platform.name} profile url`}
+        value={platform.profileUrl}
         onChange={onChange}
       />
       <Input
         mt={3}
-        name={`platformFollowers_${platformName}`}
+        name={`profileFollowers`}
         type="number"
         min={1000}
-        placeholder={`Your ${platformName} followers(min 1k required)`}
-        value={state[`platformFollowers_${platformName}`]}
-        onChange={onChange}
+        placeholder={`Your ${platform.platform.name} followers(min 1k required)`}
+        value={platform.profileFollowers}
+        onChange={(e) => onChange(e, true)}
       />
     </Box>
   );

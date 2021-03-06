@@ -3,7 +3,7 @@ import { transformMongooseResponse } from "../utils/utils";
 
 interface ProfileAttrs {
   categoryIds: string[]; // unique id
-  profilePlatformIds: string[];
+  platformProfileIds: string[];
   userId: string;
   images: string[];
 }
@@ -23,7 +23,7 @@ const profileSchema = new mongoose.Schema(
         ref: "category",
       },
     ], // unique id
-    profilePlatformIds: [
+    platformProfileIds: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: "profile-plaform",

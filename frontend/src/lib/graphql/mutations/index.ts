@@ -1,1 +1,3 @@
-export { default as SIGN_IN } from "./SIGN_IN";
+export { default as ADD_PROFILE_INFO } from "./ADD_PROFILE_INFO";
+export { default as UPDATE_PROFILE_INFO } from "./UPDATE_PROFILE_INFO";
+export { default as DELETE_PLATFORM_PROFILE } from "./DELETE_PLATFORM_PROFILE";

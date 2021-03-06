@@ -12,9 +12,8 @@ import {
   standardShortWidthLaptop,
   standardShortWidthMobile,
 } from "../../../../../styles/commonStyle";
-import { useEffect, useState } from "react";
-import { useMutation, gql } from "@apollo/client";
-import { SIGN_IN } from "../../../../lib/graphql";
+import { useState } from "react";
+
 import { useRouter } from "next/router";
 
 const InputStyle = {
@@ -58,7 +57,6 @@ const SignIn = () => {
         }
         router.push("/panel");
       });
-    //fetch("/api/auth/logout", { method: "POST" });
   };
 
   return (

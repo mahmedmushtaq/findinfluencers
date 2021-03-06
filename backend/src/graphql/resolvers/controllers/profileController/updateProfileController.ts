@@ -1,4 +1,4 @@
-import { Profile, ProfilePlatform } from "../../../../models";
+import { Profile, PlatformProfile } from "../../../../models";
 import { contextType } from "../../../../types/apolloContextType";
 import path from "path";
 import fs from "fs";
@@ -14,49 +14,68 @@ export const updateInputProfileInfo = async (
   const profile = await Profile.findOne({ userId: context.user.id });
   if (!profile) return;
 
-  const profilePlatformIdsMap = input.platform.map(
+  const profilePlatformIdsMap = input.platforms.map(
     async ({
-      profilePlatformId,
+      platformId,
+      id,
       profileName,
       profileUrl,
       profileFollowers,
     }: {
-      profilePlatformId: string;
+      platformId: string;
+      id: string;
       profileName: string;
       profileUrl: string;
       profileFollowers: number;
     }) => {
-      const profilePlatform = await ProfilePlatform.findOne({
-        _id: profilePlatformId,
+      let platformProfile = await PlatformProfile.findOne({
+        _id: id,
         userId: context.user.id, // must be the same user who has this profile
       });
-
-      if (!profilePlatform) return;
+      console.log(id);
 
       if (
-        profilePlatform.profileName === profileName &&
-        profilePlatform.profileUrl === profileUrl &&
-        profilePlatform.profileFollowers === profileFollowers
+        platformProfile &&
+        platformProfile.profileName === profileName &&
+        platformProfile.profileUrl === profileUrl &&
+        platformProfile.profileFollowers === profileFollowers
       )
-        return profilePlatform;
+        return platformProfile;
 
-      profilePlatform!.profileName = profileName;
-      profilePlatform.profileUrl = profileUrl;
-      profilePlatform.profileFollowers = profileFollowers;
+      if (!platformProfile) {
+        // create new one
 
-      await profilePlatform.save();
-      return profilePlatform;
+        platformProfile = PlatformProfile.build({
+          platformId,
+          profileName,
+          profileFollowers,
+          profileUrl,
+          userId: context.user.id,
+        });
+      }
+
+      platformProfile!.profileName = profileName;
+      platformProfile.profileUrl = profileUrl;
+      platformProfile.profileFollowers = profileFollowers;
+
+      await platformProfile.save();
+
+      return platformProfile;
     }
   );
 
-  await Promise.all(profilePlatformIdsMap);
+  const platformProfileIds: string[] = await Promise.all(profilePlatformIdsMap);
 
-  const { categoriesIds } = input;
-  if (categoriesIds) {
-    profile.categoryIds = categoriesIds;
-
-    await profile.save();
+  const { categoryIds } = input;
+  if (categoryIds && categoryIds.length >= 1) {
+    profile.categoryIds = categoryIds;
   }
+
+  profile.platformProfileIds = platformProfileIds;
+
+  await profile.save();
+  // }
+
   return profile;
 };
 
@@ -65,9 +84,8 @@ export const updateProfileImages = async (
   context: contextType
 ) => {
   const profile = await Profile.findOne({ userId: context.user.id });
-
   if (!profile) return;
-  //delete all images first
+  //delete the old images first
   profile.images.map((singleImage) => {
     const imageName = path.basename(singleImage);
     fs.unlink(
@@ -79,7 +97,7 @@ export const updateProfileImages = async (
     );
   });
 
-  const allImages = await Promise.all(images);
+  const allImages = await Promise.all(images[0]);
 
   //@ts-ignore
   const imagesPathMap = allImages.map(async (singleImage: File) => {
@@ -97,6 +115,28 @@ export const updateProfileImages = async (
 
   profile.images = imagesUrls;
   await profile.save();
+
+  return profile;
+};
+
+// delete PlatformProfile
+export const deletePlatformInfo = async (id: string, context: contextType) => {
+  const profile = await Profile.findOne({ userId: context.user.id });
+  //
+  const remainingPlatforms: string[] = profile!.platformProfileIds.filter(
+    (singleId) => singleId.toString() !== id
+  );
+
+  if (remainingPlatforms?.length === 0) {
+    // at least one platform profile must be present
+
+    return profile;
+  }
+
+  profile!.platformProfileIds! = remainingPlatforms;
+
+  await profile?.save();
+  // await PlatformProfile.findByIdAndDelete(id);
 
   return profile;
 };

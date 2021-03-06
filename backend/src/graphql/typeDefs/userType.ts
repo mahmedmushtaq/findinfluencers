@@ -15,10 +15,10 @@ const userType = gql`
   }
 
   input SignUpInput {
-    full_name: String
-    email: String
-    password: String
-    role: Role
+    full_name: String!
+    email: String!
+    password: String!
+    role: Role!
   }
 
   input SignInInput {

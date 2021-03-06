@@ -18,7 +18,7 @@ const profileType = gql`
     images: [String]
   }
 
-  input profilePlatformInput {
+  input PlatformProfileInput {
     """
     platformId is used to add new platform profile
     """
@@ -27,13 +27,13 @@ const profileType = gql`
     profileUrl: String!
     profileFollowers: Int!
     """
-    profilePlatformId is used to update profile platform data
+    id is used to update platformProfile data
     """
-    profilePlatformId: String
+    id: String
   }
 
   input ProfileInput {
-    platform: [profilePlatformInput!]!
+    platforms: [PlatformProfileInput!]!
     categoryIds: [String!]!
   }
 
@@ -41,14 +41,17 @@ const profileType = gql`
     myProfile: Profile
   }
 
-  input updateProfileInfo {
-    platform: [profilePlatformInput!]!
-    categoriesId: [String]
-  }
+
+
+  # input updateProfileInfo {
+  #   platform: [profilePlatformInput!]!
+  #   categoriesId: [String]
+  # }
 
   extend type Mutation {
     addProfileInfo(input: ProfileInput!, images: [Upload!]!): Profile
-    updateProfileInfo(input: updateProfileInfo, images: [Upload]): Profile
+    updateProfileInfo(input: ProfileInput, images: [Upload]): Profile
+    deletePlatformProfile(id: String): Profile
   }
 `;
 
