@@ -1,18 +1,34 @@
 import Link from "next/link";
 import { Box, Text } from "theme-ui";
-import { bgImageStyle } from "../../../../../styles/commonStyle";
+import {
+  bgImageStyle,
+  textOverflowEllipseStyle,
+} from "../../../../../styles/commonStyle";
 
 const fullWidth = {
   width: "100%",
 };
 
 interface props {
-  name: string;
-  slug: string;
-  platform: string;
-  category: string;
-  title: string;
-  image: string;
+  data: {
+    id: string;
+    images: string[];
+    category: {
+      name: string;
+    }[];
+    platformProfileInfo: {
+      profileName: string;
+      profileUrl: string;
+      rate: number[];
+      platform: {
+        name;
+      };
+    }[];
+    user: {
+      full_name: string;
+      username: string;
+    };
+  };
 }
 
 const commonDesign = {
@@ -25,7 +41,9 @@ const commonDesign = {
 const HomeInfluencerGridItem = (props: props) => {
   const MAX_WIDTH = 210;
   const MAX_HEIGHT = 210;
-  const { name, platform, category, title, image, slug } = props;
+  const { data } = props;
+
+  let image = process.env.SERVER_URL + data.images[0];
   return (
     <Box style={{ cursor: "pointer" }}>
       <Box
@@ -37,7 +55,12 @@ const HomeInfluencerGridItem = (props: props) => {
           height: [MAX_HEIGHT - 100, MAX_HEIGHT - 40, MAX_HEIGHT],
         }}
       >
-        <Link href={{ pathname: "/influencers/[slug]", query: { slug } }}>
+        <Link
+          href={{
+            pathname: "/influencers/[slug]",
+            query: { slug: data.user.username },
+          }}
+        >
           <a>
             <Box
               style={{
@@ -60,11 +83,11 @@ const HomeInfluencerGridItem = (props: props) => {
                   color: "white",
                   padding: "10px 30px",
                   ...fullWidth,
-
+                  ...textOverflowEllipseStyle,
                   background: "linear-gradient(to right, #ef3b36, #ffffff)",
                 }}
               >
-                {name}
+                {data.user.full_name}
               </Text>
             </Box>
           </a>
@@ -76,7 +99,7 @@ const HomeInfluencerGridItem = (props: props) => {
         mt={3}
         style={{ fontSize: 10 }}
       >
-        {category}
+        {data.category[0].name}
       </Text>
       <Text
         sx={{
@@ -88,7 +111,7 @@ const HomeInfluencerGridItem = (props: props) => {
           overflow: "hidden",
         }}
       >
-        {title}
+        {data.platformProfileInfo[0].platform.name}
       </Text>
     </Box>
   );

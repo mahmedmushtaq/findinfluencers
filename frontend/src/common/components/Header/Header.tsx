@@ -1,5 +1,5 @@
 import { Flex, Box } from "theme-ui";
-import Search from "../HomePageComponents/HomeSearch/HomeSearch";
+import Search from "./HeaderSearch/HeaderSearch";
 import NavBar from "../NavBar/FrontNavBar/NavBar";
 import {
   bgImageStyle,

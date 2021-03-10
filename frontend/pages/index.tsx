@@ -10,6 +10,7 @@ import { Box, Text, Flex } from "theme-ui";
 import { FrontLayout } from "../src/common/layouts";
 import Head from "next/head";
 
+
 const Index = (props: any) => {
   return (
     <FrontLayout>

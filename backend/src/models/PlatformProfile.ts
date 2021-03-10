@@ -7,6 +7,7 @@ interface PlatformProfileAttrs {
   profileUrl: string;
   profileFollowers: number;
   userId: string;
+  rate: number;
 }
 
 interface PlatformProfileModel extends mongoose.Model<PlatformProfileDOc> {
@@ -36,6 +37,10 @@ const profilePlatformSchema = new mongoose.Schema(
       required: true,
     },
     profileFollowers: {
+      type: Number,
+      required: true,
+    },
+    rate: {
       type: Number,
       required: true,
     },

@@ -39,8 +39,33 @@ export const influencerPanelNavBarData = [
 
 export const businessPanelNavBarData = [
   { id: 1, icon: BarChart2, text: "Dashboard", link: "/panel/business" },
-  { id: 2, icon: MessageCircle, text: "Messages", link: "/panel/business/messages" },
-  { id: 3, icon: Bell, text: "Notification", link: "/panel/business/notifications" },
+  {
+    id: 2,
+    icon: MessageCircle,
+    text: "Messages",
+    link: "/panel/business/messages",
+  },
+  {
+    id: 3,
+    icon: Bell,
+    text: "Notification",
+    link: "/panel/business/notifications",
+  },
+  {
+    id: 4,
+    icon: <></>,
+    text: (
+      <Button
+        sx={{
+          borderBottomLeftRadius: borderBottomLeftRadiusMobile,
+          ":focus": { outline: "none" },
+        }}
+      >
+        <Text sx={{ cursor: "pointer" }}>Search Influencers</Text>
+      </Button>
+    ),
+    link: "/influencers/searchinfluencers",
+  },
   {
     id: 5,
     icon: React.Fragment, // skip icon part

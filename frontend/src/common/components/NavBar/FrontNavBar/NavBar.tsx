@@ -6,9 +6,12 @@ import {
   borderBottomLeftRadiusMobile,
 } from "../../../../../styles/commonStyle";
 import { setHeading } from "./utils";
+import { RootStateOrAny, useSelector } from "react-redux";
+import { getCurrentUser } from "../../../../lib/currentUser";
 
-const NavBar = ({ user }) => {
+const NavBar = () => {
   const { url, heading } = setHeading({});
+
   return (
     <Grid
       columns={2}
@@ -60,10 +63,4 @@ const NavBar = ({ user }) => {
   );
 };
 
-NavBar.getInitialProps = (ctx, user) => {
-  console.log("ctx is = ", ctx, user);
-  return {
-    user,
-  };
-};
 export default NavBar;

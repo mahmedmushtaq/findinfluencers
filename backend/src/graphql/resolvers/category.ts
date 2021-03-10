@@ -14,7 +14,7 @@ const CategoryResolver: IResolvers = {
   Mutation: {
     addCategory: authenticated(
       authorized(UserRole.admin, async (_: void, { input }: any) => {
-        const category = Category.build({ name: input.name });
+        const category = Category.build({ name: input.name.toLowerCase() });
         await category.save();
         return category;
       })

@@ -1,12 +1,15 @@
-import { Box, Styled, Text } from "theme-ui";
+import { Box, Button, Styled, Text, Flex } from "theme-ui";
 import { FrontLayout } from "../../src/common/layouts";
 import { SearchInfluencerGrid } from "../../src/common/components";
+import { useRouter } from "next/router";
 
 const SearchInfluencers = () => {
   return (
     <FrontLayout>
       <Box>
-        <Text>Influencers</Text>
+        <Box mb={4}>
+          <Styled.h3>Influencers</Styled.h3>
+        </Box>
         <SearchInfluencerGrid />
       </Box>
     </FrontLayout>

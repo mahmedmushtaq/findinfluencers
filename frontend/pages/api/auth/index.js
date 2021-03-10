@@ -13,8 +13,6 @@ export default withSession(async (req, res) => {
     const url = process.env.GRAPHQL_SERVER_HOST;
     const input = { email, password };
 
-    console.log("input Is = ", input);
-
     try {
       // we check that the user exists on GitHub and store some data in session
       const data = await fetch(url, {

@@ -1,14 +1,15 @@
-import { IResolvers } from "apollo-server-express";
+import { ApolloError, IResolvers } from "apollo-server-express";
 import { authenticated, authorized } from "../../middlewares/auth";
 import { Category, Platform, Profile, PlatformProfile } from "../../models";
 import { User, UserRole } from "../../models/user";
 import { contextType } from "../../types/apolloContextType";
-import { addProfileInfoController } from "./controllers/profileController/profileController";
+import { addProfileInfoController } from "../controllers/profileController/profileController";
+import { searchProfileController } from "../controllers/profileController/profileSearchController";
 import {
   updateInputProfileInfo,
   updateProfileImages,
   deletePlatformInfo,
-} from "./controllers/profileController/updateProfileController";
+} from "../controllers/profileController/updateProfileController";
 
 const profileResolver: IResolvers = {
   Query: {
@@ -21,6 +22,44 @@ const profileResolver: IResolvers = {
         return profile;
       }
     ),
+    profileRates: async () => {
+      // $group: {
+      //   max: { $max: "price" },
+      //   min: { $min: "price" },
+      // },
+      const rateRangePlatformProfile = await PlatformProfile.aggregate([
+        {
+          $group: {
+            _id: null,
+            max: { $max: "$rate" },
+            min: { $min: "$rate" },
+          },
+        },
+      ]);
+
+      const max = rateRangePlatformProfile[0].max;
+      const min = rateRangePlatformProfile[0].min;
+      return {
+        rateRange: [min, max],
+      };
+    },
+
+    searchProfile: async (_, { input, pageNum }) => {
+      console.log("pageNum is = ", pageNum);
+      //   const { platformName, categoryName, rateRange } = input;
+      const profile = await searchProfileController(input, pageNum);
+      return profile;
+    },
+
+    userProfile: async (_, { username }) => {
+      const user = await User.findOne({ username });
+      if (!user) {
+        throw new ApolloError("No User Is Found");
+      }
+
+      const profile = await Profile.findOne({ userId: user.id });
+      return profile;
+    },
   },
   Mutation: {
     addProfileInfo: authenticated(

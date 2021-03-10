@@ -55,7 +55,7 @@ const Join = (props: any) => {
   );
 };
 
-Join.getInitialProps = async ({ req }, value) => {
-  return {};
-};
+// Join.getInitialProps = () => {
+//   return { user: {} };
+// };
 export default Join;

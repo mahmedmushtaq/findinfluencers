@@ -36,6 +36,7 @@ const useToProfileHandler = ({ token, state, setState, setErr }) => {
           profileName: "",
           profileUrl: "",
           profileFollowers: 0,
+          rate: "",
         },
       ],
     });
@@ -67,8 +68,12 @@ const useToProfileHandler = ({ token, state, setState, setErr }) => {
     });
   };
 
+  const onChange = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
+
   // set platform Value like profileName, profileUrl, noOfFollowers
-  const changeState = (param: {
+  const changePlatformState = (param: {
     platform: { platform: { id: string } };
     name: string;
     value: string | number;
@@ -115,8 +120,8 @@ const useToProfileHandler = ({ token, state, setState, setErr }) => {
 
   const handleFileUpload = (e) => {
     setErr("");
-    if (e.target.files.length < 3 || e.target.files.length > 3) {
-      setErr("Only 3 Image Are Required. Please select again");
+    if (e.target.files.length < 4 || e.target.files.length > 4) {
+      setErr("Only 4 Image Are Required. Please select again");
       return;
     }
     setState({ ...state, images: [e.target.files] });
@@ -126,8 +131,8 @@ const useToProfileHandler = ({ token, state, setState, setErr }) => {
     handleFileUpload,
     deleteSelectedCategory,
     deletePlatform,
-    // clearAllSelectedPlatforms,
-    changeState,
+    onChange,
+    changePlatformState,
     onSelected,
   };
 };

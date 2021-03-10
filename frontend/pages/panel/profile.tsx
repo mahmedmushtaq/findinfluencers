@@ -1,5 +1,14 @@
 import React from "react";
-import { Box, Styled, Select, Text, Input, Button, Spinner } from "theme-ui";
+import {
+  Box,
+  Styled,
+  Select,
+  Text,
+  Input,
+  Button,
+  Spinner,
+  Textarea,
+} from "theme-ui";
 import {
   InfluencerPanelProfilePlatform,
   ProtectedRouteHOC,
@@ -17,7 +26,7 @@ const Profile = ({ user }) => {
   const {
     onSelected: onSelectedPlatformOrCategory,
     deletePlatform,
-    changeState,
+    changePlatformState,
     submitData,
     handleFileUpload,
     deleteSelectedCategory,
@@ -28,6 +37,7 @@ const Profile = ({ user }) => {
     loading,
     profileLoading,
     updateProfile,
+    onChange,
   } = useToSetProfile(user);
   return (
     <PanelLayout bodyTopMargin={20}>
@@ -39,7 +49,7 @@ const Profile = ({ user }) => {
             <Styled.h4>Profile Setup</Styled.h4>
             <Styled.h5>
               <Text mt={3} mb={3}>
-                Select Your Pictures (3 pictures are required)
+                Select Your Pictures (4 pictures are required)
               </Text>
             </Styled.h5>
 
@@ -59,6 +69,19 @@ const Profile = ({ user }) => {
               </Box>
             )}
 
+            <Box mt={2} mb={2}>
+              <Styled.h5>About You</Styled.h5>
+              <Textarea
+                cols={3}
+                rows={3}
+                name="description"
+                sx={{ fontFamily: "roboto" }}
+                placeholder="Explain about you(min 250 words required)"
+                value={state.description}
+                onChange={onChange}
+              />
+            </Box>
+
             <Styled.h5>Select Your Platform</Styled.h5>
             <Select
               name="selectedPlatform"
@@ -75,12 +98,11 @@ const Profile = ({ user }) => {
               ))}
             </Select>
 
-           
             {state.selectedPlatform.map((platform, i) => (
               <InfluencerPanelProfilePlatform
                 deletePlatform={deletePlatform}
                 key={platform.platform.id}
-                setState={changeState}
+                setState={changePlatformState}
                 platform={platform}
               />
             ))}

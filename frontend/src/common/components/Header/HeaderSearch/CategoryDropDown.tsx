@@ -10,22 +10,30 @@ const items = [
   { id: 5, text: "All" },
 ];
 
-const CategoryDropDown = (props: { showDropDown: boolean }) => {
-  const { showDropDown } = props;
+interface PropsType {
+  showDropDown: boolean;
+  setSelectedCategory: Function;
+  categoriesList: { id: string; name: string }[];
+}
+
+const CategoryDropDown = (props: PropsType) => {
+  const { showDropDown, setSelectedCategory, categoriesList } = props;
   return (
     <DropDown showDropDown={showDropDown} top={15}>
       <div style={{ overflowY: "auto" }}>
-        {items.map((item) => (
+        {categoriesList.map((item) => (
           <Text
             key={item.id}
             sx={{
               fontFamily: "gilroy",
               pb: 1,
               pt: 1,
+              textTransform: "capitalize",
               ":hover": { color: "primary" },
             }}
+            onClick={() => setSelectedCategory(item)}
           >
-            {item.text}
+            {item.name}
           </Text>
         ))}
       </div>

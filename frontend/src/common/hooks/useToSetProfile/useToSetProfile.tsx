@@ -14,6 +14,7 @@ const useToSetProfile = ({ token }) => {
     category: [],
     selectedPlatform: [],
     images: [],
+    description: "",
   });
 
   const [err, setErr] = useState<any>();
@@ -29,8 +30,9 @@ const useToSetProfile = ({ token }) => {
     handleFileUpload,
     deleteSelectedCategory,
     deletePlatform,
-    changeState,
+    changePlatformState,
     onSelected,
+    onChange,
   } = useToProfileHandler({ token, state, setState, setErr });
 
   const { submitData, updateProfile, loading } = useToSubmitData({
@@ -46,7 +48,7 @@ const useToSetProfile = ({ token }) => {
     LOAD_PROFILE_PLATFORMS_AND_CATEGORIES,
     {
       errorPolicy: "all",
-      fetchPolicy: "cache-and-network",
+      fetchPolicy: "network-only",
       ...basicContext,
     }
   );
@@ -66,6 +68,7 @@ const useToSetProfile = ({ token }) => {
             JSON.stringify(data.myProfile.platformProfileInfo)
           ),
           images: JSON.parse(JSON.stringify(data.myProfile.images)),
+          description: JSON.parse(JSON.stringify(data.myProfile.description)),
         });
       }
     }
@@ -81,7 +84,7 @@ const useToSetProfile = ({ token }) => {
     state,
     onSelected,
     deletePlatform,
-    changeState,
+    changePlatformState,
     submitData,
     handleFileUpload,
     err,
@@ -89,6 +92,7 @@ const useToSetProfile = ({ token }) => {
     categoriesList,
     loading,
     profileLoading,
+    onChange,
     deleteSelectedCategory,
     updateProfile,
   };

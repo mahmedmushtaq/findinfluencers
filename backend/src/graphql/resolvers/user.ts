@@ -8,6 +8,8 @@ import { JWT } from "../../classes";
 import { authenticated } from "../../middlewares/auth";
 import { contextType } from "../../types/apolloContextType";
 import { Password } from "../../services/password";
+import slug from "slug";
+import randomstring from "randomstring";
 
 const userResolver = {
   Query: {
@@ -31,7 +33,15 @@ const userResolver = {
       if (isUserPresent) {
         throw new ApolloError("Email is already in use");
       }
-      const user = User.build({ full_name, email, password, role: role });
+
+      let username = slug(full_name) + randomstring.generate(7);
+      const user = User.build({
+        full_name,
+        email,
+        password,
+        role: role,
+        username,
+      });
       await user.save();
       const token = await JWT.generateJWt({
         id: user.id,

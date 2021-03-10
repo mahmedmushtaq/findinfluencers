@@ -11,6 +11,7 @@ interface UserAttr {
   full_name: string;
   role: UserRole;
   email: string;
+  username: string;
   password: string;
   profile_pic?: string;
 }
@@ -40,6 +41,9 @@ const UserSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true,
+    },
+    username: {
+      type: String,
     },
     role: {
       type: String,

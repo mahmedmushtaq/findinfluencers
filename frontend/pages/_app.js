@@ -5,7 +5,8 @@ import NextNprogress from "nextjs-progressbar";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "../src/lib/apollo";
 import { getCurrentUser } from "../src/lib/currentUser";
-import fetch from "isomorphic-fetch";
+import { wrapper } from "../src/store";
+import { TYPES } from "../src/store/enums";
 
 // export function reportWebVitals(metric) {
 //   switch (metric.name) {
@@ -33,7 +34,7 @@ import fetch from "isomorphic-fetch";
 //   }
 // }
 
-function MyApp({ Component, pageProps, user, router }) {
+function MyApp({ Component, pageProps, router }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
   return (
     <ThemeProvider theme={theme}>
@@ -44,29 +45,32 @@ function MyApp({ Component, pageProps, user, router }) {
           stopDelayMs={200}
           height="3"
         />
-        <Component {...pageProps} user={user} key={router.route} />
+        <Component {...pageProps} key={router.route} />
       </ApolloProvider>
     </ThemeProvider>
   );
 }
 
-MyApp.getInitialProps = async (appContext) => {
-  let pageProps = {};
-  // const token = await getToken(appContext.ctx);
-  let user = await getCurrentUser(appContext.ctx);
+// remove this because it effect on static site generateion
+// MyApp.getInitialProps = async (appContext) => {
+//   let pageProps = {};
+//   // const token = await getToken(appContext.ctx);
+//   let user = await getCurrentUser(appContext.ctx);
 
-  if (appContext.Component.getInitialProps) {
-    // if initialProps calls on other Component
-    pageProps = await appContext.Component.getInitialProps(
-      appContext.ctx,
-      user
-    );
-  }
+//   appContext.ctx.store.dispatch({ type: TYPES.ADD_USER, payload: user });
 
-  return {
-    pageProps,
-    user,
-  };
-};
+//   if (appContext.Component.getInitialProps) {
+//     // if initialProps calls on other Component
+//     pageProps = await appContext.Component.getInitialProps(
+//       appContext.ctx,
+//       user
+//     );
+//   }
 
-export default MyApp;
+//   return {
+//     pageProps,
+//     user,
+//   };
+// };
+
+export default wrapper.withRedux(MyApp);

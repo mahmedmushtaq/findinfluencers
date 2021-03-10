@@ -32,8 +32,9 @@ const InputStyle = {
 
 const SignIn = () => {
   const [state, setState] = useState({ email: "", password: "" });
-  const [error, setError] = useState([]);
+  const [error, setError] = useState("");
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const onChange = (e: React.ChangeEvent<{ name: string; value: string }>) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -41,6 +42,8 @@ const SignIn = () => {
 
   const signInButton = async () => {
     if (!state.email || !state.password) return;
+    setError("");
+    setLoading(true);
     fetch("/api/auth", {
       method: "post",
       headers: {
@@ -51,6 +54,7 @@ const SignIn = () => {
     })
       .then((res) => res.json())
       .then((res) => {
+        setLoading(false);
         if (res.errors) {
           setError(res.errors[0].message);
           return;
@@ -89,7 +93,7 @@ const SignIn = () => {
         >
           Sign In
         </Button>
-        {/* {loading && <Spinner ml={3} />} */}
+        {loading && <Spinner ml={3} />}
 
         {error && <Text ml={3}>{error}</Text>}
       </Flex>

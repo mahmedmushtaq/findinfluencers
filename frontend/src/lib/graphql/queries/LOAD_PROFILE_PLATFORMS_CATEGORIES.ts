@@ -12,26 +12,26 @@ const LOAD_PROFILE_PLATFORMS_AND_CATEGORIES = gql`
       name
     }
 
-    myProfile{
-    id
-    images
-    category{
+    myProfile {
       id
-      name
-    }
-     platformProfileInfo{
-      id
-      profileUrl
-      profileName
-      profileFollowers
-      platform{
-        name
+      images
+      description
+      category {
         id
-        
+        name
+      }
+      platformProfileInfo {
+        id
+        profileUrl
+        profileName
+        profileFollowers
+        rate
+        platform {
+          name
+          id
+        }
       }
     }
-   
-  }
   }
 `;
 

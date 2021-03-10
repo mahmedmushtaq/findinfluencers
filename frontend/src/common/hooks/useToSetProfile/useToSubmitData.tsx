@@ -25,8 +25,6 @@ const useToSubmitData = ({ state, token, setErr }) => {
     context
   );
 
- 
-
   let loading = !state.isProfileAlreadySet
     ? addProfileInfoLoading
     : updateProfileLoading;
@@ -44,6 +42,7 @@ const useToSubmitData = ({ state, token, setErr }) => {
       profileFollowers: +platform.profileFollowers,
       profileName: platform.profileName,
       profileUrl: platform.profileUrl,
+      rate: platform.rate,
       id: state.isProfileAlreadySet ? platform.id : null,
     }));
   };
@@ -68,7 +67,7 @@ const useToSubmitData = ({ state, token, setErr }) => {
         if (!platform[k]) {
           iterateComplete = false;
           setErr(
-            "Platform ProfileName, ProfileUrl and Profile Followers are required"
+            "Platform ProfileName, ProfileUrl, rate and Profile Followers are required"
           );
           return;
         }
@@ -78,6 +77,7 @@ const useToSubmitData = ({ state, token, setErr }) => {
     return !iterateComplete;
   };
 
+  // submit data
   const submitData = async () => {
     setErr("");
 
@@ -90,7 +90,11 @@ const useToSubmitData = ({ state, token, setErr }) => {
     try {
       await addProfileInfo({
         variables: {
-          input: { platforms: platformProfiles, categoryIds },
+          input: {
+            platforms: platformProfiles,
+            categoryIds,
+            description: state.description,
+          },
           images: state.images,
         },
       });
@@ -113,12 +117,16 @@ const useToSubmitData = ({ state, token, setErr }) => {
 
     const categoryIds = categoryObjectConversion();
 
-    console.log(platformProfiles, categoryIds);
+    // console.log(platformProfiles, categoryIds);
 
     try {
       await updateProfileInfo({
         variables: {
-          input: { platforms: platformProfiles, categoryIds },
+          input: {
+            platforms: platformProfiles,
+            description: state.description,
+            categoryIds,
+          },
           images: images,
         },
       });

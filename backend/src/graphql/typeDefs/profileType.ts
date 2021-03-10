@@ -8,6 +8,7 @@ const profileType = gql`
     profileUrl: String
     profileFollowers: String
     user: User
+    rate: Int
   }
 
   type Profile {
@@ -16,6 +17,15 @@ const profileType = gql`
     platformProfileInfo: [PlatformProfileInfo]
     category: [Category]
     images: [String]
+    description: String
+  }
+
+  type Rate {
+    """
+    rateRange return [minRate, maxRate]
+    """
+    # used to filter profile on the basis of the rate
+    rateRange: [Int]
   }
 
   input PlatformProfileInput {
@@ -26,6 +36,7 @@ const profileType = gql`
     profileName: String!
     profileUrl: String!
     profileFollowers: Int!
+    rate: Int!
     """
     id is used to update platformProfile data
     """
@@ -35,13 +46,21 @@ const profileType = gql`
   input ProfileInput {
     platforms: [PlatformProfileInput!]!
     categoryIds: [String!]!
+    description: String!
+  }
+
+  input SearchProfile {
+    platformName: String
+    categoryName: String
+    rateRange: [Int]
   }
 
   extend type Query {
     myProfile: Profile
+    profileRates: Rate
+    searchProfile(input: SearchProfile, pageNum: Int): [Profile]
+    userProfile(username: String): Profile
   }
-
-
 
   # input updateProfileInfo {
   #   platform: [profilePlatformInput!]!

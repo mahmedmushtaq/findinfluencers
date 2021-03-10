@@ -1,8 +1,8 @@
-import { Profile, PlatformProfile } from "../../../../models";
-import { contextType } from "../../../../types/apolloContextType";
+import { Profile, PlatformProfile } from "../../../models";
+import { contextType } from "../../../types/apolloContextType";
 import path from "path";
 import fs from "fs";
-import { saveFile } from "../../../../utils";
+import { saveFile } from "../../../utils";
 
 export const updateInputProfileInfo = async (
   input: any,
@@ -21,24 +21,26 @@ export const updateInputProfileInfo = async (
       profileName,
       profileUrl,
       profileFollowers,
+      rate,
     }: {
       platformId: string;
       id: string;
       profileName: string;
       profileUrl: string;
       profileFollowers: number;
+      rate: number;
     }) => {
       let platformProfile = await PlatformProfile.findOne({
         _id: id,
         userId: context.user.id, // must be the same user who has this profile
       });
-      console.log(id);
 
       if (
         platformProfile &&
         platformProfile.profileName === profileName &&
         platformProfile.profileUrl === profileUrl &&
-        platformProfile.profileFollowers === profileFollowers
+        platformProfile.profileFollowers === profileFollowers &&
+        platformProfile.rate === rate
       )
         return platformProfile;
 
@@ -51,12 +53,18 @@ export const updateInputProfileInfo = async (
           profileFollowers,
           profileUrl,
           userId: context.user.id,
+          rate,
         });
+
+        await platformProfile.save();
+
+        return platformProfile;
       }
 
       platformProfile!.profileName = profileName;
       platformProfile.profileUrl = profileUrl;
       platformProfile.profileFollowers = profileFollowers;
+      platformProfile.rate = rate;
 
       await platformProfile.save();
 
@@ -66,10 +74,13 @@ export const updateInputProfileInfo = async (
 
   const platformProfileIds: string[] = await Promise.all(profilePlatformIdsMap);
 
-  const { categoryIds } = input;
+  const { categoryIds, description } = input;
   if (categoryIds && categoryIds.length >= 1) {
     profile.categoryIds = categoryIds;
   }
+
+  console.log("description is  ", description);
+  profile.description = description;
 
   profile.platformProfileIds = platformProfileIds;
 

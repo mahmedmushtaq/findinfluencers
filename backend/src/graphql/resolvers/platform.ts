@@ -24,7 +24,7 @@ const platformResolver: IResolvers = {
         let platform = await Platform.findOne({ name });
         if (platform) return platform;
 
-        platform = Platform.build({ name, icon });
+        platform = Platform.build({ name: name.toLowerCase(), icon });
         await platform.save();
         return platform;
       })
@@ -40,7 +40,7 @@ const platformResolver: IResolvers = {
         //@ts-ignore
         const dbPath = `/public/images/platformPics/${fileData.filename}`;
         const platform = Platform.build({
-          name: input.name,
+          name: input.name.toLowerCase(),
           icon: dbPath,
         });
 

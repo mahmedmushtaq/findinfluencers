@@ -24,3 +24,9 @@ export const scrollBarStyle: any = {
     background: "hsla(0,0%,100%,.1)",
   },
 };
+
+export const textOverflowEllipseStyle: any = {
+  textOverflow: "ellipsis",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+};

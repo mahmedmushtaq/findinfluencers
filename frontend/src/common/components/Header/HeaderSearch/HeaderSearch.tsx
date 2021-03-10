@@ -1,10 +1,13 @@
-import { DropDown } from "../../index";
+import Router from "next/router";
 import { useRef, useState } from "react";
 import { Grid, Styled, Flex, Box, Text } from "theme-ui";
 import PlatformDropDown from "./PlatformDropDown";
 import CategoryDropDown from "./CategoryDropDown";
+import RateDropDown from "./RateDropDown";
 import { useToCheckOutSideClick } from "../../../hooks";
 import { borderBottomLeftRadiusLaptop } from "../../../../../styles/commonStyle";
+import { useQuery } from "@apollo/client";
+import { LOAD_SEARCH_FILTERS } from "../../../../lib/graphql";
 
 const initialState = {
   platform: false,
@@ -15,6 +18,11 @@ const initialState = {
 const Search = () => {
   const [showDropDown, setShowDropDown] = useState(initialState);
   const ref = useRef();
+  const [selectedCategory, setSelectedCategory] = useState<any>();
+  const [selectedPlatform, setSelectedPlatform] = useState<any>();
+  const [selectedRate, setSelectedRate] = useState<number[]>();
+  const { data, error } = useQuery(LOAD_SEARCH_FILTERS, { errorPolicy: "all" });
+
   useToCheckOutSideClick({
     ref,
     onClick: (check: boolean) => {
@@ -25,6 +33,26 @@ const Search = () => {
     setShowDropDown({
       ...initialState,
       [key]: !showDropDown[key],
+    });
+  };
+
+  const searchBtn = () => {
+    let category = "any",
+      platform = "any",
+      rate = [];
+    if (selectedPlatform) {
+      platform = selectedPlatform.name;
+    }
+    if (selectedCategory) {
+      category = selectedCategory.name;
+    }
+    if (selectedRate) {
+      rate = selectedRate;
+    }
+
+    Router.push({
+      pathname: "/influencers/searchinfluencers",
+      query: { category, platform, rate },
     });
   };
   return (
@@ -71,12 +99,19 @@ const Search = () => {
             }}
             onClick={() => setDropDownVisibility("platform")}
           >
-            <Text as={"h3"} sx={{ fontFamily: "gilroyBold" }}>
-              Platform
+            <Text
+              as={"h3"}
+              sx={{ fontFamily: "gilroyBold", textTransform: "capitalize" }}
+            >
+              {selectedPlatform ? selectedPlatform.name : "Platform"}
             </Text>
             <Text sx={{ display: ["none", "block"] }}>Chose a platform</Text>
 
-            <PlatformDropDown showDropDown={showDropDown.platform} />
+            <PlatformDropDown
+              setSelectedPlatform={setSelectedPlatform}
+              showDropDown={showDropDown.platform}
+              platformsList={data ? data.platforms : []}
+            />
           </Box>
         </Box>
         <Box
@@ -89,11 +124,18 @@ const Search = () => {
             style={{ cursor: "pointer" }}
             onClick={() => setDropDownVisibility("category")}
           >
-            <Text as={"h3"} sx={{ fontFamily: "gilroyBold" }}>
-              Category
+            <Text
+              as={"h3"}
+              sx={{ fontFamily: "gilroyBold", textTransform: "capitalize" }}
+            >
+              {selectedCategory ? selectedCategory.name : "Category"}
             </Text>
             <Text sx={{ display: ["none", "block"] }}>Chose a category</Text>
-            <CategoryDropDown showDropDown={showDropDown.category} />
+            <CategoryDropDown
+              setSelectedCategory={setSelectedCategory}
+              showDropDown={showDropDown.category}
+              categoriesList={data ? data.categories : []}
+            />
           </Box>
         </Box>
 
@@ -102,17 +144,33 @@ const Search = () => {
             textAlign: "center",
           }}
           sx={{ display: ["none", "block"] }}
+          onClick={() => setDropDownVisibility("price")}
         >
           <Box style={{ cursor: "pointer" }}>
             <Text as={"h3"} sx={{ fontFamily: "gilroyBold" }}>
-              Price
+              {selectedRate
+                ? "From $" +
+                  selectedRate[0] +
+                  "/hr to $" +
+                  selectedRate[1] +
+                  "/hr"
+                : "Rate/Price"}
             </Text>
             <Text>Select your budget</Text>
+            <RateDropDown
+              showDropDown={showDropDown.price}
+              rateRange={data ? data.profileRates.rateRange : [0, 0]}
+              setSelectedRate={setSelectedRate}
+            />
           </Box>
         </Box>
 
         {/* search icon */}
-        <Box style={{ marginLeft: "auto" }} sx={{ marginRight: [0, 0, 50] }}>
+        <Box
+          style={{ marginLeft: "auto" }}
+          sx={{ marginRight: [0, 0, 50], cursor: "pointer" }}
+          onClick={searchBtn}
+        >
           <img width={30} src="/images/icons/search.svg" alt="Search icon" />
         </Box>
       </Grid>

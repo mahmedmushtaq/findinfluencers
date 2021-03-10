@@ -12,6 +12,7 @@ const userType = gql`
     email: String
     role: Role
     token: String
+    username: String
   }
 
   input SignUpInput {

@@ -6,6 +6,7 @@ interface ProfileAttrs {
   platformProfileIds: string[];
   userId: string;
   images: string[];
+  description: string;
 }
 
 interface ProfileModel extends mongoose.Model<ProfileDoc> {
@@ -34,6 +35,10 @@ const profileSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
       require: true,
+    },
+    description: {
+      type: String,
+      required: true,
     },
     images: [
       {

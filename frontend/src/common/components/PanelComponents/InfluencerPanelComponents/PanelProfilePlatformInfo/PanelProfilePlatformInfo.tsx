@@ -8,6 +8,7 @@ interface PropsType {
     profileName: string;
     profileUrl: string;
     profileFollowers: string;
+    rate: string;
     platform: { id: string; name: string };
   };
   deletePlatform: Function;
@@ -26,9 +27,12 @@ const PanelProfilePlatformInfo = (props: PropsType) => {
     });
   };
 
+  const platformInfo = `Your ${platform.platform.name} `;
   return (
     <Box mt={3} mb={3}>
-      <Flex sx={{ justifyContent: "space-between" }}>
+      <Flex
+        sx={{ justifyContent: "space-between", textTransform: "capitalize" }}
+      >
         <Styled.h5>{platform.platform.name}</Styled.h5>
         <Box
           sx={{ cursor: "pointer" }}
@@ -39,23 +43,33 @@ const PanelProfilePlatformInfo = (props: PropsType) => {
       </Flex>
       <Input
         name={`profileName`}
-        placeholder={`Your ${platform.platform.name} name`}
+        placeholder={`${platformInfo} name`}
         value={platform.profileName}
         onChange={onChange}
       />
       <Input
         name={`profileUrl`}
         mt={3}
-        placeholder={`Your ${platform.platform.name} profile url`}
+        placeholder={`${platformInfo} profile url`}
         value={platform.profileUrl}
         onChange={onChange}
       />
       <Input
         mt={3}
+        name={`rate`}
+        type="number"
+        min={3}
+        placeholder={`${platformInfo} Rate(e.g $15/hr)`}
+        value={platform.rate}
+        onChange={(e) => onChange(e, true)}
+      />
+
+      <Input
+        mt={3}
         name={`profileFollowers`}
         type="number"
         min={1000}
-        placeholder={`Your ${platform.platform.name} followers(min 1k required)`}
+        placeholder={`${platformInfo} followers(min 1k required)`}
         value={platform.profileFollowers}
         onChange={(e) => onChange(e, true)}
       />

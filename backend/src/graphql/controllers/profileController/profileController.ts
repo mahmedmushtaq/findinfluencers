@@ -1,6 +1,6 @@
-import { Profile, PlatformProfile } from "../../../../models";
-import { contextType } from "../../../../types/apolloContextType";
-import { saveFile } from "../../../../utils";
+import { Profile, PlatformProfile } from "../../../models";
+import { contextType } from "../../../types/apolloContextType";
+import { saveFile } from "../../../utils";
 
 export const addProfileInfoController = async (
   input: any,
@@ -18,11 +18,13 @@ export const addProfileInfoController = async (
       profileName,
       profileUrl,
       profileFollowers,
+      rate,
     }: {
       platformId: string;
       profileName: string;
       profileUrl: string;
       profileFollowers: number;
+      rate: number;
     }) => {
       const profilePlatform = await PlatformProfile.build({
         userId: context.user.id,
@@ -30,6 +32,7 @@ export const addProfileInfoController = async (
         profileName,
         profileUrl,
         profileFollowers,
+        rate,
       });
 
       await profilePlatform.save();
@@ -53,13 +56,14 @@ export const addProfileInfoController = async (
 
   const imagesUrls = await Promise.all(imagesPathMap);
 
-  const { categoryIds } = input;
+  const { categoryIds, description } = input;
 
   const profile = await Profile.build({
     categoryIds,
     platformProfileIds: platformProfileIds,
     userId: context.user.id,
     images: imagesUrls,
+    description,
   });
 
   await profile.save();

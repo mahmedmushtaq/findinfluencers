@@ -1,3 +1,2 @@
-export { default as ADD_PROFILE_INFO } from "./ADD_PROFILE_INFO";
-export { default as UPDATE_PROFILE_INFO } from "./UPDATE_PROFILE_INFO";
-export { default as DELETE_PLATFORM_PROFILE } from "./DELETE_PLATFORM_PROFILE";
+export * from "./profile";
+export { default as UPDATE_SETTINGS } from "./UPDATE_SETTINGS";
