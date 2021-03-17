@@ -20,6 +20,7 @@
     "mongoose": "^5.11.15",
     "randomstring": "^1.1.5",
     "slug": "^4.0.3",
+    "socket.io": "^4.0.0",
     "ts-node-dev": "^1.1.6"
   },
   "devDependencies": {

@@ -4,9 +4,9 @@ import theme from "../styles/theme";
 import NextNprogress from "nextjs-progressbar";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "../src/lib/apollo";
-import { getCurrentUser } from "../src/lib/currentUser";
 import { wrapper } from "../src/store";
-import { TYPES } from "../src/store/enums";
+import { con } from "../src/socket";
+import { useEffect } from "react";
 
 // export function reportWebVitals(metric) {
 //   switch (metric.name) {
@@ -36,6 +36,10 @@ import { TYPES } from "../src/store/enums";
 
 function MyApp({ Component, pageProps, router }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
+
+  useEffect(() => {
+    con.connect();
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <ApolloProvider client={apolloClient}>

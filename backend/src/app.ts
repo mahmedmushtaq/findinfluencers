@@ -8,10 +8,12 @@ import path from "path";
 import cors from "cors";
 
 const app = express();
+app.use(cors());
 
 app.use("/public", express.static(path.join(__dirname + "/public")));
 
 app.use(json());
+// app.use(cors());
 
 const server = new ApolloServer({
   typeDefs,
