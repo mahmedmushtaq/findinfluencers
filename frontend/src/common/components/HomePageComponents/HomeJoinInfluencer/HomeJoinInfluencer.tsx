@@ -17,8 +17,10 @@ const JoinInfluencer = () => {
             borderBottomLeftRadius: borderBottomLeftRadiusLaptop + 100,
             display: ["none", "block"],
             ...bgImageStyle,
+            backgroundPosition: "top top",
             backgroundImage:
-              "url(https://images.unsplash.com/photo-1612816174108-9515a66a4582?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80)",
+              //"url(https://images.unsplash.com/photo-1612816174108-9515a66a4582?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80)",
+              "url(https://images.unsplash.com/photo-1498484502070-2165cb42d504?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTh8fGFjdGl2aXR5fGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60)",
           }}
         ></Box>
         <Box>
@@ -29,15 +31,15 @@ const JoinInfluencer = () => {
           </Styled.h1>
 
           <Text mt={2} sx={{ fontFamily: "gilroy", fontSize: 20 }}>
-            &#10003; · Easily Setup Profile
+            ✔️ · Easily Setup Profile
           </Text>
 
           <Text mt={2} sx={{ fontFamily: "gilroy", fontSize: 20 }}>
-            &#10003; · We are responsible to get your money from your client
+            ✔️ · We are responsible to get your money from your client
           </Text>
 
           <Text mt={2} sx={{ fontFamily: "gilroy", fontSize: 20 }}>
-            &#10003; · 24/7 Customer Support
+            ✔️ · 24/7 Customer Support
           </Text>
           <Link href="/join">
             <Button

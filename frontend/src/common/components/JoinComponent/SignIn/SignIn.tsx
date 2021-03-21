@@ -13,8 +13,10 @@ import {
   standardShortWidthMobile,
 } from "../../../../../styles/commonStyle";
 import { useState } from "react";
-
+import { PropsType } from "../propsType";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { TYPES } from "../../../../store/enums";
 
 const InputStyle = {
   borderTop: "none",
@@ -30,11 +32,12 @@ const InputStyle = {
   },
 };
 
-const SignIn = () => {
+const SignIn = (props: PropsType) => {
   const [state, setState] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const onChange = (e: React.ChangeEvent<{ name: string; value: string }>) => {
     setState({ ...state, [e.target.name]: e.target.value });
@@ -59,7 +62,17 @@ const SignIn = () => {
           setError(res.errors[0].message);
           return;
         }
-        router.push("/panel");
+
+        // send user data to global state
+        dispatch({ type: TYPES.ADD_USER, payload: res });
+
+        if (!props.onSuccessful) {
+          let defaultPath = "/panel";
+          if (res.role === "buyer") {
+            defaultPath = "/panel/business";
+          } else if (res.role === "admin") defaultPath = "/panel/admin";
+          router.push(props.path ? props.path : defaultPath);
+        } else props.onSuccessful(res);
       });
   };
 

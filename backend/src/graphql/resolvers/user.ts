@@ -2,9 +2,10 @@ import {
   IResolvers,
   AuthenticationError,
   ApolloError,
+  IResolversParameter,
 } from "apollo-server-express";
 import { User, UserRole } from "../../models/user";
-import { JWT } from "../../classes";
+import { JWT } from "../../utils";
 import { authenticated } from "../../middlewares/auth";
 import { contextType } from "../../types/apolloContextType";
 import { Password } from "../../services/password";
@@ -19,6 +20,14 @@ const userResolver = {
 
       return user;
     }),
+
+    searchUser: async (_: void, { input }: any) => {
+      let user = await User.findOne({
+        $or: [{ username: input.username }, { _id: input.userId }],
+      });
+
+      return user;
+    },
   },
 
   Mutation: {
@@ -52,6 +61,7 @@ const userResolver = {
         id: user.id,
         email: user.email,
         full_name: user.full_name,
+        username: user.username,
         token,
       };
     },
@@ -81,6 +91,7 @@ const userResolver = {
         id: user.id,
         email: user.email,
         full_name: user.full_name,
+        username: user.username,
         token,
       };
     },

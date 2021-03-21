@@ -17,9 +17,9 @@ const FrontLayout = (props: {
 
   return (
     <Box sx={{ backgroundColor: "white" }}>
-      <Box>
+      {/* <Box>
         <OfferBar />
-      </Box>
+      </Box> */}
       <Box>{isHeaderShow && <Header />}</Box>
       <Box
         sx={{

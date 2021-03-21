@@ -89,9 +89,7 @@ const SearchInfluencerGrid = (props: any) => {
                 }
               >
                 <Text>
-                  {data.searchProfile.length > 0
-                    ? "Load More"
-                    : "Load Previous One"}
+                  {data.searchProfile.length > 0 ? "Load More" : "Back"}
                 </Text>
               </Button>
             )}

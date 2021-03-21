@@ -6,11 +6,33 @@ import {
   borderBottomLeftRadiusMobile,
 } from "../../../../../styles/commonStyle";
 import { setHeading } from "./utils";
-import { RootStateOrAny, useSelector } from "react-redux";
+import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../../../../lib/currentUser";
+import { useEffect, useState, useCallback } from "react";
 
 const NavBar = () => {
-  const { url, heading } = setHeading({});
+  const isUserPresentInStore = useSelector(
+    (store: RootStateOrAny) => store.user
+  );
+  const [user, setUser] = useState<any>(isUserPresentInStore); //useSelector((store: RootStateOrAny) => store.user);
+  const { url, heading } = setHeading(user);
+  const dispatch = useDispatch();
+
+  const loadUser = useCallback(async () => {
+    if (!isUserPresentInStore.token) {
+      // when page is refresh then no user will present on store therefore we need to check
+      const res = await getCurrentUser({});
+
+      setUser(res);
+    } else {
+      console.log("user is already present");
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("use effect is called");
+    loadUser();
+  }, [loadUser]);
 
   return (
     <Grid

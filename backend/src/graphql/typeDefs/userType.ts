@@ -27,8 +27,14 @@ const userType = gql`
     password: String
   }
 
+  input SearchUserInput {
+    userId: String
+    username: String
+  }
+
   extend type Query {
     me: User!
+    searchUser(input: SearchUserInput): User!
   }
   extend type Mutation {
     signUp(input: SignUpInput!): User!

@@ -26,6 +26,7 @@ import React, { useEffect, useState } from "react";
 const Settings = (props: { isBusinessPanel?: boolean; user: any }) => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const { isBusinessPanel } = props;
   const [state, setState] = useState({
     updateName: "",
     updateEmail: "",
@@ -191,4 +192,4 @@ const Settings = (props: { isBusinessPanel?: boolean; user: any }) => {
     </PanelLayout>
   );
 };
-export default ProtectedRouteHOC(Settings);
+export default ProtectedRouteHOC(Settings, "skip");

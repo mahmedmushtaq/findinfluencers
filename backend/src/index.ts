@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 require("dotenv").config({});
 import { app } from "./app";
-import socket, { Socket } from "socket.io";
+import { SocketConnection } from "./socket";
 
 const http = require("http").createServer(app);
 
@@ -23,25 +23,14 @@ const start = async () => {
     console.log(err);
   }
 
-  http.listen(process.env.PORT, () => {
+  const expressServer = app.listen(process.env.PORT, () => {
     console.log("Server is listening on the port ", process.env.PORT);
   });
 
-  //@ts-ignore
-  const io = socket(http, {
-    cors: {
-      origin: "http://localhost:3000",
-      methods: ["GET", "POST"],
-    },
-  });
-
-  io.on("connection", (socket: Socket) => {
-    console.log(` =========== socket connected ========== ${socket.id}`);
-
-    socket.on("disconnect", () => {
-      console.log("user disconnected");
-    });
-  });
+  new SocketConnection(
+    expressServer,
+    process.env.ALLOW_CORS_DOMAIN!
+  ).startServer();
 };
 
 start();

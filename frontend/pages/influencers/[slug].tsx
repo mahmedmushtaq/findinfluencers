@@ -1,21 +1,99 @@
 import { Grid, Box, Styled, Text, Flex, Button } from "theme-ui";
 import { FrontLayout } from "../../src/common/layouts";
 import { useRouter } from "next/router";
-import { InfluencerGallery } from "../../src/common/components";
-import Link from "next/link";
+import { InfluencerGallery, SignInModal } from "../../src/common/components";
+import dynamic from "next/dynamic";
 import { initializeApollo } from "../../src/lib/apollo";
 import { LOAD_USER_PROFILE } from "../../src/lib/graphql";
+import { useRef } from "react";
+import { RootStateOrAny, useSelector } from "react-redux";
+import { getCurrentUser } from "../../src/lib/currentUser";
 
-// pic 1
+// requires default import
+const SignInModalDynamic = dynamic(
+  () =>
+    import("../../src/common/components/JoinComponent/SignInModal/SignInModal")
+);
 
 const Influencer = (props) => {
   const router = useRouter();
+  const modalRef = useRef<any>();
 
   const { userProfileData } = props;
 
   const data = userProfileData.data
     ? userProfileData.data.userProfile
     : undefined;
+
+  const contactInfluencer = async () => {
+    const user = await getCurrentUser({});
+    if (user && user.role === "buyer") {
+      router.push(`/panel/business/messages?user=${router.query.slug}`);
+      return;
+    }
+    if (!modalRef) return;
+    modalRef.current.open();
+  };
+
+  const sideBar = (
+    <Box sx={{ textAlign: "center" }}>
+      {/* <img
+      width={150}
+      height={150}
+      src="https://d5ik1gor6xydq.cloudfront.net/sellers/4396/16055009251396651.jpg"
+      alt=""
+      style={{ borderRadius: "50%" }}
+    /> */}
+
+      <Styled.h3>
+        <Text>{data.user.full_name}</Text>
+      </Styled.h3>
+      <Styled.h5>
+        <Text>Influencer At</Text>
+      </Styled.h5>
+
+      {data.platformProfileInfo.map((data) => (
+        <Flex
+          key={data.id}
+          sx={{ justifyContent: "center", alignItems: "flex-start" }}
+        >
+          <Box>
+            <Text
+              sx={{ fontFamily: "gilroyBold", fontSize: 2 }}
+              style={{ fontSize: 10 }}
+            >
+              Platform
+            </Text>
+            <Text> {data.platform.name} </Text>
+          </Box>
+          <Box ml={3}>
+            <Text
+              sx={{ fontFamily: "gilroyBold", fontSize: 2 }}
+              style={{ fontSize: 10 }}
+            >
+              Followers
+            </Text>
+            <Text ml={2} color="primary">
+              {data.profileFollowers}
+            </Text>
+          </Box>
+        </Flex>
+      ))}
+
+      {/* <Flex sx={{ justifyContent: "center", alignItems: "center" }}>
+      <Styled.h4>
+        <Text>Promotion</Text>
+      </Styled.h4>
+      <Text ml={2} color="primary">
+        ${data.platformProfileInfo[0].rate}/hr
+      </Text>
+    </Flex> */}
+
+      <Button mt={3} onClick={contactInfluencer}>
+        Contact
+      </Button>
+    </Box>
+  );
 
   return (
     <FrontLayout>
@@ -26,47 +104,18 @@ const Influencer = (props) => {
           <Box>
             <InfluencerGallery images={data.images} />
             <Grid columns={[1, "2.4fr 1fr"]} mt={4} sx={{}}>
+              {/* for a mobile then show this sidebar as a left user */}
+              <Box sx={{ display: ["block", "none"] }}>{sideBar}</Box>
               <Box>
                 <Styled.h2>Description</Styled.h2>
                 <Text>{data.description}</Text>
               </Box>
-              <Box sx={{ textAlign: "center" }}>
-                {/* <img
-                  width={150}
-                  height={150}
-                  src="https://d5ik1gor6xydq.cloudfront.net/sellers/4396/16055009251396651.jpg"
-                  alt=""
-                  style={{ borderRadius: "50%" }}
-                /> */}
-
-                <Styled.h3>
-                  <Text>{data.user.full_name}</Text>
-                </Styled.h3>
-                <Flex sx={{ justifyContent: "center", alignItems: "center" }}>
-                  <Styled.h4>
-                    <Text>Followers</Text>
-                  </Styled.h4>
-                  <Text ml={2} color="primary">
-                    {data.platformProfileInfo[0].profileFollowers}
-                  </Text>
-                </Flex>
-
-                <Flex sx={{ justifyContent: "center", alignItems: "center" }}>
-                  <Styled.h4>
-                    <Text>Promotion</Text>
-                  </Styled.h4>
-                  <Text ml={2} color="primary">
-                    ${data.platformProfileInfo[0].rate}/hr
-                  </Text>
-                </Flex>
-
-                <Button mt={3}>
-                  <Link href="/contactinfluencer">Contact</Link>
-                </Button>
-              </Box>
+              {/* for laptop and desktop then show this sidebar as a right user */}
+              <Box sx={{ display: ["none", "block"] }}>{sideBar}</Box>
             </Grid>
           </Box>
         )}
+        <SignInModalDynamic modalRef={modalRef} />
       </Box>
     </FrontLayout>
   );

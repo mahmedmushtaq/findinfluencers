@@ -5,8 +5,6 @@ import NextNprogress from "nextjs-progressbar";
 import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "../src/lib/apollo";
 import { wrapper } from "../src/store";
-import { con } from "../src/socket";
-import { useEffect } from "react";
 
 // export function reportWebVitals(metric) {
 //   switch (metric.name) {
@@ -34,12 +32,26 @@ import { useEffect } from "react";
 //   }
 // }
 
+const initialState = {
+  token: "",
+  email: "",
+  id: "",
+  role: "",
+  username: "",
+};
+
 function MyApp({ Component, pageProps, router }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
 
-  useEffect(() => {
-    con.connect();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     // fetch user data on the client side
+  //     const res = await getCurrentUser({});
+  //     con.connect(res.token);
+  //     dispatch({ type: "ADD_USER", payload: res });
+  //     setUser(res);
+  //   })();
+  // }, []);
   return (
     <ThemeProvider theme={theme}>
       <ApolloProvider client={apolloClient}>
@@ -54,6 +66,10 @@ function MyApp({ Component, pageProps, router }) {
     </ThemeProvider>
   );
 }
+
+// I have not used getInitialProps due to this reason
+// https://stackoverflow.com/questions/59130305/does-using-getinitialprops-in-custom-app-component-in-next-js-disable-client
+// if you have any suggestions, suggest me
 
 // remove this because it effect on static site generateion
 // MyApp.getInitialProps = async (appContext) => {

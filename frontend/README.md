@@ -7,6 +7,10 @@
 - Dependent Component name like HomePage(HereComponent Name) e.g HomePageIntro
 - Dependent Component folder name depend upon the page name e.g if page is home/index then its components folder is like HomePageComponents or you can say It IndexPageComponents
 
-### GRAPHQL QUERIES FILES
+### GRAPHQL QUERIES FILES NAME
 
 - CONTAINS ALL LETTERS CAPITAL
+
+### Improvement
+
+- set proxy and set json in cookie on the graphql server and send on the front end side and remove auth by using next.js functions

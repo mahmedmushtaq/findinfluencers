@@ -4,8 +4,18 @@ import {
   borderBottomLeftRadiusMobile,
   scrollBarStyle,
 } from "../../../../../styles/commonStyle";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import usePanelMessageConverstation from "./usePanelMessageConversation";
 
 const PanelMessageConversation = (props: { isBusinessPanel?: boolean }) => {
+  const router = useRouter();
+  const user = router.query.user;
+  const { state } = usePanelMessageConverstation({
+    username: user ? user.toString() : "",
+  });
+  const { sendMessage, status, writeMessage, onChange } = state;
+
   return (
     <Box
       sx={{
@@ -28,10 +38,8 @@ const PanelMessageConversation = (props: { isBusinessPanel?: boolean }) => {
       >
         <Flex sx={{ justifyContent: "space-between" }}>
           <Box>
-            <Text sx={{ fontSize: 17, fontFamily: "gilroyBold" }}>
-              Online Status
-            </Text>
-            <Text sx={{ fontSize: 11 }}>Online Status</Text>
+            <Text sx={{ fontSize: 17, fontFamily: "gilroyBold" }}>{user}</Text>
+            <Text style={{ fontSize: 9 }}>{status}</Text>
           </Box>
           <Box>
             <Button>
@@ -113,9 +121,11 @@ const PanelMessageConversation = (props: { isBusinessPanel?: boolean }) => {
           placeholder="Enter Your Message"
           mr={3}
           ml={3}
+          value={writeMessage}
+          onChange={onChange}
         />
 
-        <Button sx={{ textAlign: "center" }}>
+        <Button sx={{ textAlign: "center" }} onClick={sendMessage}>
           <Text sx={{ fontSize: 17, fontFamily: "gilroyBold" }}>Send</Text>
         </Button>
       </Flex>

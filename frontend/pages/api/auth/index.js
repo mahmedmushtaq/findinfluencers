@@ -26,6 +26,7 @@ export default withSession(async (req, res) => {
           email
           id
           role
+          username
         }
       }`,
 

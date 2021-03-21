@@ -1,7 +1,8 @@
+import { ProtectedRouteHOC } from "../../../src/common/components";
 import Settings from "../settings";
 
-const BusinessProfileSettings = () => {
-  return <Settings isBusinessPanel />;
+const BusinessProfileSettings = (props) => {
+  return <Settings isBusinessPanel {...props} />;
 };
 
-export default BusinessProfileSettings;
+export default ProtectedRouteHOC(BusinessProfileSettings, "buyer");

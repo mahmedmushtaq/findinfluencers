@@ -1,14 +1,15 @@
 export const setHeading = (user) => {
   let url = "/join",
     heading = "Join";
-  if (user.isLoggedIn) {
+  if (user && user.isLoggedIn) {
     // user is logged in
     heading = "Panel";
-    if (user.role === "influencer") {
+    if (user && user.role === "influencer") {
       url = "/panel";
-    } else if (user.role === "buyer") {
+    } else if (user && user.role === "buyer") {
       // set buyer heading
-    } else {
+      url="/panel/business"
+    } else if( user && user.role === "admin") {
       url = "/admin";
     }
   }

@@ -16,16 +16,16 @@ const HomeInfluencerFind = () => {
         </Styled.h1>
 
         <Text sx={{ fontFamily: "gilroy", fontSize: 20 }}>
-          &#10003; ·Search Different Platform and category Influencers
+          ✔️ ·Search Different Platform and category Influencers
         </Text>
         <Text mt={2} sx={{ fontFamily: "gilroy", fontSize: 20 }}>
-          &#10003; · Add Money In Escro
+          ✔️ · Add Money In Escro
         </Text>
         <Text mt={2} sx={{ fontFamily: "gilroy", fontSize: 20 }}>
-          &#10003; · 24/7 Customer Support
+          ✔️ · 24/7 Customer Support
         </Text>
         <Text mt={2} sx={{ fontFamily: "gilroy", fontSize: 20 }}>
-          &#10003; · Money Back Gurantee
+          ✔️ · Money Back Gurantee
         </Text>
 
         <Link href="/influencers/searchinfluencers">

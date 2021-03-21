@@ -3,7 +3,7 @@ import "express-async-errors";
 import { json } from "body-parser";
 import { ApolloServer, gql } from "apollo-server-express";
 import { typeDefs, resolvers } from "./graphql";
-import { JWT } from "./classes";
+import { JWT } from "./utils";
 import path from "path";
 import cors from "cors";
 

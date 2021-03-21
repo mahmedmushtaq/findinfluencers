@@ -1,5 +1,5 @@
 import { ApolloError, IResolvers } from "apollo-server-express";
-import { JWT } from "../../classes";
+import { JWT } from "../../utils";
 import { authenticated, authorized } from "../../middlewares/auth";
 import { User } from "../../models";
 import { Password } from "../../services/password";

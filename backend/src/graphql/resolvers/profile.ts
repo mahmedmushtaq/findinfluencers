@@ -45,7 +45,6 @@ const profileResolver: IResolvers = {
     },
 
     searchProfile: async (_, { input, pageNum }) => {
-      console.log("pageNum is = ", pageNum);
       //   const { platformName, categoryName, rateRange } = input;
       const profile = await searchProfileController(input, pageNum);
       return profile;

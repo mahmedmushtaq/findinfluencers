@@ -14,10 +14,14 @@ const LOAD_USER_PROFILE = gql`
       }
       images
       platformProfileInfo {
+        id
         profileName
         profileUrl
         profileFollowers
         rate
+        platform{
+          name
+        }
       }
     }
   }

@@ -1,1 +1,2 @@
-export { default as con } from "./Connection";
+export { default as socket } from "./Socket";
+export * from "./Messages";

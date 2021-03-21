@@ -53,7 +53,7 @@ export const businessPanelNavBarData = [
   },
   {
     id: 4,
-    icon: <></>,
+    icon: React.Fragment,
     text: (
       <Button
         sx={{
