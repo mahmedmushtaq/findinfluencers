@@ -1,7 +1,7 @@
 import { Box } from "theme-ui";
+import { PanelGlobalState, SocketContext } from "../../../context";
 import { Footer, PanelNavBar, OfferBar } from "../../components";
-import usePanel from "./usePanel";
-import { socketContext } from "./usePanel";
+import { usePanel } from "../../hooks";
 
 const PanelLayout = (props: {
   bodyTopMargin?: number;
@@ -22,9 +22,11 @@ const PanelLayout = (props: {
 
   // set usePanel hook
   const { socket } = usePanel();
+  //const { state, dispatch } = panelState;
 
   return (
-    <socketContext.Provider value={socket}>
+    <SocketContext.Provider value={socket}>
+      {/* <PanelGlobalState.Provider value={{ state, dispatch }}> */}
       <div
         style={{
           backgroundColor: "white",
@@ -53,7 +55,8 @@ const PanelLayout = (props: {
         <Footer />
       </Box> */}
       </div>
-    </socketContext.Provider>
+      {/* </PanelGlobalState.Provider> */}
+    </SocketContext.Provider>
   );
 };
 

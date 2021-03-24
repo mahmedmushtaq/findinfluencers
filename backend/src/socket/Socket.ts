@@ -1,12 +1,14 @@
 import socket from "socket.io";
 import { UserPayload, JWT } from "../utils";
 import { Messages } from "./messages";
+import { User } from "./messages/User";
 import Room from "./Room";
 import { SocketTypes } from "./SocketType";
 import Status from "./Status";
 
 class SocketConnection {
   private _io;
+  private numConnections: number = 0;
   constructor(private expressServer: any, private _allowDomain: string) {
     //@ts-ignore
     this._io = socket(expressServer, {
@@ -21,13 +23,20 @@ class SocketConnection {
     this._io
       .use(this.validateToken())
       .on("connection", (socket: SocketTypes) => {
-        console.log(` =========== socket connected ========== ${socket.id}`);
+        this.numConnections++;
+        console.log(
+          ` =========== socket connected ========== ${socket.user?.id}`
+        );
+        console.log(
+          ` =========== number of connections ========== ${this.numConnections}`
+        );
 
         if (socket.user && socket.user.id) {
           // require authentication
           new Status(socket).live(); // set status
           new Room(socket).createMyRoom(); // create my room
           new Messages(socket);
+          new User(socket);
         }
 
         socket.on("error", (err) => {
@@ -35,6 +44,7 @@ class SocketConnection {
         });
 
         socket.on("disconnect", () => {
+          this.numConnections--;
           console.log("user disconnected");
           if (socket.user && socket.user.id) {
             // require authentication
@@ -48,7 +58,6 @@ class SocketConnection {
   validateToken() {
     return function (socket: SocketTypes, next: Function) {
       if (socket.handshake.query && socket.handshake.query.token) {
-        console.log("token is = ", socket.handshake.query);
         try {
           // @ts-ignore
           const user = JWT.verifyJwt(socket.handshake.query.token);

@@ -5,11 +5,12 @@ import {
   PanelMessageList,
 } from "../../src/common/components";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Messages = (props: { isBusinessPanel?: boolean }) => {
   const { isBusinessPanel } = props;
   const router = useRouter();
-  console.log("messages router ", router);
+
   return (
     <PanelLayout
       bodyTopMargin={0}

@@ -18,7 +18,6 @@ class CheckListener {
     this._socket.on(this.loginUser.id, (payload: CheckListenerProps) => {
       // this function will only listen
       if (payload.subject === subject) {
-        console.log("Check Listener payload is = ", payload);
         cb(payload);
       }
     });

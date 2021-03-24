@@ -14,3 +14,5 @@
 ### Improvement
 
 - set proxy and set json in cookie on the graphql server and send on the front end side and remove auth by using next.js functions
+- after logout, remove socket connection and delete all chats
+- scrollToBottom in a chat box
