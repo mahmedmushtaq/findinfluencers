@@ -17,6 +17,7 @@ import { PropsType } from "../propsType";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { TYPES } from "../../../../store/enums";
+import axios from "axios";
 
 const InputStyle = {
   borderTop: "none",
@@ -47,33 +48,25 @@ const SignIn = (props: PropsType) => {
     if (!state.email || !state.password) return;
     setError("");
     setLoading(true);
-    fetch("/api/auth", {
-      method: "post",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...state }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setLoading(false);
-        if (res.errors) {
-          setError(res.errors[0].message);
-          return;
-        }
+    try {
+      const { data: res }: any = await axios.post("/api/auth", { ...state });
+      console.log("data is = ", res);
+      dispatch({ type: TYPES.ADD_USER, payload: res });
 
-        // send user data to global state
-        dispatch({ type: TYPES.ADD_USER, payload: res });
+      if (!props.onSuccessful) {
+        let defaultPath = "/panel";
+        if (res.role === "buyer") {
+          defaultPath = "/panel/business";
+        } else if (res.role === "admin") defaultPath = "/panel/admin";
+        router.push(props.path ? props.path : defaultPath);
+      } else props.onSuccessful(res);
+    } catch (err) {
+      setError(err.response.data.errors[0].message);
+    } finally {
+      setLoading(false);
+    }
 
-        if (!props.onSuccessful) {
-          let defaultPath = "/panel";
-          if (res.role === "buyer") {
-            defaultPath = "/panel/business";
-          } else if (res.role === "admin") defaultPath = "/panel/admin";
-          router.push(props.path ? props.path : defaultPath);
-        } else props.onSuccessful(res);
-      });
+    // send user data to global state
   };
 
   return (

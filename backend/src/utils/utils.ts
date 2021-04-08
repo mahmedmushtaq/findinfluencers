@@ -33,3 +33,7 @@ export const saveFile = async (filePath: string[], file: File) => {
   singleFile.filename = fileName;
   return singleFile;
 };
+
+export const getMessageServerUrl = (req:any)=>{
+   return process.env.MESSAGES_SERVER_URL + req.originalUrl.replace(req.baseUrl, "");
+}

@@ -11,6 +11,7 @@ import { contextType } from "../../types/apolloContextType";
 import { Password } from "../../services/password";
 import slug from "slug";
 import randomstring from "randomstring";
+import { newUserEvent } from "../../events";
 
 const userResolver = {
   Query: {
@@ -57,11 +58,17 @@ const userResolver = {
         email: user.email,
         role,
       });
+
+      // now send new user event to other services
+
+      newUserEvent({ email: user.email, userId: user.id, password });
+
       return {
         id: user.id,
         email: user.email,
         full_name: user.full_name,
         username: user.username,
+        role: user.role,
         token,
       };
     },

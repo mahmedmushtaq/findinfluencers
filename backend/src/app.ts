@@ -6,6 +6,7 @@ import { typeDefs, resolvers } from "./graphql";
 import { JWT } from "./utils";
 import path from "path";
 import cors from "cors";
+import { messagesRouter } from "./routes";
 
 const app = express();
 app.use(cors());
@@ -13,6 +14,8 @@ app.use(cors());
 app.use("/public", express.static(path.join(__dirname + "/public")));
 
 app.use(json());
+
+app.use("/api/messages", messagesRouter);
 // app.use(cors());
 
 const server = new ApolloServer({

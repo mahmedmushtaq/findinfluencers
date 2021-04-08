@@ -61,6 +61,13 @@ const usePanelMessageConversation = (props: { username: string }) => {
   //   setUserId(data.searchUser.id);
   // }, [data]);
 
+  // useEffect(() => {
+  //   if (!chat.messageList[conversationId]) return;
+
+  //   setCurrentMessages([...])
+
+  // }, [chat.messageList]);
+
   useEffect(() => {
     if (!socket) return;
 
@@ -85,11 +92,12 @@ const usePanelMessageConversation = (props: { username: string }) => {
           data.payload
         );
         if (data.payload.length > 0) {
-          //  list = [...list, ...data.payload];
-          setCurrentMessages([...list, ...data.payload]);
+          list = [...list, ...data.payload];
+          const reverseArray = data.payload.reverse();
+          setCurrentMessages([...list, ...reverseArray]);
           dispatch({
             type: CHATTYPES.LOAD_MESSAGES_DATA,
-            payload: data.payload.reverse(),
+            payload: reverseArray,
           });
         } else {
           setCurrentMessages(list);
@@ -124,8 +132,17 @@ const usePanelMessageConversation = (props: { username: string }) => {
       setStatus(payload.status);
     });
 
+    messages.receivedMessage((data) => {
+      console.log("received messages = ", data);
+      setCurrentMessages([...currentMessages, data]);
+    });
+
+    return () => {
+      messages.OffReceivingMessages();
+    };
+
     // features.getConversationId({ userId, loggedInUserId: user.id }, (data) => {
-    //   if (!data.payload) return;
+    //   if (!data.(payload)) return;
     //   setConversationId(data.payload);
     // });
   }, [userId]);
@@ -157,10 +174,11 @@ const usePanelMessageConversation = (props: { username: string }) => {
       console.log(messagePayload.conversationId.id);
       // this mean new conversation has started
       //@ts-ignore
-      // setConversationId(messagePayload.conversationId.id);
+      setConversationId(messagePayload.conversationId.id);
     }
 
     dispatch({ type: CHATTYPES.ADD_MESSAGE, payload: messagePayload });
+    setCurrentMessages([...currentMessages, messagePayload]);
     //currentMessages.push(messagePayload);
     setIsSending(false);
   };

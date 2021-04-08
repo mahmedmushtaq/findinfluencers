@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { PropsType } from "../propsType";
 import { useDispatch } from "react-redux";
 import { TYPES } from "../../../../store/enums";
+import axios from "axios";
 
 const InputStyle = {
   borderTop: "none",
@@ -41,40 +42,33 @@ const SignUp = (props: PropsType) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (!state.full_name || !state.email || !state.password || !state.role)
       return;
 
     setLoading(true);
-    fetch("/api/auth/signup", {
-      method: "post",
-      headers: {
-        Accept: "application/json, text/plain, */*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...state }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setLoading(false);
-        if (res.errors) {
-          setError(res.errors[0].message);
-          return;
-        }
-
-        // send user data to global state
-        dispatch({ type: TYPES.ADD_USER, payload: res });
-
-        // if role is influencer then return user to influencer otherwise push to client panel
-        // currenly only handle influencer
-        if (!props.onSuccessful) {
-          let defaultPath = "/panel";
-          if (res.role === "buyer") {
-            defaultPath = "/panel/business";
-          } else if (res.role === "admin") defaultPath = "/panel/admin";
-          router.push(props.path ? props.path : defaultPath);
-        } else props.onSuccessful(res);
+    try {
+      const { data: res }: any = await axios.post("/api/auth/signup", {
+        ...state,
       });
+
+      // send user data to global state
+      dispatch({ type: TYPES.ADD_USER, payload: res });
+
+      // if role is influencer then return user to influencer otherwise push to client panel
+      // currenly only handle influencer
+      if (!props.onSuccessful) {
+        let defaultPath = "/panel";
+        if (res.role === "buyer") {
+          defaultPath = "/panel/business";
+        } else if (res.role === "admin") defaultPath = "/panel/admin";
+        router.push(props.path ? props.path : defaultPath);
+      } else props.onSuccessful(res);
+    } catch (err) {
+      setError(err.response.data.errors[0].message);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <Box>
