@@ -2,7 +2,8 @@ import axios from "axios";
 import { REGISTRATION_URL_ENDPOINT } from "./url";
 
 export const newUserEvent = async (data: {
-  userId: string;
+  id: string;
+  firstName: string;
   email: string;
   password: string;
 }) => {

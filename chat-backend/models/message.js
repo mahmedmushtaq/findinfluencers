@@ -12,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.belongsTo(models.Chat, { foreignKey: "chatId" });
       this.belongsTo(models.User, { foreignKey: "fromUserId" });
+      this.hasMany(models.MessageSeen, { foreignKey: "messageId" });
+      // this.hasMany(models.MessageSeen, { foreignKey: "messageId" });
     }
   }
   Message.init(
@@ -29,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       chatId: DataTypes.INTEGER,
-      fromUserId: DataTypes.INTEGER,
+      fromUserId: DataTypes.STRING,
     },
     {
       sequelize,

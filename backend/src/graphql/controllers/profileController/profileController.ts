@@ -44,10 +44,7 @@ export const addProfileInfoController = async (
 
   //@ts-ignore
   const imagesPathMap = allImages.map(async (singleImage: File) => {
-    const fileData = await saveFile(
-      [__dirname, "../../../../public/images/profilePlatformPics/"],
-      singleImage
-    );
+    const fileData = await saveFile("images/profilePlatformPics/", singleImage);
     //@ts-ignore
     const dbPath = `/public/images/profilePlatformPics/${fileData.filename}`;
 

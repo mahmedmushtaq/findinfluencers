@@ -1,6 +1,8 @@
 const socketIO = require("socket.io");
 const { sequelize } = require("../models");
+const { chatsList } = require("./chats");
 const Message = require("../models").Message;
+const MessageSeen = require("../models").MessageSeen;
 const users = new Map();
 const userSockets = new Map();
 
@@ -12,6 +14,27 @@ const SocketServer = (server) => {
     },
   });
   io.on("connect", (socket) => {
+    socket.on("chats", async (user) => {
+      // console.log("chats = ", chats);
+      const userId = user.id;
+      const chats = await chatsList(userId);
+      // setTimeout(() => {
+      let sockets = [];
+      if (users.has(user.id)) {
+        const existingUser = users.get(user.id);
+        existingUser.sockets = [...existingUser.sockets, ...[socket.id]];
+        users.set(user.id, existingUser);
+        sockets = [...existingUser.sockets, ...[socket.id]];
+        userSockets.set(socket.id, user.id);
+      }
+
+      sockets.forEach((socket) => {
+        try {
+          io.to(socket).emit("chats", chats);
+        } catch (e) {}
+      });
+      // }, 100);
+    });
     socket.on("join", async (user) => {
       let sockets = [];
 
@@ -30,8 +53,6 @@ const SocketServer = (server) => {
       const onlineFriends = []; // ids
 
       const chatters = await getChatters(user.id); // query
-
-      console.log(chatters);
 
       // notify his friends that user is now online
       for (let i = 0; i < chatters.length; i++) {
@@ -88,7 +109,8 @@ const SocketServer = (server) => {
         message.fromUserId = message.fromUser.id;
         message.id = saveMessage.id;
         message.message = saveMessage.message;
-
+        message.updatedAt = saveMessage.updatedAt;
+        message.seen = false;
         delete message.fromUser;
 
         sockets.forEach((socket) => {
@@ -97,6 +119,27 @@ const SocketServer = (server) => {
       } catch (err) {
         console.log("err is occured", err);
       }
+    });
+
+    socket.on("message-seen", async (payload) => {
+      const { chatId, userId, messageId } = payload;
+
+      console.log("data is comming ", { chatId, userId, messageId });
+      try {
+        // only one message is seen
+        const isMessageSeenAlreadyPresent = await MessageSeen.findOne({
+          where: {
+            userId,
+            chatId,
+            messageId,
+          },
+        });
+
+        if (!isMessageSeenAlreadyPresent) {
+          console.log("save seen ");
+          await MessageSeen.create({ chatId, userId, messageId });
+        }
+      } catch (err) {}
     });
 
     socket.on("typing", (message) => {
@@ -235,10 +278,10 @@ const getChatters = async (userId) => {
           where exists (
               select "u"."id" from "Users" as u
               inner join "ChatUsers" on u.id = "ChatUsers"."userId"
-              where u.id = ${parseInt(userId)} and c.id = "ChatUsers"."chatId"
+              where u.id = \'${userId}\' and c.id = "ChatUsers"."chatId"
           )
       ) as cjoin on cjoin.id = "cu"."chatId"
-      where "cu"."userId" != ${parseInt(userId)}
+      where "cu"."userId" != \'${userId}\'
   `);
 
     return results.length > 0 ? results.map((el) => el.userId) : [];

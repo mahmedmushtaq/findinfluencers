@@ -30,6 +30,7 @@ exports.register = async (req, res) => {
   try {
     console.log("req.body is = ", req.body);
     const user = await User.create(req.body);
+    console.log("user created in chat backend ", user);
     const token = generateToken(user.get({ raw: true }));
     token.avatar = user.avatar;
     return res.send(token);

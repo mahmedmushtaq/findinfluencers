@@ -63,7 +63,6 @@ const PanelProfilePlatformInfo = (props: PropsType) => {
         value={platform.rate}
         onChange={(e) => onChange(e, true)}
       />
-
       <Input
         mt={3}
         name={`profileFollowers`}
@@ -73,6 +72,7 @@ const PanelProfilePlatformInfo = (props: PropsType) => {
         value={platform.profileFollowers}
         onChange={(e) => onChange(e, true)}
       />
+      (no of followers)
     </Box>
   );
 };

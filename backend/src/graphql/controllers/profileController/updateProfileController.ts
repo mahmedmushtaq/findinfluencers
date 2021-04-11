@@ -3,6 +3,9 @@ import { contextType } from "../../../types/apolloContextType";
 import path from "path";
 import fs from "fs";
 import { saveFile } from "../../../utils";
+import util from "util";
+const fileAccess = util.promisify(fs.access);
+const fileUnlink = util.promisify(fs.unlink);
 
 export const updateInputProfileInfo = async (
   input: any,
@@ -97,25 +100,28 @@ export const updateProfileImages = async (
   const profile = await Profile.findOne({ userId: context.user.id });
   if (!profile) return;
   //delete the old images first
-  profile.images.map((singleImage) => {
+  profile.images.map(async (singleImage) => {
     const imageName = path.basename(singleImage);
-    fs.unlink(
-      path.join(
-        __dirname,
-        `../../../../public/images/profilePlatformPics/${imageName}`
-      ),
-      (err: any) => {}
-    );
+
+    try {
+      const accessFile = await fileAccess(
+        `src/public/images/profilePlatformPics/${imageName}`
+      );
+
+      const unlinkFile = await fileUnlink(
+        `src/public/images/profilePlatformPics/${imageName}`
+      );
+      return unlinkFile;
+    } catch (err) {
+      return;
+    }
   });
 
   const allImages = await Promise.all(images[0]);
 
   //@ts-ignore
   const imagesPathMap = allImages.map(async (singleImage: File) => {
-    const fileData = await saveFile(
-      [__dirname, "../../../../public/images/profilePlatformPics/"],
-      singleImage
-    );
+    const fileData = await saveFile("images/profilePlatformPics/", singleImage);
     //@ts-ignore
     const dbPath = `/public/images/profilePlatformPics/${fileData.filename}`;
 
@@ -123,6 +129,8 @@ export const updateProfileImages = async (
   });
 
   const imagesUrls = await Promise.all(imagesPathMap);
+
+  console.log("images url ", imagesUrls);
 
   profile.images = imagesUrls;
   await profile.save();

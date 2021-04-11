@@ -61,7 +61,12 @@ const userResolver = {
 
       // now send new user event to other services
 
-      newUserEvent({ email: user.email, userId: user.id, password });
+      newUserEvent({
+        firstName: user.full_name,
+        email: user.email,
+        id: user.id,
+        password,
+      });
 
       return {
         id: user.id,

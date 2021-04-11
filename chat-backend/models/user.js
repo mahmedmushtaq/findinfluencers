@@ -18,12 +18,19 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       this.hasMany(models.ChatUser, { foreignKey: "userId" });
+      this.hasMany(models.MessageSeen, { foreignKey: "userId" });
+      // this.belongsToMany(models.MessageSeen, {
+      //   foreignKey: "userId",
+      // });
+
+      // this.belongsToMany(models.MessageSeen, {
+      //   foreignKey: "userId",
+      // });
     }
   }
   User.init(
     {
       firstName: DataTypes.STRING,
-      userId: DataTypes.STRING, //id comes from auth service
       lastName: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
@@ -34,7 +41,7 @@ module.exports = (sequelize, DataTypes) => {
           const avatar = this.getDataValue("avatar");
           const url = `${config.appUrl}:${config.port}`;
           if (!avatar) {
-            return `${url}/${this.getDataValue("gender")}.svg`;
+            return `${url}/${this.getDataValue("gender") || "male"}.svg`;
           }
 
           const id = this.getDataValue("id");

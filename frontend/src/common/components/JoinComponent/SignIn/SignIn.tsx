@@ -16,7 +16,7 @@ import { useState } from "react";
 import { PropsType } from "../propsType";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { TYPES } from "../../../../store/enums";
+import { loginUserAction } from "../../../../store/actions";
 import axios from "axios";
 
 const InputStyle = {
@@ -51,7 +51,8 @@ const SignIn = (props: PropsType) => {
     try {
       const { data: res }: any = await axios.post("/api/auth", { ...state });
       console.log("data is = ", res);
-      dispatch({ type: TYPES.ADD_USER, payload: res });
+      dispatch(loginUserAction(res));
+      // dispatch({ type: TYPES.ADD_USER, payload: res });
 
       if (!props.onSuccessful) {
         let defaultPath = "/panel";
@@ -61,7 +62,9 @@ const SignIn = (props: PropsType) => {
         router.push(props.path ? props.path : defaultPath);
       } else props.onSuccessful(res);
     } catch (err) {
-      setError(err.response.data.errors[0].message);
+      if (err.response)
+        setError(err.response.data.errors[0].message);
+      else setError(err.response);
     } finally {
       setLoading(false);
     }

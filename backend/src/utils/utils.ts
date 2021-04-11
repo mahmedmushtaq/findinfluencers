@@ -11,6 +11,7 @@ export const transformMongooseResponse = {
 };
 
 export const generateImageUniqueName = (filename: string) => {
+  //@ts-ignore
   const strings = filename.split(".");
   const newStringName =
     strings[0] + Date.now() + "." + strings[strings.length - 1];
@@ -18,7 +19,7 @@ export const generateImageUniqueName = (filename: string) => {
   return newStringName;
 };
 
-export const saveFile = async (filePath: string[], file: File) => {
+export const saveFile = async (publicPath: string, file: File) => {
   const singleFile = await file;
   //@ts-ignore
   const { createReadStream, filename, mimetype } = singleFile;
@@ -27,13 +28,22 @@ export const saveFile = async (filePath: string[], file: File) => {
 
   // save file to  ../../assets/platformPic/${fileName}
 
-  fileStream.pipe(fs.createWriteStream(path.join(...filePath, `${fileName}`)));
-  
+  fileStream.pipe(
+    fs.createWriteStream(
+      path.join(
+        path.resolve(__dirname + `/../public/${publicPath}`),
+        `${fileName}`
+      )
+    )
+  );
+
   //@ts-ignore
   singleFile.filename = fileName;
   return singleFile;
 };
 
-export const getMessageServerUrl = (req:any)=>{
-   return process.env.MESSAGES_SERVER_URL + req.originalUrl.replace(req.baseUrl, "");
-}
+export const getMessageServerUrl = (req: any) => {
+  return (
+    process.env.MESSAGES_SERVER_URL + req.originalUrl.replace(req.baseUrl, "")
+  );
+};

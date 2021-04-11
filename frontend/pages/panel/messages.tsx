@@ -6,19 +6,18 @@ import {
 } from "../../src/common/components";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { Chat } from "../../src/modules/messages/components";
 
 const Messages = (props: { isBusinessPanel?: boolean }) => {
   const { isBusinessPanel } = props;
   const router = useRouter();
 
   return (
-    <PanelLayout
-      bodyTopMargin={0}
-      businessPanel={isBusinessPanel}
-      fullWidth
-      layoutFullHeight
-    >
-      <div style={{}}>
+    <PanelLayout fullWidth bodyTopMargin={0} businessPanel={isBusinessPanel}>
+      <Box style={{ position: "relative", height: "100vh" }}>
+        <Chat />
+      </Box>
+      {/* <div style={{}}>
         <Flex
           sx={{
             flexDirection: "column",
@@ -38,7 +37,7 @@ const Messages = (props: { isBusinessPanel?: boolean }) => {
             </Box>
           </Grid>
         </Flex>
-      </div>
+      </div> */}
     </PanelLayout>
   );
 };

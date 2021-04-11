@@ -1,7 +1,7 @@
 import { Text, Flex } from "theme-ui";
 import { borderBottomLeftRadiusMobile } from "../../../../../../styles/commonStyle";
 import { MessageType } from "../../../../../socket/Messages/types";
-import timeAgo from "time-ago";
+// import timeAgo from "time-ago";
 
 const UserMessageText = (props: { msg: MessageType }) => {
   const { msg } = props;
@@ -21,7 +21,7 @@ const UserMessageText = (props: { msg: MessageType }) => {
         {msg.body}
       </Text>
       <Text style={{ fontSize: 10, alignSelf: "flex-start" }}>
-        {timeAgo.ago(msg.date)}
+        {/* {timeAgo.ago(msg.date)} */}
       </Text>
     </Flex>
   );

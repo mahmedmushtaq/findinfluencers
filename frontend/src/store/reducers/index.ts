@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import { user } from "./user";
-import { chat } from "./chat";
+import messageRootReducer from "../../modules/messages/store/reducer";
 
-const reducers = combineReducers({ user, chat });
+const reducers = combineReducers({ user, ...messageRootReducer });
 
 export { reducers };

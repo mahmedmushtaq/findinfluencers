@@ -20,43 +20,45 @@ const PanelLayout = (props: {
     width: !fullWidth ? ["85%", "95%", "85%"] : "100%",
   };
 
+  usePanel();
+
   // set usePanel hook
-  const { socket } = usePanel();
+  // const { socket } = usePanel();
   //const { state, dispatch } = panelState;
 
   return (
-    <SocketContext.Provider value={socket}>
-      {/* <PanelGlobalState.Provider value={{ state, dispatch }}> */}
-      <div
-        style={{
-          backgroundColor: "white",
-          height: layoutFullHeight ? "100vh" : undefined,
-          overflow: layoutFullHeight ? "hidden" : undefined,
+    // <SocketContext.Provider value={socket}>
+    // {/* <PanelGlobalState.Provider value={{ state, dispatch }}> */}
+    <div
+      style={{
+        backgroundColor: "white",
+        height: layoutFullHeight ? "100vh" : undefined,
+        overflow: layoutFullHeight ? "hidden" : undefined,
+      }}
+    >
+      <Box>
+        <OfferBar />
+      </Box>
+      <Box>
+        {isHeaderShow && <PanelNavBar businessNavBar={props.businessPanel} />}
+      </Box>
+      <Box
+        sx={{
+          height: "100%",
+          marginTop: bodyTopMargin,
+          ...root,
+          marginLeft: "auto",
+          marginRight: "auto",
         }}
       >
-        <Box>
-          <OfferBar />
-        </Box>
-        <Box>
-          {isHeaderShow && <PanelNavBar businessNavBar={props.businessPanel} />}
-        </Box>
-        <Box
-          sx={{
-            height: "100%",
-            marginTop: bodyTopMargin,
-            ...root,
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-        >
-          {children}
-        </Box>
-        {/* <Box mt={5}>
+        {children}
+      </Box>
+      {/* <Box mt={5}>
         <Footer />
       </Box> */}
-      </div>
-      {/* </PanelGlobalState.Provider> */}
-    </SocketContext.Provider>
+    </div>
+    //   {/* </PanelGlobalState.Provider> */}
+    // </SocketContext.Provider>
   );
 };
 

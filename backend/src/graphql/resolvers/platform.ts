@@ -34,7 +34,7 @@ const platformResolver: IResolvers = {
         // needs implementation
 
         const fileData = await saveFile(
-          [__dirname, "../../public/images/platformPics/"],
+          "images/platformPics/",
           file
         );
         //@ts-ignore

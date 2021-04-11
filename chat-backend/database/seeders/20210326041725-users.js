@@ -16,7 +16,7 @@ module.exports = {
     await queryInterface.bulkInsert("Users", [
       {
         firstName: "John",
-        userId: "6041174f9dc1f71f5080c10e",
+        id: "6041174f9dc1f71f5080c10e",
         lastName: "Toe",
         email: "john@gmail.com",
         password: bcrypt.hashSync("1234", 10),
@@ -25,7 +25,7 @@ module.exports = {
       {
         firstName: "Sam",
         lastName: "Smith",
-        userId: "604138089dc1f71f5080c111",
+        id: "604138089dc1f71f5080c111",
         email: "sam.smith@gmail.com",
         password: bcrypt.hashSync("1234", 10),
         gender: "male",
@@ -33,7 +33,7 @@ module.exports = {
       {
         firstName: "Jan",
         lastName: "Doe",
-        userId: "605515778981332828db6bca",
+        id: "605515778981332828db6bca",
         email: "jan.doe@gmail.com",
         password: bcrypt.hashSync("1234", 10),
         gender: "female",

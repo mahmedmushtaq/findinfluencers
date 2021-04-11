@@ -10,6 +10,7 @@ import { PropsType } from "../propsType";
 import { useDispatch } from "react-redux";
 import { TYPES } from "../../../../store/enums";
 import axios from "axios";
+import { loginUserAction } from "../../../../store/actions";
 
 const InputStyle = {
   borderTop: "none",
@@ -52,8 +53,9 @@ const SignUp = (props: PropsType) => {
         ...state,
       });
 
+      dispatch(loginUserAction(res));
       // send user data to global state
-      dispatch({ type: TYPES.ADD_USER, payload: res });
+      // dispatch({ type: TYPES.ADD_USER, payload: res });
 
       // if role is influencer then return user to influencer otherwise push to client panel
       // currenly only handle influencer
@@ -65,7 +67,8 @@ const SignUp = (props: PropsType) => {
         router.push(props.path ? props.path : defaultPath);
       } else props.onSuccessful(res);
     } catch (err) {
-      setError(err.response.data.errors[0].message);
+      if (err.response) setError(err.response.data.errors[0].message);
+      else setError(err.response.data);
     } finally {
       setLoading(false);
     }
