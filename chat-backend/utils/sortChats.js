@@ -44,6 +44,7 @@ exports.chatsSelectionSort = (chats) => {
       localChats[min.index] = k;
     }
   }
+
   //return arr;
 
   return [...localChats, ...chatsWithoutMessage];

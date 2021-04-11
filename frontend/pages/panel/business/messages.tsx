@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
 import { ProtectedRouteHOC } from "../../../src/common/components";
 import chatService from "../../../src/modules/messages/services/chatService";
@@ -13,7 +13,6 @@ const BusinessMessages = () => {
   );
   const router = useRouter();
   const username = router.query.user;
-  const [showFriendsModal, setShowFriendsModal] = useState(false);
 
   const { data, error } = useQuery(SEARCH_USER, {
     variables: { input: { username } },
@@ -28,11 +27,11 @@ const BusinessMessages = () => {
     } catch (err) {}
   };
 
-  useEffect(() => {
-    if (!data) return;
-    console.log("data is = ", data.searchUser);
-    addNewFriend(data.searchUser.id);
-  }, [data]);
+  // useEffect(() => {
+  //   if (!data) return;
+  //   console.log("data is = ", data.searchUser);
+  //   addNewFriend(data.searchUser.id);
+  // }, [data]);
 
   useEffect(() => {
     console.log("error is = ", error);

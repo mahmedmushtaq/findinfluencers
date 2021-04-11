@@ -5,7 +5,7 @@ import { InfluencerGallery, SignInModal } from "../../src/common/components";
 import dynamic from "next/dynamic";
 import { initializeApollo } from "../../src/lib/apollo";
 import { LOAD_USER_PROFILE } from "../../src/lib/graphql";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
 import { getCurrentUser } from "../../src/lib/currentUser";
 
@@ -17,6 +17,7 @@ const SignInModalDynamic = dynamic(
 
 const Influencer = (props) => {
   const router = useRouter();
+  const [addUserToChatList, setAddUserToChatList] = useState(false);
   const modalRef = useRef<any>();
 
   const { userProfileData } = props;
@@ -28,7 +29,9 @@ const Influencer = (props) => {
   const contactInfluencer = async () => {
     const user = await getCurrentUser({});
     if (user && user.role === "buyer") {
-      router.push(`/panel/business/messages?user=${router.query.slug}`);
+      setAddUserToChatList(true);
+      modalRef.current.open();
+      // router.push(`/panel/business/messages?user=${router.query.slug}`);
       return;
     }
     if (!modalRef) return;
@@ -115,7 +118,10 @@ const Influencer = (props) => {
             </Grid>
           </Box>
         )}
-        <SignInModalDynamic modalRef={modalRef} />
+        <SignInModalDynamic
+          addUserToChatList={addUserToChatList}
+          modalRef={modalRef}
+        />
       </Box>
     </FrontLayout>
   );

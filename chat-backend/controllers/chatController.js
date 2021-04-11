@@ -45,8 +45,6 @@ exports.Index = async (req, res) => {
   console.log(user.toJSON().Chats[0]);
   const chatsSort = chatsSelectionSort(user.toJSON().Chats);
 
-  console.log(" =================================== from sorting");
-  console.log(chatsSort[0]);
   const attachMessageSeenAttachmentMap = chatsSort.map(async (chat) => {
     // if last message is seen then it's meen all message has been seen
 
@@ -70,7 +68,7 @@ exports.Index = async (req, res) => {
   // console.log(user.toJSON().Chats[2]);
 
   //return res.send(user.Chats);
-  return res.send(chatsSort);
+  return res.send(chatsArray);
 };
 
 // exports.Index = async (req, res) => {

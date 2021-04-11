@@ -1,9 +1,8 @@
 import { RootStateOrAny, useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../../../lib/currentUser";
-import { TYPES } from "../../../store/enums";
+
 import { useEffect, useState } from "react";
-import { features, messages, socket } from "../../../socket";
-import useSocketListeners from "./useSocketListeners";
+
 import { loginUserAction } from "../../../store/actions";
 
 const usePanel = () => {
@@ -22,16 +21,6 @@ const usePanel = () => {
       dispatch(loginUserAction(res));
     })();
   }, []);
-
-  // const panelState = { state, dispatch };
-
-  //   useEffect(() => {
-  //     if (user) {
-  //       connect(user);
-  //     }
-
-  //     //return () => disconnect();
-  //   }, [user]);
 };
 
 export default usePanel;

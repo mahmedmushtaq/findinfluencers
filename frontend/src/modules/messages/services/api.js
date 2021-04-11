@@ -2,9 +2,11 @@ import axios from "axios";
 import { store } from "../../../store";
 import { logout } from "../store/actions/auth";
 const getToken = () => {
-  // const token = localStorage.getItem("token");
-  // console.log("token is = ", token);
-  // return token !== "undefined" ? JSON.parse(token) : "";
+  if (typeof localStorage !== "undefined") {
+    const token = localStorage.getItem("token");
+
+    return token !== "undefined" ? token : "";
+  }
   return "";
 };
 

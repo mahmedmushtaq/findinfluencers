@@ -29,7 +29,9 @@ export const user = (state = initialState, action: AnyAction) => {
       // }
       return { ...state, ...action.payload };
     case TYPES.LOGOUT_USER:
-      console.log("state is = ", state);
+      if (typeof localStorage !== "undefined") {
+        localStorage.removeItem("token");
+      }
       return { ...initialState };
 
     default:

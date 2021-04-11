@@ -47,7 +47,6 @@ const FriendList = () => {
     <div className={clsx(styles["friends"], "shadow-light")}>
       <div className={styles.title}>
         <h3 className="m-0">Friends</h3>
-        <button onClick={() => setShowFriendsModal(true)}>ADD</button>
       </div>
 
       <hr />

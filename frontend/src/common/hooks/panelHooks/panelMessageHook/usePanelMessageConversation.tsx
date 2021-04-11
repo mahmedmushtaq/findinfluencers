@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext, useMemo } from "react";
 import { RootStateOrAny, useSelector } from "react-redux";
-import { features, messages, user as socketUser } from "../../../../socket";
 import { useQuery } from "@apollo/client";
 import { SEARCH_USER } from "../../../../lib/graphql";
 import { useDispatch } from "react-redux";
@@ -68,126 +67,126 @@ const usePanelMessageConversation = (props: { username: string }) => {
 
   // }, [chat.messageList]);
 
-  useEffect(() => {
-    if (!socket) return;
+  // useEffect(() => {
+  //   if (!socket) return;
 
-    if (!conversationId) {
-      setCurrentMessages([]);
-      return;
-    }
-    let list = chat.messageList[conversationId] ?? [];
+  //   if (!conversationId) {
+  //     setCurrentMessages([]);
+  //     return;
+  //   }
+  //   let list = chat.messageList[conversationId] ?? [];
 
-    console.log("list");
+  //   console.log("list");
 
-    // also check from the server side either
-    const lastMessageDateTime =
-      list.length > 0 ? list[list.length - 1].date : "";
-    messages.loadMessages(
-      { lastDateMsgDate: lastMessageDateTime, conversationId },
-      user.id,
-      (data) => {
-        console.log(
-          " ========== load messages data payload is ==========  ",
-          username,
-          data.payload
-        );
-        if (data.payload.length > 0) {
-          list = [...list, ...data.payload];
-          const reverseArray = data.payload.reverse();
-          setCurrentMessages([...list, ...reverseArray]);
-          dispatch({
-            type: CHATTYPES.LOAD_MESSAGES_DATA,
-            payload: reverseArray,
-          });
-        } else {
-          setCurrentMessages(list);
-        }
-      }
-    );
+  //   // also check from the server side either
+  //   const lastMessageDateTime =
+  //     list.length > 0 ? list[list.length - 1].date : "";
+  //   messages.loadMessages(
+  //     { lastDateMsgDate: lastMessageDateTime, conversationId },
+  //     user.id,
+  //     (data) => {
+  //       console.log(
+  //         " ========== load messages data payload is ==========  ",
+  //         username,
+  //         data.payload
+  //       );
+  //       if (data.payload.length > 0) {
+  //         list = [...list, ...data.payload];
+  //         const reverseArray = data.payload.reverse();
+  //         setCurrentMessages([...list, ...reverseArray]);
+  //         dispatch({
+  //           type: CHATTYPES.LOAD_MESSAGES_DATA,
+  //           payload: reverseArray,
+  //         });
+  //       } else {
+  //         setCurrentMessages(list);
+  //       }
+  //     }
+  //   );
 
-    return () => {
-      messages.OffListeningMessages(user.id);
-    };
-  }, [conversationId]);
+  //   return () => {
+  //     messages.OffListeningMessages(user.id);
+  //   };
+  // }, [conversationId]);
 
-  useEffect(() => {
-    if (!socket || !username) return;
-    setCurrentMessages([]);
+  // useEffect(() => {
+  //   if (!socket || !username) return;
+  //   setCurrentMessages([]);
 
-    socketUser.userInfoByUsername(user.id, username, (data) => {
-      console.log("user info", data);
-      setUserId(data.payload.id);
-      setConversationId(data.payload.conversationId);
-    });
+  //   socketUser.userInfoByUsername(user.id, username, (data) => {
+  //     console.log("user info", data);
+  //     setUserId(data.payload.id);
+  //     setConversationId(data.payload.conversationId);
+  //   });
 
-    return () => {
-      messages.OffListeningMessages(user.id);
-    };
-  }, [socket, username]);
+  //   return () => {
+  //     messages.OffListeningMessages(user.id);
+  //   };
+  // }, [socket, username]);
 
-  //  ========== listeners ============
-  useEffect(() => {
-    if (!userId) return;
-    features.isUserLive({ userId, loggedInUserId: user.id }, (payload) => {
-      setStatus(payload.status);
-    });
+  // //  ========== listeners ============
+  // useEffect(() => {
+  //   if (!userId) return;
+  //   features.isUserLive({ userId, loggedInUserId: user.id }, (payload) => {
+  //     setStatus(payload.status);
+  //   });
 
-    messages.receivedMessage((data) => {
-      console.log("received messages = ", data);
-      setCurrentMessages([...currentMessages, data]);
-    });
+  //   messages.receivedMessage((data) => {
+  //     console.log("received messages = ", data);
+  //     setCurrentMessages([...currentMessages, data]);
+  //   });
 
-    return () => {
-      messages.OffReceivingMessages();
-    };
+  //   return () => {
+  //     messages.OffReceivingMessages();
+  //   };
 
-    // features.getConversationId({ userId, loggedInUserId: user.id }, (data) => {
-    //   if (!data.(payload)) return;
-    //   setConversationId(data.payload);
-    // });
-  }, [userId]);
+  //   // features.getConversationId({ userId, loggedInUserId: user.id }, (data) => {
+  //   //   if (!data.(payload)) return;
+  //   //   setConversationId(data.payload);
+  //   // });
+  // }, [userId]);
 
-  //   handlers
-  const onChange = (e) => {
-    setWriteMessage(e.target.value);
-  };
+  // //   handlers
+  // const onChange = (e) => {
+  //   setWriteMessage(e.target.value);
+  // };
 
-  const sendMessage = async () => {
-    console.log("socket is = ", socket, writeMessage, userId);
-    if (!socket || writeMessage.length === 0 || !userId) return;
+  // const sendMessage = async () => {
+  //   console.log("socket is = ", socket, writeMessage, userId);
+  //   if (!socket || writeMessage.length === 0 || !userId) return;
 
-    setIsSending(true);
+  //   setIsSending(true);
 
-    setWriteMessage(""); // empty the input field
+  //   setWriteMessage(""); // empty the input field
 
-    const messagePayload = await messages.sendMessage({
-      fromId: user.id,
-      toId: userId,
-      body: writeMessage,
-      date: Date.now(),
-    });
+  //   const messagePayload = await messages.sendMessage({
+  //     fromId: user.id,
+  //     toId: userId,
+  //     body: writeMessage,
+  //     date: Date.now(),
+  //   });
 
-    console.log("message payload is = ", messagePayload);
+  //   console.log("message payload is = ", messagePayload);
 
-    if (!conversationId) {
-      //@ts-ignore
-      console.log(messagePayload.conversationId.id);
-      // this mean new conversation has started
-      //@ts-ignore
-      setConversationId(messagePayload.conversationId.id);
-    }
+  //   if (!conversationId) {
+  //     //@ts-ignore
+  //     console.log(messagePayload.conversationId.id);
+  //     // this mean new conversation has started
+  //     //@ts-ignore
+  //     setConversationId(messagePayload.conversationId.id);
+  //   }
 
-    dispatch({ type: CHATTYPES.ADD_MESSAGE, payload: messagePayload });
-    setCurrentMessages([...currentMessages, messagePayload]);
-    //currentMessages.push(messagePayload);
-    setIsSending(false);
-  };
+  //   dispatch({ type: CHATTYPES.ADD_MESSAGE, payload: messagePayload });
+  //   setCurrentMessages([...currentMessages, messagePayload]);
+  //   //currentMessages.push(messagePayload);
+  //   setIsSending(false);
+  // };
 
   const returnState = {
     status,
-    onChange,
-    writeMessage,
-    sendMessage,
+    // onChange,
+    // writeMessage,
+    // sendMessage,
     currentMessages,
     userId,
     isSending,

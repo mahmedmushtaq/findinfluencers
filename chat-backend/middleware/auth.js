@@ -7,6 +7,8 @@ exports.auth = async (req, res, next) => {
 
   const token = authHeader && authHeader.split(" ")[1];
 
+  console.log("token is = ", token);
+
   if (!token) {
     return res.status(401).send({ message: "Authentication is required" });
   }
@@ -16,9 +18,6 @@ exports.auth = async (req, res, next) => {
 
     try {
       const user = await User.findOne({ where: { id: userData.id } });
-      console.log("user is = ", user);
-
-      console.log(user.get({ raw: true }));
 
       req.user = user.get({ raw: true });
       next();

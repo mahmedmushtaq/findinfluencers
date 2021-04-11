@@ -35,6 +35,12 @@ interface ModalProps {
   height?: number;
 }
 
+/**
+ * @props {height : number?, children: any}
+ * @ref
+ *
+ *
+ */
 const Modal = forwardRef((props: ModalProps, ref) => {
   const [open, setOpen] = useState(false);
   const height = props.height ? props.height : 300;
