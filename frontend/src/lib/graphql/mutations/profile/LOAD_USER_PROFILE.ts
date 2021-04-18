@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const LOAD_USER_PROFILE = gql`
-  query($username: String) {
-    userProfile(username: $username) {
+  query($input: userProfileInput) {
+    userProfile(input: $input) {
       id
       user {
         full_name
@@ -19,7 +19,7 @@ const LOAD_USER_PROFILE = gql`
         profileUrl
         profileFollowers
         rate
-        platform{
+        platform {
           name
         }
       }

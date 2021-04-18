@@ -50,8 +50,15 @@ const profileResolver: IResolvers = {
       return profile;
     },
 
-    userProfile: async (_, { username }) => {
-      const user = await User.findOne({ username });
+    userProfile: async (_, { input }) => {
+      const { username, userId } = input;
+      let user;
+      if (username) {
+        user = await User.findOne({ username });
+      } else {
+        user = await User.findById(userId);
+      }
+
       if (!user) {
         throw new ApolloError("No User Is Found");
       }

@@ -42,7 +42,6 @@ exports.Index = async (req, res) => {
     ],
   });
 
-  console.log(user.toJSON().Chats[0]);
   const chatsSort = chatsSelectionSort(user.toJSON().Chats);
 
   const attachMessageSeenAttachmentMap = chatsSort.map(async (chat) => {

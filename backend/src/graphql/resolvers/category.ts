@@ -8,6 +8,7 @@ const CategoryResolver: IResolvers = {
   Query: {
     async categories() {
       const categories = await Category.find({});
+
       return categories;
     },
   },

@@ -23,8 +23,18 @@ function createApolloClient() {
   //   headers: {},
   // });
 
+  const token = () => {
+    if (typeof localStorage !== "undefined") {
+      return localStorage.getItem("token");
+    }
+    return "";
+  };
+
   const httpLink = createUploadLink({
     uri: "http://localhost:4000/graphql", //process.env.GRAPHQL_SERVER_HOST,
+    headers: {
+      authorization: token(),
+    },
   });
   return new ApolloClient({
     ssrMode: typeof window === "undefined",

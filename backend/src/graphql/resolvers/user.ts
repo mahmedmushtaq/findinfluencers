@@ -23,9 +23,13 @@ const userResolver = {
     }),
 
     searchUser: async (_: void, { input }: any) => {
-      let user = await User.findOne({
-        $or: [{ username: input.username }, { _id: input.userId }],
-      });
+      if (!input) return;
+      let user;
+      if (input.userId) {
+        user = await User.findById(input.userId);
+      } else {
+        user = await User.findOne({ username: input.username });
+      }
 
       return user;
     },

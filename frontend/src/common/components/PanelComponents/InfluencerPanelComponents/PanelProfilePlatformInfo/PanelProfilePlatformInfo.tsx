@@ -27,6 +27,13 @@ const PanelProfilePlatformInfo = (props: PropsType) => {
     });
   };
 
+  console.log("rate is = ", platform.rate);
+  const platformProfileRate = platform.rate
+    ? +platform.rate < 5
+      ? 10
+      : platform.rate
+    : 5;
+
   const platformInfo = `Your ${platform.platform.name} `;
   return (
     <Box mt={3} mb={3}>
@@ -54,15 +61,18 @@ const PanelProfilePlatformInfo = (props: PropsType) => {
         value={platform.profileUrl}
         onChange={onChange}
       />
-      <Input
-        mt={3}
-        name={`rate`}
-        type="number"
-        min={3}
-        placeholder={`${platformInfo} Rate(e.g $15/hr)`}
-        value={platform.rate}
-        onChange={(e) => onChange(e, true)}
-      />
+      <Box mt={1}>
+      $ <Input
+          mt={3}
+          name={`rate`}
+          type="number"
+          min={3}
+          placeholder={`${platformInfo} Rate(e.g $15/hr)`}
+          value={platformProfileRate}
+          onChange={(e) => onChange(e, true)}
+        />
+        (Per Project Price)
+      </Box>
       <Input
         mt={3}
         name={`profileFollowers`}

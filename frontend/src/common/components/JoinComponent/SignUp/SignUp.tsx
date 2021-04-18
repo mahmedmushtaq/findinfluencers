@@ -64,7 +64,10 @@ const SignUp = (props: PropsType) => {
         if (res.role === "buyer") {
           defaultPath = "/panel/business";
         } else if (res.role === "admin") defaultPath = "/panel/admin";
-        router.push(props.path ? props.path : defaultPath);
+         //   router.push(props.path ? props.path : defaultPath);
+         // @ts-ignore
+         window.location = props.path ? props.path : defaultPath;
+      
       } else props.onSuccessful(res);
     } catch (err) {
       if (err.response) setError(err.response.data.errors[0].message);

@@ -8,34 +8,34 @@ import { SEARCH_USER } from "../../../src/lib/graphql";
 import { useRouter } from "next/router";
 
 const BusinessMessages = () => {
-  const socket = useSelector(
-    (state: RootStateOrAny) => state.chatReducer.socket
-  );
-  const router = useRouter();
-  const username = router.query.user;
+  // const socket = useSelector(
+  //   (state: RootStateOrAny) => state.chatReducer.socket
+  // );
+  // const router = useRouter();
+  // const username = router.query.user;
 
-  const { data, error } = useQuery(SEARCH_USER, {
-    variables: { input: { username } },
-    errorPolicy: "all",
-  });
+  // const { data, error } = useQuery(SEARCH_USER, {
+  //   variables: { input: { username } },
+  //   errorPolicy: "all",
+  // });
 
-  const addNewFriend = async (id) => {
-    try {
-      // const chats = await chatService.createChat(id);
-      // socket.emit("add-friend", chats);
-      // setShowFriendsModal(false);
-    } catch (err) {}
-  };
+  // const addNewFriend = async (id) => {
+  //   try {
+  //     // const chats = await chatService.createChat(id);
+  //     // socket.emit("add-friend", chats);
+  //     // setShowFriendsModal(false);
+  //   } catch (err) {}
+  // };
+
+  // // useEffect(() => {
+  // //   if (!data) return;
+  // //   console.log("data is = ", data.searchUser);
+  // //   addNewFriend(data.searchUser.id);
+  // // }, [data]);
 
   // useEffect(() => {
-  //   if (!data) return;
-  //   console.log("data is = ", data.searchUser);
-  //   addNewFriend(data.searchUser.id);
-  // }, [data]);
-
-  useEffect(() => {
-    console.log("error is = ", error);
-  }, [error]);
+  //   console.log("error is = ", error);
+  // }, [error]);
 
   return <Message isBusinessPanel={true} />;
 };

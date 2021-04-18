@@ -1,16 +1,22 @@
-import { Box } from "theme-ui";
+import { Box, Styled, Card } from "theme-ui";
 import { PanelGlobalState, SocketContext } from "../../../context";
 import { Footer, PanelNavBar, OfferBar } from "../../components";
 import { usePanel } from "../../hooks";
+import { motion } from "framer-motion";
+import { PropsType } from "./panelLayoutTypes";
+import { Bell } from "react-feather";
 
-const PanelLayout = (props: {
-  bodyTopMargin?: number;
-  showHeader?: boolean;
-  children?: any;
-  fullWidth?: boolean;
-  layoutFullHeight?: boolean;
-  businessPanel?: boolean;
-}) => {
+const newNotificationDiv: any = {
+  position: "fixed",
+  zIndex: 999999,
+  bottom: 20,
+  right: 10,
+  padding: 10,
+  cursor: "pointer",
+  background: "white",
+};
+
+const PanelLayout = (props: PropsType) => {
   const { showHeader, children, fullWidth, layoutFullHeight } = props;
   const isHeaderShow = showHeader === undefined ? true : showHeader;
   const bodyTopMargin =
@@ -20,11 +26,7 @@ const PanelLayout = (props: {
     width: !fullWidth ? ["85%", "95%", "85%"] : "100%",
   };
 
-  usePanel();
-
-  // set usePanel hook
-  // const { socket } = usePanel();
-  //const { state, dispatch } = panelState;
+  const { showNotification, openNotificationAlert } = usePanel();
 
   return (
     // <SocketContext.Provider value={socket}>
@@ -53,9 +55,21 @@ const PanelLayout = (props: {
       >
         {children}
       </Box>
-      {/* <Box mt={5}>
-        <Footer />
-      </Box> */}
+      {!!showNotification && (
+        <motion.div
+          initial={{ x: 750 }}
+          animate={{ x: 0 }}
+          transition={{ delay: 1.5, type: "tween" }}
+          style={{ ...newNotificationDiv }}
+          onClick={openNotificationAlert}
+        >
+          {" "}
+          <Card>
+            {/* <Bell size={54} /> */}
+            <Box mt={1}>{showNotification}</Box>
+          </Card>
+        </motion.div>
+      )}
     </div>
     //   {/* </PanelGlobalState.Provider> */}
     // </SocketContext.Provider>

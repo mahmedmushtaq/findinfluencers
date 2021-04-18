@@ -5,6 +5,7 @@ export interface UserPayload {
   id: string;
   email: string;
   role: UserRole;
+  token?: string;
 }
 
 class JWT {
@@ -30,7 +31,7 @@ class JWT {
         process.env!.JWT_SECRET!
       ) as UserPayload;
 
-      return payload;
+      return { ...payload, token: jwtToken };
     } catch (err) {}
     return "";
   }

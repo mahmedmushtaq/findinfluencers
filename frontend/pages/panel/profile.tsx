@@ -70,7 +70,7 @@ const Profile = ({ user }) => {
             )}
 
             <Box mt={2} mb={2}>
-              <Styled.h5>About You</Styled.h5>
+              <Styled.h5>Your Profile Description</Styled.h5>
               <Textarea
                 cols={3}
                 rows={3}

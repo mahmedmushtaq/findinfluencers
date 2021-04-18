@@ -1,13 +1,25 @@
 import { SocketTypes } from "./SocketType";
+import { usersMap, userSocketsMap } from "./userMap";
 
 class Room {
   constructor(private _socket: SocketTypes) {}
   createMyRoom() {
-    this._socket.join(this._socket.user!.id);
+    if (usersMap.has(this._socket.user!.id)) {
+      const existingUser = usersMap.get(this._socket.user!.id);
+      existingUser.sockets = [...existingUser.sockets, ...[this._socket.id]];
+      usersMap.set(this._socket.user!.id, existingUser);
+    } else {
+      usersMap.set(this._socket.user!.id, {
+        id: this._socket.user!.id,
+        sockets: [this._socket.id],
+      });
+    }
   }
   leaveMyRoom() {
-    this._socket.leave(this._socket.user!.id);
+    usersMap.delete(this._socket.user!.id);
   }
+
+  
 }
 
 export default Room;

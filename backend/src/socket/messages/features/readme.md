@@ -1,2 +1,0 @@
-1 - Files end with "db" Keyword then this file must contains database related queries and it will do nothing with sockets                                                                                                                    
-                                                                                                               

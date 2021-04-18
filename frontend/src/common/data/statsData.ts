@@ -7,8 +7,8 @@ export const statsData = [
   },
   {
     id: 2,
-    text: "Viewers",
-    link: "/panel/viewers",
+    text: "New Orders",
+    link: "/panel/orders/new-order",
     background: "linear-gradient(to right, #7f7fd5, #86a8e7, #91eae4)",
   },
   {
@@ -17,12 +17,12 @@ export const statsData = [
     link: "/panel/earnings",
     background: "linear-gradient(to right, #659999, #f4791f)",
   },
-  {
-    id: 4,
-    text: "Pending Projects",
-    link: "/panel/pendings",
-    background: "linear-gradient(to right, #b24592, #f15f79)",
-  },
+  // {
+  //   id: 4,
+  //   text: "Pending Projects",
+  //   link: "/panel/pendings",
+  //   background: "linear-gradient(to right, #b24592, #f15f79)",
+  // },
   {
     id: 5,
     text: "Messages",
@@ -50,12 +50,12 @@ export const businessStatsData = [
     link: "/panel/business/amount",
     background: "linear-gradient(to right, #659999, #f4791f)",
   },
-  {
-    id: 4,
-    text: "Projects",
-    link: "/panel/business/projects",
-    background: "linear-gradient(to right, #b24592, #f15f79)",
-  },
+  // {
+  //   id: 4,
+  //   text: "Projects",
+  //   link: "/panel/business/projects",
+  //   background: "linear-gradient(to right, #b24592, #f15f79)",
+  // },
 
   {
     id: 5,

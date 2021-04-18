@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
 import { Box, Grid, Styled, Text } from "theme-ui";
 import { PanelLayout } from "../../src/common/layouts";
+import { LOAD_ESCROW_AMOUNT } from "../../src/lib/graphql";
 import {
   borderBottomLeftRadiusLaptop,
   borderBottomLeftRadiusMobile,
@@ -18,22 +20,43 @@ const boxStyle: any = {
 };
 
 const Earnings = () => {
+  const { data, error, loading } = useQuery(LOAD_ESCROW_AMOUNT);
+  const [pending, setPending] = useState(0);
+  const [holding, setHolding] = useState(0);
+  const [account, setAccount] = useState(0);
+  useEffect(() => {
+    if (!data) return;
+    let pendingAmount = 0;
+    let holdAmount = 0;
+    const res = data.myEscrow;
+    res.escrows.map((escrow) => {
+      if (escrow.status === "company_holds") {
+        pendingAmount += +escrow.order.amount;
+      } else if (escrow.status === "company_holds_for_five_days") {
+        holdAmount += +escrow.order.amount;
+      }
+    });
+    setPending(pendingAmount);
+    setHolding(holdAmount);
+    setAccount(res.amount);
+    console.log("data is = ", data);
+  }, [data]);
   return (
     <PanelLayout>
       <Box sx={{}}>
         <Grid columns={[2, 3]}>
           <Box sx={{ ...boxStyle }}>
-            <Styled.h4>Escrow</Styled.h4>
-            <Text> 23$</Text>
+            <Styled.h4>Pending</Styled.h4>
+            <Text> ${pending}</Text>
           </Box>
           <Box sx={{ ...boxStyle }}>
-            <Styled.h4>Balance</Styled.h4>
-            <Text>42$</Text>
+            <Styled.h4>Hold</Styled.h4>
+            <Text>${holding}</Text>
           </Box>
 
           <Box sx={{ ...boxStyle }}>
-            <Styled.h4>Withdraw</Styled.h4>
-            <Text>12$</Text>
+            <Styled.h4>Account</Styled.h4>
+            <Text>${account}</Text>
           </Box>
         </Grid>
       </Box>

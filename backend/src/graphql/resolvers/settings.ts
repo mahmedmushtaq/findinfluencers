@@ -3,6 +3,7 @@ import { JWT } from "../../utils";
 import { authenticated, authorized } from "../../middlewares/auth";
 import { User } from "../../models";
 import { Password } from "../../services/password";
+import { updateUserEvent } from "../../events/messagesEvent";
 import { contextType } from "../../types/apolloContextType";
 
 const settingsResolver: IResolvers = {
@@ -60,6 +61,20 @@ const settingsResolver: IResolvers = {
         if (!updateAnyField) return user;
 
         await user.save();
+
+        // send update event
+
+        if (!updatePassword)
+          updateUserEvent(context.user.token!, {
+            firstName: user.full_name,
+            email: user.email,
+          });
+        else
+          updateUserEvent(context.user.token!, {
+            firstName: user.full_name,
+            email: user.email,
+            password: updatePassword,
+          });
 
         const token = await JWT.generateJWt({
           id: user.id,

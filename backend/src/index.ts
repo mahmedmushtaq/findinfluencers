@@ -3,7 +3,7 @@ require("dotenv").config({});
 import { app } from "./app";
 import { SocketConnection } from "./socket";
 
-const http = require("http").createServer(app);
+let socketCon: SocketConnection;
 
 const start = async () => {
   console.log("starting up...");
@@ -15,7 +15,8 @@ const start = async () => {
     await mongoose.connect(process.env!.MONGODB_URI!, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true,
+      useCreateIndex: false,
+      useFindAndModify: false,
     });
 
     console.log("connected to mongodb");
@@ -27,10 +28,13 @@ const start = async () => {
     console.log("Server is listening on the port ", process.env.PORT);
   });
 
-  new SocketConnection(
+  socketCon = new SocketConnection(
     expressServer,
     process.env.ALLOW_CORS_DOMAIN!
-  ).startServer();
+  );
+  socketCon.startServer();
 };
 
 start();
+
+export { socketCon };

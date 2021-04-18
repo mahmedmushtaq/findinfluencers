@@ -55,11 +55,16 @@ const profileType = gql`
     rateRange: [Int]
   }
 
+  input userProfileInput {
+    username: String
+    userId: String
+  }
+
   extend type Query {
     myProfile: Profile
     profileRates: Rate
     searchProfile(input: SearchProfile, pageNum: Int): [Profile]
-    userProfile(username: String): Profile
+    userProfile(input: userProfileInput): Profile
   }
 
   # input updateProfileInfo {

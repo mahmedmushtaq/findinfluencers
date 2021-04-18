@@ -1,9 +1,13 @@
-import { gql, AuthenticationError } from "apollo-server-express";
+import { gql } from "apollo-server-express";
 import userType from "./userType";
 import platformType from "./platformType";
 import categoryType from "./categoryType";
 import profileType from "./profileType";
 import settingsType from "./settings";
+import orderType from "./order";
+import escrowType from "./escrow";
+import amountType from "./amount";
+import notificationType from "./notification";
 
 const rootType = gql`
   type Query {
@@ -21,4 +25,8 @@ export default [
   categoryType,
   profileType,
   settingsType,
+  orderType,
+  escrowType,
+  amountType,
+  notificationType,
 ];

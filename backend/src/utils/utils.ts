@@ -6,6 +6,7 @@ export const transformMongooseResponse = {
     transform(doc: any, ret: any) {
       ret.id = ret._id;
       delete ret._id;
+      delete ret.__v;
     },
   },
 };
@@ -46,4 +47,10 @@ export const getMessageServerUrl = (req: any) => {
   return (
     process.env.MESSAGES_SERVER_URL + req.originalUrl.replace(req.baseUrl, "")
   );
+};
+
+export const currentDateDifference = (date1: any) => {
+  //@ts-ignore
+  const date = new Date() - date1;
+  return date;
 };

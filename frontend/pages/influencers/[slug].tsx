@@ -74,6 +74,15 @@ const Influencer = (props) => {
               sx={{ fontFamily: "gilroyBold", fontSize: 2 }}
               style={{ fontSize: 10 }}
             >
+              Price
+            </Text>
+            <Text ml={2}>${data.rate}</Text>
+          </Box>
+          <Box ml={3}>
+            <Text
+              sx={{ fontFamily: "gilroyBold", fontSize: 2 }}
+              style={{ fontSize: 10 }}
+            >
               Followers
             </Text>
             <Text ml={2} color="primary">
@@ -135,7 +144,10 @@ Influencer.getInitialProps = async ({ query }) => {
   const userProfileData = await apolloClient.query({
     query: LOAD_USER_PROFILE,
     variables: {
-      username: slug,
+      // username: slug,
+      input: {
+        username: slug,
+      },
     },
   });
 

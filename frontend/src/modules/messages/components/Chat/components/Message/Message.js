@@ -2,7 +2,7 @@ import clsx from "clsx";
 import React, { useEffect } from "react";
 import { Box, Text } from "theme-ui";
 import styles from "../../../../../../../styles/scss/chats/Message.module.scss";
-import timeAgo from "../../../../utils/timeAgo";
+import timeAgo from "../../../../../../lib/timeAgo";
 
 const Message = ({ user, chat, index, message }) => {
   const determineMargin = () => {

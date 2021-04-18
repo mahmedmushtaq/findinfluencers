@@ -1,9 +1,6 @@
 import { Box, Button, Flex, Grid, Input, Styled, Text } from "theme-ui";
 import { PanelLayout } from "../../src/common/layouts";
-import {
-  PanelMessageConversation,
-  PanelMessageList,
-} from "../../src/common/components";
+
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { Chat } from "../../src/modules/messages/components";

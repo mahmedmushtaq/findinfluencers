@@ -39,11 +39,7 @@ const NavBar = () => {
       columns={2}
       color="background"
       sx={{
-        width: [
-          standardShortWidthMobile,
-          standardShortWidthMobile,
-          standardShortWidthLaptop,
-        ],
+        width: [standardShortWidthMobile, "100%", standardShortWidthLaptop],
         justifyItems: "center",
         alignItems: "center",
         margin: "auto",

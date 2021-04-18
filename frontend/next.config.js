@@ -8,6 +8,7 @@ module.exports = (phase, { defaultConfig }) => {
     },
     env: {
       SERVER_URL: "http://localhost:4000",
+      CHAT_APP_URL: "http://localhost:4001",
     },
   };
 };
