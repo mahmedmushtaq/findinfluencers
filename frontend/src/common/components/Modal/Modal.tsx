@@ -1,3 +1,4 @@
+import { Box } from "@theme-ui/components";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   useEffect,
@@ -32,7 +33,8 @@ const modalContentWrapper: any = {
 
 interface ModalProps {
   children?: any;
-  height?: number;
+  height?: number | string;
+  width?: number | string;
 }
 
 /**
@@ -43,7 +45,8 @@ interface ModalProps {
  */
 const Modal = forwardRef((props: ModalProps, ref) => {
   const [open, setOpen] = useState(false);
-  const height = props.height ? props.height : 300;
+  const height = props.height || 300;
+  const width = props.width || 300;
 
   const escFunction = useCallback((event) => {
     if (event.keyCode === 27) {
@@ -108,7 +111,7 @@ const Modal = forwardRef((props: ModalProps, ref) => {
               },
             }}
             // className="modal-content-wrapper"
-            style={{ ...modalContentWrapper, height }}
+            style={{ ...modalContentWrapper, width, height }}
           >
             <motion.div
               className="modal-content"
@@ -132,7 +135,7 @@ const Modal = forwardRef((props: ModalProps, ref) => {
                 },
               }}
             >
-              {props.children}
+              <Box style={{ background: "white" }}> {props.children}</Box>
             </motion.div>
           </motion.div>
         </>

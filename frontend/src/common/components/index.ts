@@ -7,6 +7,7 @@ export { default as OfferBar } from "./OfferBar/OfferBar";
 export { default as CustomDivider } from "./CustomDivider/CustomDivider";
 export { default as Search } from "./Header/HeaderSearch/HeaderSearch";
 export { default as CustomButton } from "./CustomButton/CustomButton";
+export { default as PaymentForm } from "./PaymentForm/PaymentForm";
 export { default as Modal } from "./Modal/Modal";
 
 // export folders which contains further components either dependent or independent

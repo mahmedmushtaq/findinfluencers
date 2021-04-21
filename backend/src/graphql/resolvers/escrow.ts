@@ -7,7 +7,10 @@ import { OrderStatus } from "../../models/order";
 import { User, UserRole } from "../../models/user";
 import { contextType } from "../../types/apolloContextType";
 import { currentDateDifference } from "../../utils/utils";
-import { escrowController } from "../controllers/escrowController";
+import {
+  escrowController,
+  setPaymentIntent,
+} from "../controllers/escrowController";
 import {
   orderStatusControllerBuyer,
   orderStatusControllerInfluencer,
@@ -20,6 +23,24 @@ const EscrowResolver: IResolvers = {
       console.log("res is = ", res);
       return res;
     }),
+  },
+  Mutation: {
+    createPaymentIntent: authenticated(
+      async (_: void, { input }: any, context: contextType) => {
+        console.log(input);
+        const { orderId } = input;
+        // const order = await Order.findById(orderId);
+        // if (!order) {
+        //   throw new ApolloError("Order Is Not Found");
+        // }
+        try {
+          const data = setPaymentIntent(context, 5 * 100);
+          return data;
+        } catch (err) {
+          throw new ApolloError(err);
+        }
+      }
+    ),
   },
 
   Escrow: {

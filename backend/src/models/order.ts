@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { transformMongooseResponse } from "../utils/utils";
 
 export enum OrderStatus {
+  require_payment = "require_payment",
   needs_approval = "needs_approval",
   working = "working",
   rejected = "rejected",

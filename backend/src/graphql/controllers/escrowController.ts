@@ -1,6 +1,7 @@
-import { Amount, Escrow } from "../../models";
+import { Order, Amount, Escrow, User } from "../../models";
 import { EscrowStatus } from "../../models/escrow";
 import { contextType } from "../../types/apolloContextType";
+import { createPaymentIntent, stripe } from "../../utils/stripe";
 import { currentDateDifference } from "../../utils/utils";
 
 const updateAmount = async (escrow: any) => {
@@ -95,4 +96,78 @@ export const escrowController = async (context: contextType) => {
     amount,
     billed,
   };
+};
+
+export const setPaymentIntent = async (
+  context: contextType,
+  amount: number
+) => {
+  try {
+    const user = await User.findById(context.user.id);
+    if (!user) return user;
+
+    if (!user.stripe_customer) {
+      try {
+        const description = `User ${context.user.email} add amount in escrow`;
+        const { id: stripe_customer } = await stripe.customers.create({
+          description, //"Added Amount In Escrow",
+          // email: context.user.email,
+        });
+        user.stripe_customer = stripe_customer;
+        await user.save();
+        console.log("new stripe customer is created successfully");
+      } catch (e) {
+        console.log("error on creating stripe customer");
+        throw e;
+      }
+    }
+
+    // get payment method ( mean, visa, master) and get those payment method id to get
+    // List the customer's payment methods to find one to charge
+    const paymentMethods = await stripe.paymentMethods.list({
+      customer: user.stripe_customer,
+      type: "card",
+    });
+
+    const isPaymentMethodPresent = !!paymentMethods.data[0];
+
+    const paymentIntent = await createPaymentIntent({
+      amount,
+      customer: user.stripe_customer,
+      // if users is already saved their card then charge them
+      payment_method_id: isPaymentMethodPresent
+        ? paymentMethods.data[0].id
+        : undefined,
+      confirm: !!isPaymentMethodPresent,
+    });
+
+    let paymentIsAlreadyDone = false;
+    if (isPaymentMethodPresent) {
+      // if payment Method is Present then it is mean that payment is already done and received
+      paymentIsAlreadyDone = true;
+    }
+
+    // console.log('PAYMENTINTENT', paymentIntent);
+    const { client_secret, id } = paymentIntent;
+    if (id && client_secret) {
+      return {
+        client_secret,
+        id,
+        paymentIsAlreadyDone,
+      };
+    }
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const savePaymentIntent = async (input: any, context: contextType) => {
+  const { orderId, stripe_payment_intent_id } = input;
+  const paymentIntent = await stripe.paymentIntents.retrieve(
+    stripe_payment_intent_id
+  );
+  const order = await Order.findById(orderId);
+  order!.amount = paymentIntent.amount;
+  await order?.save();
+  return order;
 };

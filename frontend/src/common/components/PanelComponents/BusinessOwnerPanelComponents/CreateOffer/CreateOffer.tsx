@@ -3,6 +3,12 @@ import { Box, Button, Flex, Input, Spinner, Text } from "theme-ui";
 import { useMutation } from "@apollo/client";
 import CREATE_OFFER from "../../../../../lib/graphql/mutations/profile/CREATE_OFFER";
 import nextRouter, { useRouter } from "next/router";
+import { Elements } from "@stripe/react-stripe-js";
+import { stripePromise } from "../../../../../lib/stripe";
+
+import dynamic from "next/dynamic";
+
+const PaymentForm = dynamic(() => import("../../../PaymentForm/PaymentForm"));
 
 const CreateOffer = (props: {
   selectedProfile: { profileId: string; rate: string };
@@ -17,6 +23,7 @@ const CreateOffer = (props: {
   const id = router.query.username;
 
   const [state, setState] = useState({ name: "", description: "" });
+  const [orderId, setOrderId] = useState("");
 
   const [selectedProfile, setSelectedProfile] = useState<{
     profileId: string;
@@ -56,7 +63,9 @@ const CreateOffer = (props: {
 
   useEffect(() => {
     if (!data) return;
-    setMsg("Offer Has Been Sent Successfully");
+    // setMsg("Offer Has Been Sent Successfully");
+
+    setOrderId(data.createOffer.id);
     setTimeout(() => {
       //  nextRouter.push("/panel/business");
     }, 500);
@@ -110,6 +119,9 @@ const CreateOffer = (props: {
           </Button>
         </Box>
       </Box>
+      <Elements stripe={stripePromise}>
+        <PaymentForm orderId={orderId} />
+      </Elements>
     </Box>
   );
 };

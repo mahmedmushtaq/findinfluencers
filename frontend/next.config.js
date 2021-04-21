@@ -9,6 +9,7 @@ module.exports = (phase, { defaultConfig }) => {
     env: {
       SERVER_URL: "http://localhost:4000",
       CHAT_APP_URL: "http://localhost:4001",
+      STRIPE_PK : "pk_test_rjZwSW567Ub2Phf3etwK4UIw00VC3Leu0w",
     },
   };
 };

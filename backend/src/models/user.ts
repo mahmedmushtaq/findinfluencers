@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { Password } from "../services/password";
+import { transformMongooseResponse } from "../utils/utils";
 
 export enum UserRole {
   influencer = "influencer",
@@ -14,6 +15,7 @@ interface UserAttr {
   username: string;
   password: string;
   profile_pic?: string;
+  stripe_customer?: string;
 }
 
 // an interface that describe
@@ -52,15 +54,11 @@ const UserSchema = new mongoose.Schema(
     profile_pic: {
       type: String,
     },
-  },
-  {
-    toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-      },
+    stripe_customer: {
+      type: String,
     },
-  }
+  },
+  transformMongooseResponse
 );
 
 // hash password before save

@@ -38,9 +38,9 @@ const PanelLayout = (props: PropsType) => {
         overflow: layoutFullHeight ? "hidden" : undefined,
       }}
     >
-      <Box>
+      {/* <Box>
         <OfferBar />
-      </Box>
+      </Box> */}
       <Box>
         {isHeaderShow && <PanelNavBar businessNavBar={props.businessPanel} />}
       </Box>

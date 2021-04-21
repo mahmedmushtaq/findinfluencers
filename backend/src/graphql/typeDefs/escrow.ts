@@ -16,6 +16,12 @@ const escrowType = gql`
     workingUser: User
   }
 
+  type PaymentIntent {
+    client_secret: String
+    id: String
+    paymentIsAlreadyDone: Boolean
+  }
+
   type MyEscrow {
     escrows: [Escrow!]!
     amount: Int
@@ -24,6 +30,16 @@ const escrowType = gql`
 
   extend type Query {
     myEscrow: MyEscrow!
+  }
+
+  input createPaymentIntentInput {
+    orderId: String
+  }
+
+  extend type Mutation {
+    createPaymentIntent(input: createPaymentIntentInput): PaymentIntent!
+    savePaymentIntent: Order
+    addAmount: MyEscrow!
   }
 `;
 

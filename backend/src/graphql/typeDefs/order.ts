@@ -8,6 +8,7 @@ const orderType = gql`
     submit_for_payment
     completed
     cancelled
+    require_payment
   }
 
   type Order {

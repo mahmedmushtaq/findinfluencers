@@ -12,6 +12,7 @@ import { socketCon } from "../../index";
 import { Notification } from "../../models/notification";
 import { Notification as SocketNotification } from "../../socket";
 import { sendNotification } from "../controllers/notification";
+import { stripe } from "../../utils/stripe";
 
 const OrderResolver: IResolvers = {
   Query: {
@@ -72,14 +73,28 @@ const OrderResolver: IResolvers = {
           } = input;
           const order = Order.build({
             name,
-            status,
+            status: OrderStatus.require_payment,
             description,
             ownerId: context.user.id,
             workingUserId,
             amount,
             platformProfileId,
           });
-          await order.save();
+          // await order.save();
+
+          // const stripeRes = await stripe.charges.create({
+          //   amount: order.amount * 100,
+          //   currency: "usd",
+          //   source: stripeToken,
+          //   description: `You have successfully added ${
+          //     order.amount * 100
+          //   } in escrow. `,
+          //   // metadata: {
+          //   //   key: value, // any meta-data you want to store
+          //   // },
+          // });
+
+          // console.log("stripe res is = ", stripeRes);
 
           await sendNotification(
             context.user.id,
