@@ -4,11 +4,17 @@ import { Modal } from "../index";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useMutation } from "@apollo/client";
 import { CREATE_PAYMENT_INTENT } from "../../../lib/graphql";
+import SAVE_PAYMENT_INTENT from "../../../lib/graphql/mutations/SAVE_PAYMENT_INTENT";
+import router from "next/router";
 
 const PaymentForm = (props: { orderId: string }) => {
   const ref = useRef();
   const stripe = useStripe();
   const elements = useElements();
+  const [showCardBox, setShowCardBox] = useState(false);
+  const [savePaymentIntent, {}] = useMutation(SAVE_PAYMENT_INTENT, {
+    errorPolicy: "all",
+  });
   const [loadingAndMsgState, setLoadingAndMsgState] = useState({
     loading: false,
     msg: "",
@@ -33,7 +39,12 @@ const PaymentForm = (props: { orderId: string }) => {
 
   useEffect(() => {
     if (!data) return;
-    console.log(" === Payment Intent Data ===  ", data);
+    const { paymentIsAlreadyDone } = data.createPaymentIntent;
+    if (paymentIsAlreadyDone) {
+      router.push("/panel/business");
+      return;
+    }
+    setShowCardBox(true);
   }, [data]);
 
   const handleSubmit = async (event) => {
@@ -43,7 +54,7 @@ const PaymentForm = (props: { orderId: string }) => {
 
     if (!data) return;
 
-    const { client_secret } = data.createPaymentIntent;
+    const { id: payment_intent_id, client_secret } = data.createPaymentIntent;
 
     if (!stripe || !elements) {
       // Stripe.js has not loaded yet. Make sure to disable
@@ -80,6 +91,12 @@ const PaymentForm = (props: { orderId: string }) => {
     }
 
     if (result.paymentIntent.status === "succeeded") {
+      savePaymentIntent({
+        variables: {
+          input: { orderId, stripe_payment_intent_id: payment_intent_id },
+        },
+      });
+
       // await savePaymentIntent({
       //   stripe_payment_intent_id: payment_intent_id,
       //   order_id: order.id,
@@ -100,6 +117,8 @@ const PaymentForm = (props: { orderId: string }) => {
         loading: false,
         msg: "Payment is successfully added in escrow",
       });
+
+      router.push("/panel/business");
     }
 
     // setTimeout(() => {
@@ -110,7 +129,7 @@ const PaymentForm = (props: { orderId: string }) => {
   return (
     <Modal ref={ref} width={300} height={100}>
       <Box>
-        {data ? (
+        {showCardBox ? (
           <Box>
             <CardElement
               options={{

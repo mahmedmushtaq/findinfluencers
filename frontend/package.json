@@ -37,6 +37,7 @@
     "react-dom": "17.0.1",
     "react-feather": "^2.0.9",
     "react-redux": "^7.2.2",
+    "reactjs-popup": "^2.0.4",
     "reactjs-tag-input": "^2.0.15",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",

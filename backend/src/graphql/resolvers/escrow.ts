@@ -9,6 +9,7 @@ import { contextType } from "../../types/apolloContextType";
 import { currentDateDifference } from "../../utils/utils";
 import {
   escrowController,
+  savePaymentIntent as savePaymentIntentController,
   setPaymentIntent,
 } from "../controllers/escrowController";
 import {
@@ -29,16 +30,23 @@ const EscrowResolver: IResolvers = {
       async (_: void, { input }: any, context: contextType) => {
         console.log(input);
         const { orderId } = input;
-        // const order = await Order.findById(orderId);
-        // if (!order) {
-        //   throw new ApolloError("Order Is Not Found");
-        // }
+        const order = await Order.findById(orderId);
+        if (!order) {
+          throw new ApolloError("Order Is Not Found");
+        }
         try {
-          const data = setPaymentIntent(context, 5 * 100);
+          const data = setPaymentIntent(context, order);
           return data;
         } catch (err) {
           throw new ApolloError(err);
         }
+      }
+    ),
+    savePaymentIntent: authenticated(
+      async (_: void, { input }: any, context: contextType) => {
+        console.log("save Payment Intent", input);
+        const order = await savePaymentIntentController(input, context);
+        return order;
       }
     ),
   },

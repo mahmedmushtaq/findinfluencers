@@ -4853,6 +4853,11 @@ react@17.0.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
 
+reactjs-popup@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/reactjs-popup/-/reactjs-popup-2.0.4.tgz#53f585a2b19fb730b127a166ffffa2672e144fa1"
+  integrity sha512-G5jTXL2JkClKAYAdqedf+K9QvbNsFWvdbrXW1/vWiyanuCU/d7DtQzQux+uKOz2HeNVRsFQHvs7abs0Z7VLAhg==
+
 reactjs-tag-input@^2.0.15:
   version "2.0.15"
   resolved "https://registry.yarnpkg.com/reactjs-tag-input/-/reactjs-tag-input-2.0.15.tgz#39708d6c0f38a59729122a7a28a7c2d545270b0a"

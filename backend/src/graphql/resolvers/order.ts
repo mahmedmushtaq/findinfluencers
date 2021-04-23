@@ -26,7 +26,8 @@ const OrderResolver: IResolvers = {
           })
             .populate("ownerId", "-password -__v")
             .populate("workingUserId", "-password -__v")
-            .populate("platformProfileId");
+            .populate("platformProfileId")
+            .sort([["createdAt", -1]]);
           return orders;
         }
       )
@@ -80,7 +81,7 @@ const OrderResolver: IResolvers = {
             amount,
             platformProfileId,
           });
-          // await order.save();
+          await order.save();
 
           // const stripeRes = await stripe.charges.create({
           //   amount: order.amount * 100,

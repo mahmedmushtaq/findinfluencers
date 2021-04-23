@@ -7,6 +7,7 @@ import orderResolver from "./order";
 import escrowResolver from "./escrow";
 import amountResolver from "./amount";
 import notificationResolver from "./notification";
+import withdrawlResolver from "./withdrawl";
 
 export default [
   userResolver,
@@ -18,4 +19,5 @@ export default [
   escrowResolver,
   amountResolver,
   notificationResolver,
+  withdrawlResolver,
 ];

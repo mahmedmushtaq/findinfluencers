@@ -1,5 +1,6 @@
 import { Order, Amount, Escrow, User } from "../../models";
 import { EscrowStatus } from "../../models/escrow";
+import { OrderStatus, OrderDoc } from "../../models/order";
 import { contextType } from "../../types/apolloContextType";
 import { createPaymentIntent, stripe } from "../../utils/stripe";
 import { currentDateDifference } from "../../utils/utils";
@@ -100,9 +101,10 @@ export const escrowController = async (context: contextType) => {
 
 export const setPaymentIntent = async (
   context: contextType,
-  amount: number
+  order: OrderDoc
 ) => {
   try {
+    const amount = order.amount * 100;
     const user = await User.findById(context.user.id);
     if (!user) return user;
 
@@ -145,6 +147,8 @@ export const setPaymentIntent = async (
     if (isPaymentMethodPresent) {
       // if payment Method is Present then it is mean that payment is already done and received
       paymentIsAlreadyDone = true;
+      order.status = OrderStatus.needs_approval;
+      await order.save();
     }
 
     // console.log('PAYMENTINTENT', paymentIntent);
@@ -163,11 +167,13 @@ export const setPaymentIntent = async (
 
 export const savePaymentIntent = async (input: any, context: contextType) => {
   const { orderId, stripe_payment_intent_id } = input;
+  console.log(" ======= save payment intent ========== ", input);
   const paymentIntent = await stripe.paymentIntents.retrieve(
     stripe_payment_intent_id
   );
   const order = await Order.findById(orderId);
-  order!.amount = paymentIntent.amount;
+  order!.status = OrderStatus.needs_approval;
+  order!.amount = paymentIntent.amount / 100; //
   await order?.save();
   return order;
 };

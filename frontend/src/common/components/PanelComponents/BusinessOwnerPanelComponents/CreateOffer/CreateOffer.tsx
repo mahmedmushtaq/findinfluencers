@@ -17,6 +17,7 @@ const CreateOffer = (props: {
   const [createOffer, { data, loading, error }] = useMutation(CREATE_OFFER, {
     errorPolicy: "all",
   });
+ 
   const [msg, setMsg] = useState("");
   const router = useRouter();
   // currenlty we have id in username query

@@ -8,6 +8,7 @@ import orderType from "./order";
 import escrowType from "./escrow";
 import amountType from "./amount";
 import notificationType from "./notification";
+import withDrawlRequestType from "./withdrawl";
 
 const rootType = gql`
   type Query {
@@ -29,4 +30,5 @@ export default [
   escrowType,
   amountType,
   notificationType,
+  withDrawlRequestType,
 ];

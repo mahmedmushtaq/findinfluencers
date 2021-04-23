@@ -36,9 +36,14 @@ const escrowType = gql`
     orderId: String
   }
 
+  input savePaymentIntentInput{
+    stripe_payment_intent_id: String
+    orderId: String
+  }
+
   extend type Mutation {
     createPaymentIntent(input: createPaymentIntentInput): PaymentIntent!
-    savePaymentIntent: Order
+    savePaymentIntent(input: savePaymentIntentInput): Order
     addAmount: MyEscrow!
   }
 `;

@@ -31,7 +31,7 @@ interface OrderModel extends mongoose.Model<OrderDoc> {
 // mongoose returning object is different
 // therefore we need to check its type and properties
 
-interface OrderDoc extends mongoose.Document, OrderAttrs {}
+export interface OrderDoc extends mongoose.Document, OrderAttrs {}
 
 const orderSchema = new mongoose.Schema(
   {
