@@ -20,6 +20,13 @@ const server = http.createServer(app);
 SocketServer(server);
 
 const port = config.port;
+
+app.get("/", (req, res) => {
+  console.log(process.env.NODE_ENV);
+  console.log(process.env);
+  res.send("deployed");
+});
+
 server.listen(port, () => {
   console.log(`app is listening on the port ${port}`);
 });
