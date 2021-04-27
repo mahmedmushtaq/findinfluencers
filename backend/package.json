@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --poll src/index.ts"
+    "dev": "ts-node-dev --poll src/index.ts",
+    "build": "rimraf ./build && tsc",
+    "start": "npm run build && node build/index.js"
+  },
+  "engines": {
+    "node": "12.22.1"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +25,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.15",
     "randomstring": "^1.1.5",
+    "rimraf": "^3.0.2",
     "slug": "^4.0.3",
     "socket.io": "^4.0.0",
     "stripe": "^8.144.0",
