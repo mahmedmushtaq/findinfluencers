@@ -1,2 +1,2 @@
 export { default as SocketConnection } from "./SocketConnection";
-export { default as Notification } from "./notification";
+export { default as Notification } from "./Notification";

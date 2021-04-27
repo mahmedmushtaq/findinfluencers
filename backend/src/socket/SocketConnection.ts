@@ -2,7 +2,7 @@ import socket from "socket.io";
 import { UserPayload, JWT } from "../utils";
 import Room from "./Room";
 import { SocketTypes } from "./SocketType";
-import Notification from "./notification";
+import Notification from "./Notification";
 
 class SocketConnection {
   private _io?: socket.Server;
