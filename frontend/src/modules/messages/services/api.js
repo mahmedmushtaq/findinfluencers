@@ -11,7 +11,7 @@ const getToken = () => {
 };
 
 const API = axios.create({
-  baseURL: "http://localhost:4001",
+  baseURL: process.env.CHAT_APP_URL, 
   headers: {
     Accept: "application/json",
     Authorization: `Bearer ${getToken()}`,

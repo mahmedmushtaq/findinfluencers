@@ -16,7 +16,7 @@ import {
 } from "../../../store/actions/chat";
 import API from "../../../services/api";
 
-const ENDPOINT = "http://localhost:4001";
+const ENDPOINT = process.env.CHAT_APP_URL;
 
 const useSocket = (user, dispatch) => {
   useEffect(() => {

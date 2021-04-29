@@ -9,7 +9,8 @@ module.exports = (phase, { defaultConfig }) => {
     env: {
       SERVER_URL: process.env.SERVER_URL,
       CHAT_APP_URL: process.env.CHAT_APP_URL,
-      STRIPE_PK : process.env.STRIPE_PK
+      STRIPE_PK : process.env.STRIPE_PK,
+      GRAPHQL_SERVER_HOST: process.env.GRAPHQL_SERVER_HOST
     },
   };
 };

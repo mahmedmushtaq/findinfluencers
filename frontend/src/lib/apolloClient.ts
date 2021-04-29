@@ -31,7 +31,7 @@ function createApolloClient() {
   };
 
   const httpLink = createUploadLink({
-    uri: "http://localhost:4000/graphql", //process.env.GRAPHQL_SERVER_HOST,
+    uri: process.env.GRAPHQL_SERVER_HOST,
     headers: {
       authorization: token(),
     },
