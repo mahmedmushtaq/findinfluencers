@@ -7,9 +7,9 @@ module.exports = (phase, { defaultConfig }) => {
       includePaths: [path.join(__dirname, "styles/scss")],
     },
     env: {
-      SERVER_URL: "http://localhost:4000",
-      CHAT_APP_URL: "http://localhost:4001",
-      STRIPE_PK : "pk_test_rjZwSW567Ub2Phf3etwK4UIw00VC3Leu0w",
+      SERVER_URL: process.env.SERVER_URL,
+      CHAT_APP_URL: process.env.CHAT_APP_URL,
+      STRIPE_PK : process.env.STRIPE_PK
     },
   };
 };
