@@ -37,7 +37,7 @@ const Join = (props: any) => {
         }}
       >
         <Head>
-          <title>Influencers | Join Influencers Market</title>
+          <title>HireInfluencerss | Join Influencers Market</title>
         </Head>
         <Link href="/">
           <LinkStyle>

@@ -15,7 +15,7 @@ const Index = (props: any) => {
     <FrontLayout>
       <Box>
         <Head>
-          <title>Influencers | Find Influencers And Build Your Brand </title>
+          <title>HireInfluencerss | Find Influencers And Build Your Brand </title>
         </Head>
         <Box mt={5}>
           <HomePlatform />

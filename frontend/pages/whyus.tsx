@@ -12,12 +12,12 @@ const WhyUs = () => {
     <FrontLayout>
       <Box sx={{}}>
         <Head>
-          <title>Influencers | Why You Choose Us</title>
+          <title>HireInfluencerss | Why You Choose Us</title>
         </Head>
         <Box sx={{ width: ["95%", "80%", "70%"], margin: "auto" }}>
           <Styled.h2>
             <Text sx={{ textAlign: "center" }}>
-              Why You Choose Influencers?
+              Why You Choose HireInfluencerss?
             </Text>
           </Styled.h2>
           <Box>

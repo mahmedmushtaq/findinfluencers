@@ -18,7 +18,6 @@ import API from "../../../services/api";
 
 const ENDPOINT = process.env.CHAT_APP_URL;
 
-
 const useSocket = (user, dispatch) => {
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);

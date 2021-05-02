@@ -1,4 +1,4 @@
-import { Grid, Box, Styled, Text, Flex, Button } from "theme-ui";
+import { Grid, Box, Styled, Text, Flex, Button, Link } from "theme-ui";
 import { FrontLayout } from "../../src/common/layouts";
 import { useRouter } from "next/router";
 import { InfluencerGallery, SignInModal } from "../../src/common/components";
@@ -56,40 +56,42 @@ const Influencer = (props) => {
       </Styled.h5>
 
       {data.platformProfileInfo.map((data) => (
-        <Flex
-          key={data.id}
-          sx={{ justifyContent: "center", alignItems: "flex-start" }}
-        >
-          <Box>
-            <Text
-              sx={{ fontFamily: "gilroyBold", fontSize: 2 }}
-              style={{ fontSize: 10 }}
-            >
-              Platform
-            </Text>
-            <Text> {data.platform.name} </Text>
-          </Box>
-          <Box ml={3}>
-            <Text
-              sx={{ fontFamily: "gilroyBold", fontSize: 2 }}
-              style={{ fontSize: 10 }}
-            >
-              Price
-            </Text>
-            <Text ml={2}>${data.rate}</Text>
-          </Box>
-          <Box ml={3}>
-            <Text
-              sx={{ fontFamily: "gilroyBold", fontSize: 2 }}
-              style={{ fontSize: 10 }}
-            >
-              Followers
-            </Text>
-            <Text ml={2} color="primary">
-              {data.profileFollowers}
-            </Text>
-          </Box>
-        </Flex>
+        <Link href={data.profileUrl} target="_blank">
+          <Flex
+            key={data.id}
+            sx={{ justifyContent: "center", alignItems: "flex-start" }}
+          >
+            <Box>
+              <Text
+                sx={{ fontFamily: "gilroyBold", fontSize: 2 }}
+                style={{ fontSize: 10 }}
+              >
+                Platform
+              </Text>
+              <Text> {data.platform.name} </Text>
+            </Box>
+            <Box ml={3}>
+              <Text
+                sx={{ fontFamily: "gilroyBold", fontSize: 2 }}
+                style={{ fontSize: 10 }}
+              >
+                Price
+              </Text>
+              <Text ml={2}>${data.rate}</Text>
+            </Box>
+            <Box ml={3}>
+              <Text
+                sx={{ fontFamily: "gilroyBold", fontSize: 2 }}
+                style={{ fontSize: 10 }}
+              >
+                Followers
+              </Text>
+              <Text ml={2} color="primary">
+                {data.profileFollowers}
+              </Text>
+            </Box>
+          </Flex>
+        </Link>
       ))}
 
       {/* <Flex sx={{ justifyContent: "center", alignItems: "center" }}>

@@ -21,7 +21,7 @@ const Footer = (props: any) => {
         >
           <Flex sx={{}}>
             <Styled.h2>
-              <Text sx={{ color: "white" }}>influencer</Text>
+              <Text sx={{ color: "white" }}>hireinfluencerss</Text>
             </Styled.h2>
           </Flex>
 
@@ -36,7 +36,7 @@ const Footer = (props: any) => {
             </Text>
             <Text mt={2} style={cursorStyle}>
               <Link href="/influencers/searchinfluencers">
-                <a>Influencers</a>
+                <a>HireInfluencerss</a>
               </Link>
             </Text>
           </Box>
@@ -51,7 +51,7 @@ const Footer = (props: any) => {
             </Text> */}
             <Text mt={2} style={cursorStyle}>
               <Link href="/">
-                <a>Contact: influencers@gmail.com</a>
+                <a>Contact: hireinfluencerss@gmail.com</a>
               </Link>
               <Flex
                 sx={{

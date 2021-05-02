@@ -49,7 +49,7 @@ const NavBar = () => {
         <Styled.h1>
           <Text>
             <Link href="/">
-              <a>Influencers</a>
+              <a>HireInfluencerss</a>
             </Link>
           </Text>
         </Styled.h1>

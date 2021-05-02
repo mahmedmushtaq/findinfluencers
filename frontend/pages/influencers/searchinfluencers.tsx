@@ -8,7 +8,7 @@ const SearchInfluencers = () => {
     <FrontLayout>
       <Box>
         <Box mb={4}>
-          <Styled.h3>Influencers</Styled.h3>
+          <Styled.h3>HireInfluencerss</Styled.h3>
         </Box>
         <SearchInfluencerGrid />
       </Box>

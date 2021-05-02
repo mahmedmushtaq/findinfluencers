@@ -9,7 +9,7 @@ const userSockets = new Map();
 const SocketServer = (server) => {
   const io = socketIO(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: process.env.ALLOW_CORS_DOMAIN,
       methods: ["GET", "POST"],
     },
   });

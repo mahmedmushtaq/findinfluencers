@@ -159,7 +159,7 @@ const Search = () => {
             <Text>Select your budget</Text>
             <RateDropDown
               showDropDown={showDropDown.price}
-              rateRange={data ? data.profileRates.rateRange : [0, 0]}
+              rateRange={data && data.profileRates ? data.profileRates.rateRange : [0, 0]}
               setSelectedRate={setSelectedRate}
             />
           </Box>
