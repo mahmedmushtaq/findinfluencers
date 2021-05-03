@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
           const id = this.getDataValue("chatId");
           const content = this.getDataValue("message");
 
-          const url = `${config.IMAGE_URL}`;
+          const url = `${config.imageUrl}`;
           return type === "text" ? content : `${url}/chat/${id}/${content}`;
         },
       },

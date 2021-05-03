@@ -3,4 +3,5 @@ module.exports = {
   port: process.env.PORT,
   appUrl: process.env.APP_URL,
   appKey: process.env.APP_KEY,
+  imageUrl: process.env.IMAGE_URL,
 };
