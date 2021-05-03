@@ -11,13 +11,13 @@ import { messagesRouter } from "./routes";
 const app = express();
 app.use(cors());
 
-app.use("/public", express.static(path.join(__dirname + "/public")));
+app.use("/public", express.static(path.join(__dirname + "/../public")));
 
 app.use(json());
 
 app.use("/api/messages", messagesRouter);
 // app.use(cors());
-
+console.log("new App");
 const server = new ApolloServer({
   typeDefs,
   resolvers,

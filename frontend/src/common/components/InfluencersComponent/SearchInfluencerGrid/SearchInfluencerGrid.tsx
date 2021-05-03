@@ -72,7 +72,7 @@ const SearchInfluencerGrid = (props: any) => {
               columns={[2, 3, 4]}
               sx={{ alignItems: "center", justifyItems: "center" }}
             >
-              {data &&
+              {data?.searchProfile &&
                 data.searchProfile.map((singleProfileData) => (
                   <Box key={singleProfileData.id}>
                     <Item data={singleProfileData} />
@@ -81,7 +81,7 @@ const SearchInfluencerGrid = (props: any) => {
             </Grid>
           </Box>
           <Flex mt={4} sx={{ justifyContent: "center" }}>
-            {data && (
+            {data && data.searchProfile && (
               <Button
                 sx={{ ":focus": { outline: "none" }, cursor: "pointer" }}
                 onClick={

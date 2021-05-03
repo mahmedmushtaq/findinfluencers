@@ -105,11 +105,11 @@ export const updateProfileImages = async (
 
     try {
       const accessFile = await fileAccess(
-        `src/public/images/profilePlatformPics/${imageName}`
+        `public/images/profilePlatformPics/${imageName}`
       );
 
       const unlinkFile = await fileUnlink(
-        `src/public/images/profilePlatformPics/${imageName}`
+        `public/images/profilePlatformPics/${imageName}`
       );
       return unlinkFile;
     } catch (err) {

@@ -65,7 +65,7 @@ const SignIn = (props: PropsType) => {
         // router.push(props.path ? props.path : defaultPath);
       } else props.onSuccessful(res);
     } catch (err) {
-      if (err.response) setError(err.response.data.errors[0].message);
+      if (err.response) setError(err?.response?.data?.errors[0].message);
       else setError(err.response);
     } finally {
       setLoading(false);

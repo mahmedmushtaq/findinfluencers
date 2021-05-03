@@ -32,7 +32,7 @@ export const saveFile = async (publicPath: string, file: File) => {
   fileStream.pipe(
     fs.createWriteStream(
       path.join(
-        path.resolve(__dirname + `/../public/${publicPath}`),
+        path.resolve(__dirname + `/../../public/${publicPath}`),
         `${fileName}`
       )
     )
