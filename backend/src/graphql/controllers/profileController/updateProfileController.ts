@@ -82,7 +82,6 @@ export const updateInputProfileInfo = async (
     profile.categoryIds = categoryIds;
   }
 
-  console.log("description is  ", description);
   profile.description = description;
 
   profile.platformProfileIds = platformProfileIds;
@@ -100,7 +99,7 @@ export const updateProfileImages = async (
   const profile = await Profile.findOne({ userId: context.user.id });
   if (!profile) return;
   //delete the old images first
-  profile.images.map(async (singleImage) => {
+  const deleteAllImageMap = profile.images.map(async (singleImage) => {
     const imageName = path.basename(singleImage);
 
     try {
@@ -113,24 +112,38 @@ export const updateProfileImages = async (
       );
       return unlinkFile;
     } catch (err) {
+      console.log("err on deleting file is = ", err);
       return;
     }
   });
+
+  await Promise.all(deleteAllImageMap);
 
   const allImages = await Promise.all(images[0]);
 
   //@ts-ignore
   const imagesPathMap = allImages.map(async (singleImage: File) => {
-    const fileData = await saveFile("images/profilePlatformPics/", singleImage);
-    //@ts-ignore
-    const dbPath = `/public/images/profilePlatformPics/${fileData.filename}`;
+    try {
+      const fileData = await saveFile(
+        "images/profilePlatformPics/",
+        singleImage
+      );
+      // console.log(
+      //   " ======= updated images =========== ",
+      //   singleImage,
+      //   fileData
+      // );
+      //@ts-ignore
+      const dbPath = `/public/images/profilePlatformPics/${fileData.filename}`;
 
-    return dbPath;
+      return dbPath;
+    } catch (err) {
+      console.log("error on saving file = ", err);
+    }
+    return "";
   });
 
   const imagesUrls = await Promise.all(imagesPathMap);
-
-  console.log("images url ", imagesUrls);
 
   profile.images = imagesUrls;
   await profile.save();

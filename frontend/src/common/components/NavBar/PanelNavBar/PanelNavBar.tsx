@@ -42,7 +42,7 @@ const PanelNavBar = (props: { businessNavBar?: boolean }) => {
         <Text
           sx={{ fontFamily: "gilroyBold", fontSize: [22, 34], padding: 20 }}
         >
-          <Link href="/">Influencers</Link>
+          <Link href="/">HireInfluencerss</Link>
         </Text>
 
         {/*  ======================== FOR LAPTOP AND TABLET ======================================  */}

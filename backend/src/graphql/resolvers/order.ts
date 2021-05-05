@@ -7,7 +7,7 @@ import { contextType } from "../../types/apolloContextType";
 import {
   orderStatusControllerBuyer,
   orderStatusControllerInfluencer,
-} from "../controllers/orderController/orderStatusControllerBuyer";
+} from "../controllers/orderController/orderStatusController";
 import { socketCon } from "../../index";
 import { Notification } from "../../models/notification";
 import { Notification as SocketNotification } from "../../socket";

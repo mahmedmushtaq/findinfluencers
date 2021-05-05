@@ -39,20 +39,23 @@ const NavBar = () => {
       columns={2}
       color="background"
       sx={{
-        width: [standardShortWidthMobile, "100%", standardShortWidthLaptop],
-        justifyItems: "center",
+        width: [standardShortWidthMobile, "80%", standardShortWidthLaptop],
+        justifyItems: ["flex-end", "flex-end", "center"],
         alignItems: "center",
-        margin: "auto",
+        margin: ["20px auto", "40px auto", "20px auto"],
+        padding: [0, 10, 0],
       }}
     >
       <Box>
-        <Styled.h1>
+        <Text
+          sx={{ fontSize: [4, 6], fontWeight: 1000, fontFamily: "gilroyBold" }}
+        >
           <Text>
             <Link href="/">
               <a>HireInfluencerss</a>
             </Link>
           </Text>
-        </Styled.h1>
+        </Text>
       </Box>
 
       <Flex sx={{ alignItems: "center" }}>
@@ -67,7 +70,7 @@ const NavBar = () => {
           <Styled.h4>
             <Text
               sx={{
-                padding: "0 20px",
+                padding: ["0 10px", "0 20px"],
               }}
             >
               <Link href={url}>

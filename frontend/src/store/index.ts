@@ -5,7 +5,12 @@ import { createWrapper, Context } from "next-redux-wrapper";
 
 import { reducers } from "./reducers";
 
-export const store = createStore(reducers, applyMiddleware(logger, thunk));
+const middlewares: any = [thunk];
+if (process.env.NODE_ENV !== "production") {
+  middlewares.push(logger);
+}
+
+export const store = createStore(reducers, applyMiddleware(...middlewares));
 
 export const makeStore = (context: Context) => store;
 

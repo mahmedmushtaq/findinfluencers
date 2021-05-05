@@ -27,7 +27,6 @@ const PanelProfilePlatformInfo = (props: PropsType) => {
     });
   };
 
-  console.log("rate is = ", platform.rate);
   const platformProfileRate = platform.rate
     ? +platform.rate < 5
       ? 10
@@ -62,7 +61,8 @@ const PanelProfilePlatformInfo = (props: PropsType) => {
         onChange={onChange}
       />
       <Box mt={1}>
-      $ <Input
+        ${" "}
+        <Input
           mt={3}
           name={`rate`}
           type="number"

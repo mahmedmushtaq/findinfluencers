@@ -57,7 +57,6 @@ const settingsResolver: IResolvers = {
           updateAnyField = true;
         }
 
-        console.log("updateUsername = ", updateUsername);
         if (!updateAnyField) return user;
 
         await user.save();

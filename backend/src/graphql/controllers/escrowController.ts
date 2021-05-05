@@ -1,4 +1,4 @@
-import { Order, Amount, Escrow, User } from "../../models";
+import { Order, Amount, Escrow, User, Invoice } from "../../models";
 import { EscrowStatus } from "../../models/escrow";
 import { OrderStatus, OrderDoc } from "../../models/order";
 import { contextType } from "../../types/apolloContextType";
@@ -82,15 +82,11 @@ export const escrowController = async (context: contextType) => {
   let amount = 0,
     billed = 0;
 
-  console.log(escrows);
-
   const userAmount = await Amount.findOne({ userId: context.user.id });
   if (userAmount) {
     amount = userAmount.amount;
     billed = userAmount.billed;
   }
-
-  console.log("escrows ", escrows);
 
   return {
     escrows,
@@ -117,9 +113,7 @@ export const setPaymentIntent = async (
         });
         user.stripe_customer = stripe_customer;
         await user.save();
-        console.log("new stripe customer is created successfully");
       } catch (e) {
-        console.log("error on creating stripe customer");
         throw e;
       }
     }
@@ -134,7 +128,7 @@ export const setPaymentIntent = async (
     const isPaymentMethodPresent = !!paymentMethods.data[0];
 
     const paymentIntent = await createPaymentIntent({
-      amount,
+      amount: amount, // convert into cents
       customer: user.stripe_customer,
       // if users is already saved their card then charge them
       payment_method_id: isPaymentMethodPresent
@@ -143,15 +137,25 @@ export const setPaymentIntent = async (
       confirm: !!isPaymentMethodPresent,
     });
 
+    console.log("paymentItnent is  = ", paymentIntent);
+    console.log("paymentItnent is  = ", paymentIntent.charges);
+
     let paymentIsAlreadyDone = false;
-    if (isPaymentMethodPresent) {
+    if (
+      isPaymentMethodPresent &&
+      paymentIntent.charges.data[0].status === "succeeded"
+    ) {
       // if payment Method is Present then it is mean that payment is already done and received
+      const chargeId = paymentIntent.charges.data[0].id;
+      const receipt_url = paymentIntent.charges.data[0].receipt_url;
+
       paymentIsAlreadyDone = true;
+      order.chargeId = chargeId;
       order.status = OrderStatus.needs_approval;
+      createInvoice(order!.ownerId!, paymentIntent.amount / 100); // convert from cents
       await order.save();
     }
 
-    // console.log('PAYMENTINTENT', paymentIntent);
     const { client_secret, id } = paymentIntent;
     if (id && client_secret) {
       return {
@@ -167,13 +171,32 @@ export const setPaymentIntent = async (
 
 export const savePaymentIntent = async (input: any, context: contextType) => {
   const { orderId, stripe_payment_intent_id } = input;
-  console.log(" ======= save payment intent ========== ", input);
   const paymentIntent = await stripe.paymentIntents.retrieve(
     stripe_payment_intent_id
   );
+
   const order = await Order.findById(orderId);
+  if (paymentIntent.status !== "succeeded") return order;
+
+  const chargeId = paymentIntent.charges.data[0].id;
+  const receipt_url = paymentIntent.charges.data[0].receipt_url;
+
+  order!.chargeId = chargeId;
   order!.status = OrderStatus.needs_approval;
   order!.amount = paymentIntent.amount / 100; //
+  createInvoice(order!.ownerId!, paymentIntent.amount / 100);
   await order?.save();
   return order;
+};
+
+const createInvoice = async (userId: string, amount: number) => {
+  await Invoice.build({ userId, amount }).save();
+};
+
+export const refundAmount = async (chargeId: string) => {
+  const refund = await stripe.refunds.create({
+    charge: chargeId,
+  });
+  console.log("refund amount is = ", refund);
+  return refund;
 };

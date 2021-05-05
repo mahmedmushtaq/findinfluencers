@@ -1,9 +1,6 @@
 import { Box } from "theme-ui";
 import { Footer, Header, OfferBar } from "../../components";
-
-const root = {
-  width: ["85%", "95%", "85%"],
-};
+import useWidthMediaQuery from "../../hooks/useWidthMediaQuery";
 
 const FrontLayout = (props: {
   bodyTopMargin?: number;
@@ -14,6 +11,13 @@ const FrontLayout = (props: {
   const isHeaderShow = showHeader === undefined ? true : showHeader;
   const bodyTopMargin =
     props.bodyTopMargin === undefined ? 100 : props.bodyTopMargin;
+  const { isBigLargestScreen, isSmallLaptopScreen, isMediumLaptopScreen } = useWidthMediaQuery();
+
+  const largeScreenWidth = isBigLargestScreen
+    ? "70%"
+    : isSmallLaptopScreen || isMediumLaptopScreen
+    ? "95%"
+    : "85%";
 
   return (
     <Box sx={{ backgroundColor: "white" }}>
@@ -24,7 +28,7 @@ const FrontLayout = (props: {
       <Box
         sx={{
           marginTop: bodyTopMargin,
-          ...root,
+          width: ["85%", "95%", largeScreenWidth],
           marginLeft: "auto",
           marginRight: "auto",
         }}

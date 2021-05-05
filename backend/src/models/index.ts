@@ -8,6 +8,7 @@ export { Escrow } from "./escrow";
 export { Amount } from "./amount";
 export { Notification } from "./notification";
 export { WithDrawlRequest } from "./wthdrawlRequest";
+export { Invoice } from "./invoice";
 // export { Status } from "./status";
 // export { Conversation } from "./Conversation";
 // export { Message } from "./Message";

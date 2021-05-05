@@ -12,35 +12,49 @@ export const transformMongooseResponse = {
 };
 
 export const generateImageUniqueName = (filename: string) => {
+  const name = filename.replace(/\s/g, "");
   //@ts-ignore
-  const strings = filename.split(".");
+  const strings = name.split(".");
   const newStringName =
     strings[0] + Date.now() + "." + strings[strings.length - 1];
 
   return newStringName;
 };
 
-export const saveFile = async (publicPath: string, file: File) => {
-  const singleFile = await file;
-  //@ts-ignore
-  const { createReadStream, filename, mimetype } = singleFile;
-  const fileStream = createReadStream();
-  const fileName = generateImageUniqueName(filename);
+export const saveFile = async (publicPath: string, file: any) => {
+  return new Promise(async (resolve, reject) => {
+    const singleFile = await file;
+    //@ts-ignore
+    const { createReadStream, filename, mimetype } = singleFile;
+    const fileStream = createReadStream();
+    const fileName = generateImageUniqueName(filename);
 
-  // save file to  ../../assets/platformPic/${fileName}
+    console.log("fileName is = ", fileName);
 
-  fileStream.pipe(
-    fs.createWriteStream(
-      path.join(
-        path.resolve(__dirname + `/../../public/${publicPath}`),
-        `${fileName}`
+    // save file to  ../../assets/platformPic/${fileName}
+
+    fileStream
+      .pipe(
+        fs.createWriteStream(
+          path.join(
+            path.resolve(__dirname + `/../../public/${publicPath}`),
+            `${fileName}`
+          )
+        )
       )
-    )
-  );
+      .on("finish", () => {
+        singleFile.filename = fileName;
+        setTimeout(() => {
+          return resolve(singleFile);
+        }, 50);
 
-  //@ts-ignore
-  singleFile.filename = fileName;
-  return singleFile;
+        //@ts-ignore
+      })
+      .on("error", (e: any) => {
+        console.log("error on transferring file is = ", e);
+        return reject(e);
+      });
+  });
 };
 
 export const getMessageServerUrl = (req: any) => {

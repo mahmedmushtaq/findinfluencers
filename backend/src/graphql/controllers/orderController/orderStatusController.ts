@@ -3,6 +3,7 @@ import { Escrow, Order, User } from "../../../models";
 import { EscrowStatus } from "../../../models/escrow";
 import { OrderStatus } from "../../../models/order";
 import { contextType } from "../../../types/apolloContextType";
+import { refundAmount } from "../escrowController";
 import { sendNotification } from "../notification";
 
 const addAmountInEscrow = async (order: any, context: contextType) => {
@@ -39,7 +40,6 @@ export const orderStatusControllerInfluencer = async (
   if (!order) return {};
 
   if (order.status === status) {
-    console.log("returned back");
     return order;
   }
 
@@ -59,6 +59,9 @@ export const orderStatusControllerInfluencer = async (
     if (order.status === OrderStatus.working) {
       throw new ApolloError("You have already accepted the order");
     }
+    // return amount to user again
+    await refundAmount(order!.chargeId!);
+    // ========
   } else if (status === OrderStatus.cancelled) {
     if (
       order.status === OrderStatus.working ||
@@ -92,8 +95,6 @@ export const orderStatusControllerBuyer = async (
 
   order.status = status;
   await order.save();
-
-  console.log("order is = ", order);
 
   if (order.status === OrderStatus.completed) {
     // sent notification to the user that his amount will added to his account after 5 days

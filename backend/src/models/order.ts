@@ -19,6 +19,7 @@ interface OrderAttrs {
   workingUserId: string;
   amount: number;
   platformProfileId: string;
+  chargeId?: string;
 }
 
 // an interface that describe
@@ -54,6 +55,9 @@ const orderSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "plaform-profile",
       required: true,
+    },
+    chargeId: {
+      type: String,
     },
     ownerId: {
       type: mongoose.Schema.Types.ObjectId,

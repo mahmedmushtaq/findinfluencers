@@ -17,7 +17,7 @@ app.use(json());
 
 app.use("/api/messages", messagesRouter);
 // app.use(cors());
-console.log("new App");
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,

@@ -24,7 +24,6 @@ class Notification {
   sendNotification(payload: NotificationType) {
     let sockets = [];
     if (usersMap.has(payload.toUserId)) {
-      console.log("is user present");
       sockets = usersMap.get(payload.toUserId).sockets;
     }
     sockets.forEach((socket: string) => {
@@ -44,7 +43,6 @@ class Notification {
         payload: { id: string | undefined; _id: string | undefined }[]
       ) => {
         const map = payload.map(async (singleId) => {
-          console.log("singleId ", singleId);
           const notification = await NotificationModel.findByIdAndUpdate(
             singleId.id || singleId._id,
             { read: true }

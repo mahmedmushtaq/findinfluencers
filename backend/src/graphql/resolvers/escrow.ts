@@ -15,20 +15,19 @@ import {
 import {
   orderStatusControllerBuyer,
   orderStatusControllerInfluencer,
-} from "../controllers/orderController/orderStatusControllerBuyer";
+} from "../controllers/orderController/orderStatusController";
 
 const EscrowResolver: IResolvers = {
   Query: {
     myEscrow: authenticated(async (_: void, _1: any, context: contextType) => {
       const res = await escrowController(context);
-      console.log("res is = ", res);
+
       return res;
     }),
   },
   Mutation: {
     createPaymentIntent: authenticated(
       async (_: void, { input }: any, context: contextType) => {
-        console.log(input);
         const { orderId } = input;
         const order = await Order.findById(orderId);
         if (!order) {
@@ -44,7 +43,6 @@ const EscrowResolver: IResolvers = {
     ),
     savePaymentIntent: authenticated(
       async (_: void, { input }: any, context: contextType) => {
-        console.log("save Payment Intent", input);
         const order = await savePaymentIntentController(input, context);
         return order;
       }

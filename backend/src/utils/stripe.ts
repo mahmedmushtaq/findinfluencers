@@ -42,7 +42,6 @@ export const createPaymentIntent = async (data: {
     paymentIntentData.setup_future_usage = "off_session";
   }
 
-  console.log("payment intentent data is = ", paymentIntentData);
   //@ts-ignore
   return stripe.paymentIntents.create(paymentIntentData);
 };

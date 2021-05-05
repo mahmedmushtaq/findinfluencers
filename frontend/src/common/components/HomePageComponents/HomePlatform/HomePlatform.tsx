@@ -5,6 +5,8 @@ import {
   borderBottomLeftRadiusLaptop,
   borderBottomLeftRadiusMobile,
 } from "../../../../../styles/commonStyle";
+import useWidthMediaQuery from "../../../hooks/useWidthMediaQuery";
+import { useState } from "react";
 
 const popularPlatform = [
   {
@@ -40,6 +42,12 @@ const popularPlatform = [
 ];
 
 const Platform = () => {
+  const { isSmallLaptopScreen, isMediumLaptopScreen } = useWidthMediaQuery();
+  const laptopScreenBox = isSmallLaptopScreen
+    ? 160
+    : isMediumLaptopScreen
+    ? 190
+    : 200;
   return (
     <Grid sx={{}}>
       <Box>
@@ -62,9 +70,9 @@ const Platform = () => {
                 ],
                 mr: 4,
                 mb: 4,
-                height: [100, 200],
-                width: [100, 200],
-                minWidth: [100, 200],
+                height: [100, 110, laptopScreenBox],
+                width: [100, 110, laptopScreenBox],
+                minWidth: [100, 110, laptopScreenBox],
               }}
             ></Box>
           ))}
