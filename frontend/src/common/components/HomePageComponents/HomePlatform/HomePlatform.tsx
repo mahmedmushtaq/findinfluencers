@@ -6,37 +6,34 @@ import {
   borderBottomLeftRadiusMobile,
 } from "../../../../../styles/commonStyle";
 import useWidthMediaQuery from "../../../hooks/useWidthMediaQuery";
+import { useEffect, useState } from "react";
 
 const popularPlatform = [
   {
     id: 1,
-    image:
-      "/images/icons/insta_vector.svg",
-    slug: "influencers/searchinfluencers?category=any&platform=instagram",
+    image: "/images/icons/insta_vector.svg",
+    slug: "/influencers/searchinfluencers?category=any&platform=instagram",
   },
   {
     id: 2,
     image:
       "https://i.pinimg.com/originals/8e/1d/1c/8e1d1cee4879db1796c87f0a620afe6a.png",
-    slug: "influencers/searchinfluencers?category=any&platform=tiktok",
+    slug: "/influencers/searchinfluencers?category=any&platform=tiktok",
   },
   {
     id: 3,
-    image:
-    "/images/icons/youtube_vector.svg",
-    slug: "influencers/searchinfluencers?category=any&platform=youtube",
+    image: "/images/icons/youtube_vector.svg",
+    slug: "/influencers/searchinfluencers?category=any&platform=youtube",
   },
   {
     id: 4,
-    image:
-    "/images/icons/facebook_vector.svg",
-    slug: "influencers/searchinfluencers?category=any&platform=facebook",
+    image: "/images/icons/facebook_vector.svg",
+    slug: "/influencers/searchinfluencers?category=any&platform=facebook",
   },
   {
     id: 5,
-    image:
-    "/images/icons/twitter_vector.svg",
-    slug: "influencers/searchinfluencers?category=any&platform=twitter",
+    image: "/images/icons/twitter_vector.svg",
+    slug: "/influencers/searchinfluencers?category=any&platform=twitter",
   },
 ];
 
@@ -46,15 +43,22 @@ const Platform = () => {
     isSmallLaptopScreen,
     isSmallTabletScreen,
   } = useWidthMediaQuery();
-  const laptopScreenBox = isMiniLaptopScreen
-    ? 140
-    : isSmallLaptopScreen
-    ? 190
-    : 200;
 
-  const tabletScreen = isSmallTabletScreen ? 80 : 110;
+  const [screenWidth, setScreenWidth] = useState({
+    laptopScreenBox: 200,
+    tabletScreen: 110,
+  });
 
-  console.log("isSMallTabletScreen", isSmallTabletScreen);
+  useEffect(() => {
+    const laptopScreenBox = isMiniLaptopScreen
+      ? 140
+      : isSmallLaptopScreen
+      ? 190
+      : 200;
+    const tabletScreen = isSmallTabletScreen ? 80 : 110;
+
+    setScreenWidth({ laptopScreenBox, tabletScreen });
+  }, [isMiniLaptopScreen, isSmallLaptopScreen, isSmallTabletScreen]);
 
   return (
     <Grid sx={{}}>
@@ -65,7 +69,7 @@ const Platform = () => {
       <Box mt={3}>
         <Flex sx={{ flexWrap: "wrap", justifyContent: "center" }}>
           {popularPlatform.map((platform, i) => (
-            <Link key={platform.id} href={`${platform.slug}`}>
+            <Link key={platform.id} href={{ pathname: platform.slug }}>
               <a>
                 <Box
                   style={
@@ -77,9 +81,21 @@ const Platform = () => {
                   sx={{
                     mr: 4,
                     mb: 4,
-                    height: [100, tabletScreen, laptopScreenBox],
-                    width: [100, tabletScreen, laptopScreenBox],
-                    minWidth: [100, tabletScreen, laptopScreenBox],
+                    height: [
+                      100,
+                      screenWidth.tabletScreen,
+                      screenWidth.laptopScreenBox,
+                    ],
+                    width: [
+                      100,
+                      screenWidth.tabletScreen,
+                      screenWidth.laptopScreenBox,
+                    ],
+                    minWidth: [
+                      100,
+                      screenWidth.tabletScreen,
+                      screenWidth.laptopScreenBox,
+                    ],
                   }}
                 >
                   <Image
