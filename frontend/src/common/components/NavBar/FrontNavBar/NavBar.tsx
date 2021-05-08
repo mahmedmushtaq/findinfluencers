@@ -43,7 +43,7 @@ const NavBar = () => {
         justifyItems: ["flex-end", "flex-end", "center"],
         alignItems: "center",
         margin: ["20px auto", "40px auto", "20px auto"],
-        padding: [0, 10, 0],
+        padding: ["0 0 0 40px", 10, 0],
       }}
     >
       <Box>
