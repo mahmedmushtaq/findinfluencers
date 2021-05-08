@@ -96,6 +96,8 @@ const HomeInfluencerGridItem = (props: props) => {
                 style={{
                   width: "100%",
                   height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center center",
                 }}
                 sx={{ borderBottomLeftRadius: [20, 20, 40] }}
               />
