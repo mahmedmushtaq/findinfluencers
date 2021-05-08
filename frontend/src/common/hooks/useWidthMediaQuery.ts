@@ -6,15 +6,15 @@ const useWidthMediaQuery = () => {
     query: "(min-width: 1090px) and (max-width: 1200px)",
   });
   const isSmallLaptopScreen = useMediaQuery({
-    query: "(min-width: 1200px) and (max-width: 1400px)",
+    query: "(min-device-width: 1200px) and (max-device-width: 1400px)",
   });
 
   const isMiniToSmallLaptopScreen = useMediaQuery({
-    query: "(min-width: 1090px) and (max-width: 1400px)",
+    query: "(min-device-width: 1090px) and (max-device-width: 1400px)",
   });
 
   const isSmallTabletScreen = useMediaQuery({
-    query: "(min-width: 640px) and (max-width: 750px)",
+    query: "(min-device-width: 640px) and (max-device-width: 750px)",
   });
 
   return {
