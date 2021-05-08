@@ -22,7 +22,8 @@ const popularPlatform = [
   },
   {
     id: 3,
-    image: "https://i.dlpng.com/static/png/7420051_preview.png",
+    image:
+      "https://simg.nicepng.com/png/small/2-21830_-youtube-youtube-party-youtube-youtube-youtube.png",
     slug: "",
   },
   {
