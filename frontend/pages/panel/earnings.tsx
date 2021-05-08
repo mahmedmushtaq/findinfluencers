@@ -43,6 +43,7 @@ const Earnings = () => {
     let holdAmount = 0;
     const res = data.myEscrow;
     res.escrows.map((escrow) => {
+      console.log("escrow is = ", escrow);
       if (escrow.status === "company_holds") {
         pendingAmount += +escrow.order.amount;
       } else if (escrow.status === "company_holds_for_five_days") {
@@ -57,7 +58,7 @@ const Earnings = () => {
 
   const onClickAccount = () => {
     if (user.role !== "influencer" || account === 0) return;
-    
+
     setShowPaymentWithdrawlPopup(true);
   };
 

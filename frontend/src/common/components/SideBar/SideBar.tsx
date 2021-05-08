@@ -25,7 +25,7 @@ const SideBar = (props: SideBarPropsType) => {
   //const translateX = sidebarDirection === "left" ? "-100%" : "100%";
 
   const initialHideStyle = { x: "100%" };
-  const finalStyle = { x: "-58%", display: "block" };
+  const finalStyle = { x: "-90%", display: "block" };
   return (
     <Box sx={{}}>
       <AnimatePresence>

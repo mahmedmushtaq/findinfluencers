@@ -5,6 +5,7 @@ import { OrderStatus } from "../../../models/order";
 import { contextType } from "../../../types/apolloContextType";
 import { refundAmount } from "../escrowController";
 import { sendNotification } from "../notification";
+import { percentageDeductions } from "./amountDeduction";
 
 const addAmountInEscrow = async (order: any, context: contextType) => {
   const escrow = await Escrow.build({
@@ -16,13 +17,11 @@ const addAmountInEscrow = async (order: any, context: contextType) => {
   await escrow.save();
   // deduct and add amount in escorw
 
-  const user = await User.findById(context.user.id);
-
-  await sendNotification(
+  sendToUserNotification(
     context.user.id,
     order.ownerId.toString(),
-    `${user?.full_name} starts working`,
-    `orders/${order.id}`
+    "start working",
+    order.id
   );
 
   return true;
@@ -71,6 +70,13 @@ export const orderStatusControllerInfluencer = async (
         "You cannot Cancel Running Contract. Kindly Contact Our Team For This Problem"
       );
     }
+  } else if (status === OrderStatus.submit_for_payment) {
+    sendToUserNotification(
+      context.user.id,
+      order.ownerId.toString(),
+      "submit work for payment",
+      order.id
+    );
   }
 
   order.status = status;
@@ -102,6 +108,16 @@ export const orderStatusControllerBuyer = async (
     if (escrow) {
       escrow.status = EscrowStatus.company_holds_for_five_days;
       await escrow?.save();
+
+      order.amount = await percentageDeductions(order.amount, order.id);
+      await order.save();
+
+      sendToUserNotification(
+        context.user.id,
+        order.workingUserId.toString(),
+        "approved the payment",
+        order.id
+      );
     }
   }
 
@@ -109,4 +125,20 @@ export const orderStatusControllerBuyer = async (
   // deduct amount from a particular user card
 
   return order;
+};
+
+const sendToUserNotification = async (
+  fromId: string,
+  toId: string,
+  message: string,
+  orderId: string
+) => {
+  const user = await User.findById(fromId);
+
+  await sendNotification(
+    fromId,
+    toId.toString(),
+    `${user?.full_name} ${message}`,
+    `orders/${orderId}`
+  );
 };

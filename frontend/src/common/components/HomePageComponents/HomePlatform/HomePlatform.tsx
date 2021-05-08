@@ -42,10 +42,10 @@ const popularPlatform = [
 ];
 
 const Platform = () => {
-  const { isSmallLaptopScreen, isMediumLaptopScreen } = useWidthMediaQuery();
-  const laptopScreenBox = isSmallLaptopScreen
+  const { isMiniLaptopScreen, isSmallLaptopScreen } = useWidthMediaQuery();
+  const laptopScreenBox = isMiniLaptopScreen
     ? 160
-    : isMediumLaptopScreen
+    : isSmallLaptopScreen
     ? 190
     : 200;
   return (

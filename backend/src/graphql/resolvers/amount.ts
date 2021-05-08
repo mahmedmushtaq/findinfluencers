@@ -26,6 +26,7 @@ const AmountResolver: IResolvers = {
           }
 
           const isWithDrawlRequestIsPresent = await WithDrawlRequest.findOne({
+            status: "pending",
             userId: context.user.id,
           });
 

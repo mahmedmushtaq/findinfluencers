@@ -11,11 +11,11 @@ const FrontLayout = (props: {
   const isHeaderShow = showHeader === undefined ? true : showHeader;
   const bodyTopMargin =
     props.bodyTopMargin === undefined ? 100 : props.bodyTopMargin;
-  const { isBigLargestScreen, isSmallLaptopScreen, isMediumLaptopScreen } = useWidthMediaQuery();
+  const { isBigLargestScreen, isMiniLaptopScreen, isSmallLaptopScreen } = useWidthMediaQuery();
 
   const largeScreenWidth = isBigLargestScreen
     ? "70%"
-    : isSmallLaptopScreen || isMediumLaptopScreen
+    : isSmallLaptopScreen || isSmallLaptopScreen
     ? "95%"
     : "85%";
 

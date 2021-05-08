@@ -2,6 +2,8 @@ import { Grid, Box, Flex, Styled, Text, Button } from "theme-ui";
 import {
   borderBottomLeftRadiusMobile,
   standardShortWidthLaptop,
+  standardShortWidthMobile,
+  standardShortWidthTablet,
 } from "../../../../../styles/commonStyle";
 import SideBarItemWithIcon from "../../SideBar/SideBarItemsWithIcons";
 import {
@@ -11,6 +13,7 @@ import {
 import React, { useRef, useState } from "react";
 import Link from "next/link";
 import useToCheckOutSideClick from "../../../hooks/useToCheckOutSideClick/useToCheckOutSideClick";
+import useWidthMediaQuery from "../../../hooks/useWidthMediaQuery";
 
 const PanelNavBar = (props: { businessNavBar?: boolean }) => {
   const [openSideBar, setOpenSideBar] = useState(false);
@@ -26,6 +29,7 @@ const PanelNavBar = (props: { businessNavBar?: boolean }) => {
       }
     },
   });
+  const { isMiniToSmallLaptopScreen } = useWidthMediaQuery();
   return (
     <Box
       sx={{
@@ -34,7 +38,11 @@ const PanelNavBar = (props: { businessNavBar?: boolean }) => {
     >
       <Flex
         sx={{
-          width: standardShortWidthLaptop,
+          width: [
+            standardShortWidthMobile,
+            "99%",
+            isMiniToSmallLaptopScreen ? "90%" : standardShortWidthLaptop,
+          ],
           margin: "auto",
           alignItems: "center",
         }}
