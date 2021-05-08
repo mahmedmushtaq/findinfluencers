@@ -6,13 +6,12 @@ import {
   borderBottomLeftRadiusMobile,
 } from "../../../../../styles/commonStyle";
 import useWidthMediaQuery from "../../../hooks/useWidthMediaQuery";
-import { useState } from "react";
 
 const popularPlatform = [
   {
     id: 1,
     image:
-      "https://www.flaticon.com/svg/vstatic/svg/174/174855.svg?token=exp=1620498080~hmac=ce0d378426cacb6f9b8d0273a115461b",
+      "/images/icons/insta_vector.svg",
     slug: "influencers/searchinfluencers?category=any&platform=instagram",
   },
   {
@@ -24,19 +23,19 @@ const popularPlatform = [
   {
     id: 3,
     image:
-      "https://www.flaticon.com/svg/vstatic/svg/179/179346.svg?token=exp=1620496390~hmac=b346ae3694f98a6018f78569dade654e",
+    "/images/icons/youtube_vector.svg",
     slug: "influencers/searchinfluencers?category=any&platform=youtube",
   },
   {
     id: 4,
     image:
-      "https://www.flaticon.com/svg/vstatic/svg/1312/1312139.svg?token=exp=1620496457~hmac=4744623e71529adfc7ea7d2200352eca",
+    "/images/icons/facebook_vector.svg",
     slug: "influencers/searchinfluencers?category=any&platform=facebook",
   },
   {
     id: 5,
     image:
-      "https://www.flaticon.com/svg/vstatic/svg/733/733579.svg?token=exp=1620496547~hmac=4e261043dfdf0c10d5b7d740fd3b88b8",
+    "/images/icons/twitter_vector.svg",
     slug: "influencers/searchinfluencers?category=any&platform=twitter",
   },
 ];
