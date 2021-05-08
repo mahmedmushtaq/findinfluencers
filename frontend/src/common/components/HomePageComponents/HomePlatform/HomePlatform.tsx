@@ -12,31 +12,29 @@ const popularPlatform = [
   {
     id: 1,
     image:
-      "https://images.unsplash.com/photo-1595039838779-f3780873afdd?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+      "https://images.unsplash.com/photo-1611162618758-2a29a995354b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=282&q=80",
     slug: "",
   },
   {
     id: 2,
-    image:
-      "https://images.unsplash.com/photo-1597075095400-fb3f0de70140?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=335&q=80",
+    image: "https://campaignme.com/wp-content/uploads/2020/10/loog-1200.png",
     slug: "",
   },
   {
     id: 3,
-    image:
-      "https://images.unsplash.com/photo-1567443024551-f3e3cc2be870?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
+    image: "https://i.dlpng.com/static/png/7420051_preview.png",
     slug: "",
   },
   {
     id: 4,
     image:
-      "https://images.unsplash.com/photo-1596526131158-52be64dcc208?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=667&q=80",
+      "https://www.seekpng.com/png/detail/19-191539_facebook-f-logo-png-transparent-background-logo-facebook.png",
     slug: "",
   },
   {
     id: 5,
     image:
-      "https://images.unsplash.com/photo-1600783245998-945baf9626bc?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=667&q=80",
+      "https://cdn.pixabay.com/photo/2015/10/21/08/22/media-998990_1280.jpg",
     slug: "",
   },
 ];
@@ -56,7 +54,7 @@ const Platform = () => {
 
       <Box mt={3}>
         <Flex sx={{ flexWrap: "wrap", justifyContent: "center" }}>
-          {popularPlatform.map((platform) => (
+          {popularPlatform.map((platform, i) => (
             <Box
               key={platform.id}
               style={{
@@ -65,8 +63,12 @@ const Platform = () => {
               }}
               sx={{
                 borderBottomLeftRadius: [
-                  borderBottomLeftRadiusMobile,
-                  borderBottomLeftRadiusLaptop,
+                  i == 0 || i == popularPlatform.length - 1
+                    ? borderBottomLeftRadiusMobile
+                    : 0,
+                  i == 0 || i == popularPlatform.length - 1
+                    ? borderBottomLeftRadiusLaptop
+                    : 0,
                 ],
                 mr: 4,
                 mb: 4,
