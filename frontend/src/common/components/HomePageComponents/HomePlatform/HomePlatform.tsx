@@ -1,4 +1,4 @@
-import { Box, Grid, Styled, Flex, Link as LinkStyle } from "theme-ui";
+import { Box, Grid, Styled, Flex, Link as LinkStyle, Image } from "theme-ui";
 import Link from "next/link";
 import {
   bgImageStyle,
@@ -42,12 +42,20 @@ const popularPlatform = [
 ];
 
 const Platform = () => {
-  const { isMiniLaptopScreen, isSmallLaptopScreen } = useWidthMediaQuery();
+  const {
+    isMiniLaptopScreen,
+    isSmallLaptopScreen,
+    isSmallTabletScreen,
+  } = useWidthMediaQuery();
   const laptopScreenBox = isMiniLaptopScreen
     ? 140
     : isSmallLaptopScreen
     ? 190
     : 200;
+
+  const tabletScreen = isSmallTabletScreen ? 80 : 110;
+
+  console.log("isSMallTabletScreen", isSmallTabletScreen);
 
   return (
     <Grid sx={{}}>
@@ -61,26 +69,29 @@ const Platform = () => {
             <Link key={platform.id} href={`${platform.slug}`}>
               <a>
                 <Box
-                  style={{
-                    ...bgImageStyle,
-                    backgroundImage: `url(${platform.image})`,
-                  }}
+                  style={
+                    {
+                      // ...bgImageStyle,
+                      // backgroundImage: `url(${platform.image})`,
+                    }
+                  }
                   sx={{
-                    borderBottomLeftRadius: [
-                      i == 0 || i == popularPlatform.length - 1
-                        ? borderBottomLeftRadiusMobile
-                        : 0,
-                      i == 0 || i == popularPlatform.length - 1
-                        ? borderBottomLeftRadiusLaptop
-                        : 0,
-                    ],
                     mr: 4,
                     mb: 4,
-                    height: [100, 110, laptopScreenBox],
-                    width: [100, 110, laptopScreenBox],
-                    minWidth: [100, 110, laptopScreenBox],
+                    height: [100, tabletScreen, laptopScreenBox],
+                    width: [100, tabletScreen, laptopScreenBox],
+                    minWidth: [100, tabletScreen, laptopScreenBox],
                   }}
-                ></Box>
+                >
+                  <Image
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                    src={platform.image}
+                    alt="Platform Image"
+                  />
+                </Box>
               </a>
             </Link>
           ))}

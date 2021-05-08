@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploy": "yarn install&&yarn build&&export NODE_ENV=production&&pm2 start npm --name \"next\" -- start"
   },
   "engines": {
     "node": "12.22.1"

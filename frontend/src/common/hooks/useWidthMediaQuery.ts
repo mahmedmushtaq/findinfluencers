@@ -13,11 +13,16 @@ const useWidthMediaQuery = () => {
     query: "(min-width: 1090px) and (max-width: 1400px)",
   });
 
+  const isSmallTabletScreen = useMediaQuery({
+    query: "(min-width: 640px) and (max-width: 750px)",
+  });
+
   return {
     isBigLargestScreen,
     isMiniLaptopScreen,
     isSmallLaptopScreen,
     isMiniToSmallLaptopScreen,
+    isSmallTabletScreen,
   };
 };
 
