@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Box, Text } from "theme-ui";
+import { Box, Text, Image } from "theme-ui";
 import {
   bgImageStyle,
   textOverflowEllipseStyle,
@@ -64,22 +64,24 @@ const HomeInfluencerGridItem = (props: props) => {
           <a>
             <Box
               style={{
-                ...bgImageStyle,
-                backgroundImage: `url(${image})`,
+                // ...bgImageStyle,
+                // backgroundImage: `url(${})`,
                 ...fullWidth,
+                position: "relative",
 
                 height: "100%",
               }}
               sx={{
                 ...commonDesign,
-                borderBottomLeftRadius: [20, 20, 40],
               }}
             >
               <Text
                 sx={{ fontSize: 1, borderBottomLeftRadius: [20, 50, 50] }}
                 style={{
                   marginTop: "auto",
-
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
                   color: "white",
                   padding: "10px 30px",
                   ...fullWidth,
@@ -89,6 +91,14 @@ const HomeInfluencerGridItem = (props: props) => {
               >
                 {data.user.full_name}
               </Text>
+              <Image
+                src={image}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+                sx={{ borderBottomLeftRadius: [20, 20, 40] }}
+              />
             </Box>
           </a>
         </Link>
