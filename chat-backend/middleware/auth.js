@@ -11,10 +11,8 @@ exports.auth = async (req, res, next) => {
     return res.status(401).send({ message: "Authentication is required" });
   }
 
-  console.log("token is ", config.appKey);
-
   try {
-    const userData = await jwt.verify(token, config.appKey);
+    const userData = await jwt.verify(token, config.jwtSecret);
 
     try {
       const user = await User.findOne({ where: { id: userData.id } });
