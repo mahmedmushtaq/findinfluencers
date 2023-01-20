@@ -48,7 +48,7 @@ const useOrder = (props: { orderStatus }) => {
 
   useEffect(() => {
     if (!data) return;
-    console.log("loaded data is = ", data.orderByStatus);
+
     setOrderList(data.orderByStatus);
   }, [data]);
 

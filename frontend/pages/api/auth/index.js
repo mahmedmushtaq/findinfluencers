@@ -4,6 +4,7 @@ import withSession from "../../../src/lib/session";
 export default withSession(async (req, res) => {
   if (req.method === "POST") {
     const { email, password } = req.body;
+    console.log("received req ", email);
 
     if (!email || !password) {
       res.send({ message: "Please provide email and password" });
@@ -44,7 +45,7 @@ export default withSession(async (req, res) => {
       }
 
       const signIn = responseData.data.signIn;
-      req.session.set("user", signIn);
+      req.session.user = signIn;
       await req.session.save();
 
       const userData = { isLoggedIn: true, ...signIn };

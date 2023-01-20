@@ -31,7 +31,7 @@ const useSocket = (user) => {
   }); //useReducer(reducer, initialState);
 
   useEffect(() => {
-    const socket = socketIOClient(process.env.SERVER_URL, {
+    const socket = socketIOClient(process.env.CHAT_APP_URL, {
       query: { token: user?.token },
     });
 
@@ -53,10 +53,11 @@ const useSocket = (user) => {
         }));
       }
     );
+    socket?.off(SocketSubject.receivedNotification);
 
-    return () => {
-      socket?.off(SocketSubject.receivedNotification);
-    };
+    // return () => {
+    //   socket?.off(SocketSubject.receivedNotification);
+    // };
   }, [user]);
 
   return { state, setState };

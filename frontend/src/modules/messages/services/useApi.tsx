@@ -6,7 +6,6 @@ const { useSelector } = require("react-redux");
 const useApi = () => {
   const user = useSelector((store: RootStateOrAny) => store.user);
   const createChat = async (partnerId) => {
-    
     try {
       const res = await API.post("/chats/create", {
         partnerId,

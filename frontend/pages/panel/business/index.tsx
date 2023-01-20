@@ -4,7 +4,7 @@ import { PanelLayout } from "../../../src/common/layouts";
 
 const BusinessHomePage = () => {
   return (
-    <PanelLayout businessPanel={true}>
+    <PanelLayout businessPanel>
       <Box>
         <BusinessPanelDashboard />
       </Box>

@@ -27,18 +27,21 @@ const Earnings = () => {
   useEffect(() => {
     if (!data) return;
     let pendingAmount = 0;
+    let totalAmount = 0;
     const res = data.myEscrow;
+    console.log("res is ", res);
     res.escrows.map((escrow) => {
       if (escrow.status === "company_holds") {
         pendingAmount += +escrow.order.amount;
+      } else {
+        totalAmount += +escrow.order.amount;
       }
     });
     setPending(pendingAmount);
-    setAccount(res.amount);
-    console.log("data is = ", data);
+    setAccount(totalAmount);
   }, [data]);
   return (
-    <PanelLayout>
+    <PanelLayout businessPanel>
       <Box sx={{}}>
         <Grid columns={[2]}>
           <Box sx={{ ...boxStyle }}>

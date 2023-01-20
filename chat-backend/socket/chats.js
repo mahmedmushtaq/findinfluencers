@@ -4,7 +4,6 @@ const { User, Chat, ChatUser, Message, MessageSeen } = model;
 const { Op } = require("sequelize");
 
 exports.chatsList = async (userId) => {
-  console.log("user Id is = ", userId);
   const user = await User.findOne({
     where: {
       id: userId.toString(),
@@ -63,7 +62,7 @@ exports.chatsList = async (userId) => {
     return chat;
   });
 
- // const chatsArray = user.toJSON().Chats; //chatsSort; //await Promise.all(attachMessageSeenAttachmentMap);
+  // const chatsArray = user.toJSON().Chats; //chatsSort; //await Promise.all(attachMessageSeenAttachmentMap);
 
   // add message seenArray inside Message
 

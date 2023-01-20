@@ -4,6 +4,7 @@ import withSession from "../../../src/lib/session";
 export default withSession(async (req, res) => {
   if (req.method === "POST") {
     const { email, password, full_name, role } = req.body;
+    console.log("received param ", email);
 
     if (!email || !password || !full_name || !role) {
       res.send({
@@ -46,7 +47,9 @@ export default withSession(async (req, res) => {
       }
 
       const signUp = responseData.data.signUp;
-      req.session.set("user", signUp);
+
+      req.session.user = signUp;
+
       await req.session.save();
 
       const userData = { isLoggedIn: true, ...signUp };

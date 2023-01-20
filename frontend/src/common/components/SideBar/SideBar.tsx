@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const sideBarStyleContainer: any = {
   position: "absolute",
-  transition: "all 1.4s ease",
+  transition: "all 0.4s ease",
   height: "100%",
   backgroundColor: "red",
   boxShadow: "0 0 1px rgba(0,0,0,.5)",
@@ -42,7 +42,7 @@ const SideBar = (props: SideBarPropsType) => {
             }}
             initial={initialHideStyle}
             animate={finalStyle}
-            transition={{ duration: 1.2 }}
+            transition={{ duration: 0.4 }}
             exit={{ x: "100%" }}
           >
             {props.children}

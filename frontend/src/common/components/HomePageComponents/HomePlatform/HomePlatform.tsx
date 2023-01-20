@@ -12,37 +12,39 @@ const popularPlatform = [
   {
     id: 1,
     image: "/images/icons/insta_vector.svg",
-    slug: "/influencers/searchinfluencers?category=any&platform=instagram",
+    slug: "/influencers/searchinfluencers",
+    query: { categoyr: "any", platform: "instagram" },
   },
   {
     id: 2,
     image:
       "https://i.pinimg.com/originals/8e/1d/1c/8e1d1cee4879db1796c87f0a620afe6a.png",
-    slug: "/influencers/searchinfluencers?category=any&platform=tiktok",
+    slug: "/influencers/searchinfluencers",
+    query: { categoyr: "any", platform: "tiktok" },
   },
   {
     id: 3,
     image: "/images/icons/youtube_vector.svg",
-    slug: "/influencers/searchinfluencers?category=any&platform=youtube",
+    slug: "/influencers/searchinfluencers",
+    query: { categoyr: "any", platform: "tiktok" },
   },
   {
     id: 4,
     image: "/images/icons/facebook_vector.svg",
-    slug: "/influencers/searchinfluencers?category=any&platform=facebook",
+    slug: "/influencers/searchinfluencers",
+    query: { categoyr: "any", platform: "facebook" },
   },
   {
     id: 5,
     image: "/images/icons/twitter_vector.svg",
-    slug: "/influencers/searchinfluencers?category=any&platform=twitter",
+    slug: "/influencers/searchinfluencers",
+    query: { categoyr: "any", platform: "twitter" },
   },
 ];
 
 const Platform = () => {
-  const {
-    isMiniLaptopScreen,
-    isSmallLaptopScreen,
-    isSmallTabletScreen,
-  } = useWidthMediaQuery();
+  const { isMiniLaptopScreen, isSmallLaptopScreen, isSmallTabletScreen } =
+    useWidthMediaQuery();
 
   const [screenWidth, setScreenWidth] = useState({
     laptopScreenBox: 200,
@@ -69,15 +71,12 @@ const Platform = () => {
       <Box mt={3}>
         <Flex sx={{ flexWrap: "wrap", justifyContent: "center" }}>
           {popularPlatform.map((platform, i) => (
-            <Link key={platform.id} href={{ pathname: platform.slug }}>
+            <Link
+              key={platform.id}
+              href={{ query: { ...platform.query }, pathname: platform.slug }}
+            >
               <a>
                 <Box
-                  style={
-                    {
-                      // ...bgImageStyle,
-                      // backgroundImage: `url(${platform.image})`,
-                    }
-                  }
                   sx={{
                     mr: 4,
                     mb: 4,

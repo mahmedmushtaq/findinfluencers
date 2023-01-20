@@ -8,8 +8,6 @@ import { Text } from "theme-ui";
 const Friend = ({ chat, click }) => {
   const currentChat = useSelector((state) => state.chatReducer.currentChat);
 
-  console.log("chat is = ", chat);
-
   const isChatOpened = () => {
     return currentChat.id === chat.id ? "opened" : "";
   };

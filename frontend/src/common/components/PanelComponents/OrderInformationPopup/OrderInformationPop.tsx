@@ -8,8 +8,8 @@ const OrderInformationPopup = (props: { modelRef; orderData }) => {
       {orderData && (
         <Box style={{ textAlign: "center" }}>
           <Styled.h5>{orderData.name}</Styled.h5>
-          <Text>Order By {orderData.owner.full_name}</Text>
-          <Text>Working By {orderData.working.full_name}</Text>
+          <Text>Ordered By {orderData.owner.full_name}</Text>
+          <Text>Work(ing/ed) By {orderData.workingUser.full_name}</Text>
         </Box>
       )}
     </Modal>

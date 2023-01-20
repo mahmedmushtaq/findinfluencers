@@ -1,5 +1,4 @@
 import { Box, Button, Spinner, Flex, Input, Styled, Text } from "theme-ui";
-import Link from "next/link";
 import {
   standardShortWidthLaptop,
   standardShortWidthMobile,
@@ -8,7 +7,6 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { PropsType } from "../propsType";
 import { useDispatch } from "react-redux";
-import { TYPES } from "../../../../store/enums";
 import axios from "axios";
 import { loginUserAction } from "../../../../store/actions";
 
@@ -64,13 +62,13 @@ const SignUp = (props: PropsType) => {
         if (res.role === "buyer") {
           defaultPath = "/panel/business";
         } else if (res.role === "admin") defaultPath = "/panel/admin";
-         //   router.push(props.path ? props.path : defaultPath);
-         // @ts-ignore
-         window.location = props.path ? props.path : defaultPath;
-      
+        //   router.push(props.path ? props.path : defaultPath);
+        // @ts-ignore
+        window.location = props.path ? props.path : defaultPath;
       } else props.onSuccessful(res);
     } catch (err) {
-      if (err.response) setError(err?.response?.data?.errors[0]?.message);
+      console.log("err is ", err);
+      if (err.response) setError(err?.response?.data?.errors?.[0]?.message);
       else setError(err.response.data);
     } finally {
       setLoading(false);

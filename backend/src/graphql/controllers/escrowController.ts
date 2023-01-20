@@ -51,6 +51,7 @@ export const escrowController = async (context: contextType) => {
         $or: [
           { status: EscrowStatus.company_holds },
           { status: EscrowStatus.company_holds_for_five_days },
+          { status: EscrowStatus.paid },
         ],
       },
     ],

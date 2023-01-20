@@ -24,8 +24,6 @@ const AddUserToChatListModel = ({ login, ignore }) => {
     }
 
     login();
-    //  ignore();
-    // emit socket event
   };
 
   return (

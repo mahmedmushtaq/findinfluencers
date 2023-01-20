@@ -8,13 +8,14 @@ const AmountResolver: IResolvers = {
     allNotifications: authenticated(
       async (_: void, _1: void, context: contextType) => {
         const id = context.user.id;
-        console.log("id is = ", id);
         const notifications = await Notification.find({
           toUserId: id,
           opened: false,
         })
           .populate("fromUserId", "id full_name username")
           .sort([["createdAt", -1]]);
+
+        console.log("notifications ", notifications);
 
         return notifications;
       }

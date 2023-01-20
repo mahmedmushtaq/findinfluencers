@@ -22,6 +22,8 @@ const EscrowResolver: IResolvers = {
     myEscrow: authenticated(async (_: void, _1: any, context: contextType) => {
       const res = await escrowController(context);
 
+      console.log("res is ", res);
+
       return res;
     }),
   },

@@ -24,8 +24,8 @@ const escrowType = gql`
 
   type MyEscrow {
     escrows: [Escrow!]!
-    amount: Int
-    billed: Int
+    amount: Float
+    billed: Float
   }
 
   extend type Query {

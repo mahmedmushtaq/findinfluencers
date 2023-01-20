@@ -55,6 +55,8 @@ const OrderResolver: IResolvers = {
           .populate("platformProfileId")
           .sort([["createdAt", -1]]);
 
+        console.log("orders are ", orders);
+
         return orders;
       }
     ),

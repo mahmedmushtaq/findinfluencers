@@ -108,7 +108,6 @@ export const paginateMessage = (state, payload) => {
 };
 
 export const senderTyping = (state, payload) => {
-  console.log("payload is = ", payload);
   if (payload.typing) {
     return {
       ...state,

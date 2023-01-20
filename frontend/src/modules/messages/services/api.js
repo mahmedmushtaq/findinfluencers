@@ -11,20 +11,19 @@ const getToken = () => {
 };
 
 const API = axios.create({
-  baseURL: process.env.CHAT_APP_URL, 
+  baseURL: process.env.CHAT_APP_URL,
   headers: {
     Accept: "application/json",
     Authorization: `Bearer ${getToken()}`,
   },
 });
 
-console.log("API is = ", API);
-
 API.interceptors.response.use(
   (res) => {
     return res;
   },
   (err) => {
+    console.log("err is ", JSON.stringify(err));
     if (err.response.status !== 401) {
       throw err;
     }

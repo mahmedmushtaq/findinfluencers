@@ -55,6 +55,7 @@ const Orders = (props: {
   };
 
   const onOrderSelection = (order) => {
+    console.log("order is ", order);
     setSelectedOrder(order);
     //@ts-ignore
     modalRef.current.open();

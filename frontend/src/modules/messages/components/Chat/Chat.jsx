@@ -7,7 +7,6 @@ import Messenger from "./components/Messenger/Messenger";
 import socketConnection from "./hooks/socketConnection";
 import styles from "../../../../../styles/scss/chats/Chat.module.scss";
 
-
 const Chat = () => {
   const user = useSelector((store) => store.user);
 
@@ -20,7 +19,6 @@ const Chat = () => {
       <div className={styles["chat_wrap"]}>
         <FriendList />
         <Messenger />
-        {/* <Messenger /> */}
       </div>
     </div>
   );

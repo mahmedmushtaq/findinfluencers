@@ -1,4 +1,4 @@
-const socketIO = require("socket.io");
+const { Server } = require("socket.io");
 const { sequelize } = require("../models");
 const { chatsList } = require("./chats");
 const Message = require("../models").Message;
@@ -7,11 +7,8 @@ const users = new Map();
 const userSockets = new Map();
 
 const SocketServer = (server) => {
-  const io = socketIO(server, {
-    cors: {
-      origin: process.env.ALLOW_CORS_DOMAIN,
-      methods: ["GET", "POST"],
-    },
+  const io = new Server(server, {
+    cors: { origin: "*", methods: ["GET", "POST"] },
   });
   io.on("connect", (socket) => {
     socket.on("chats", async (user) => {

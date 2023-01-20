@@ -120,10 +120,6 @@ const PaymentForm = (props: { orderId: string }) => {
 
       router.push("/panel/business");
     }
-
-    // setTimeout(() => {
-    //   window.location = '/dashboard';
-    // }, 300);
   };
 
   return (

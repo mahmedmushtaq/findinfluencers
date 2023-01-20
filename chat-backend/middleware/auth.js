@@ -7,11 +7,11 @@ exports.auth = async (req, res, next) => {
 
   const token = authHeader && authHeader.split(" ")[1];
 
-  console.log("token is = ", token);
-
   if (!token) {
     return res.status(401).send({ message: "Authentication is required" });
   }
+
+  console.log("token is ", config.appKey);
 
   try {
     const userData = await jwt.verify(token, config.appKey);
@@ -26,6 +26,7 @@ exports.auth = async (req, res, next) => {
     }
     //
   } catch (err) {
+    console.log("auth header is ", err);
     return res.status(401).json({ error: err });
   }
 };

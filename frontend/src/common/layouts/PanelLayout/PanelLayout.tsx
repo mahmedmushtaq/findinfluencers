@@ -29,8 +29,6 @@ const PanelLayout = (props: PropsType) => {
   const { showNotification, openNotificationAlert } = usePanel();
 
   return (
-    // <SocketContext.Provider value={socket}>
-    // {/* <PanelGlobalState.Provider value={{ state, dispatch }}> */}
     <div
       style={{
         backgroundColor: "white",
@@ -63,16 +61,12 @@ const PanelLayout = (props: PropsType) => {
           style={{ ...newNotificationDiv }}
           onClick={openNotificationAlert}
         >
-          {" "}
           <Card>
-            {/* <Bell size={54} /> */}
             <Box mt={1}>{showNotification}</Box>
           </Card>
         </motion.div>
       )}
     </div>
-    //   {/* </PanelGlobalState.Provider> */}
-    // </SocketContext.Provider>
   );
 };
 

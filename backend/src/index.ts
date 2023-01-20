@@ -11,6 +11,8 @@ const start = async () => {
     throw new Error("JWT key must be valid");
   }
 
+  console.log(process.env!.MONGODB_URI!);
+
   try {
     await mongoose.connect(process.env!.MONGODB_URI!, {
       useNewUrlParser: true,

@@ -143,6 +143,7 @@ exports.Index = async (req, res) => {
 
 exports.create = async (req, res) => {
   const { partnerId } = req.body;
+  console.log("partner id ", partnerId);
   const t = await sequelize.transaction();
   try {
     const user = await User.findOne({

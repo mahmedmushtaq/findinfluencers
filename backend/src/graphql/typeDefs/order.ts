@@ -18,11 +18,10 @@ const orderType = gql`
     status: OrderStatus!
     owner: User!
     workingUser: User!
-    amount: Int!
+    amount: Float!
     platformProfile: PlatformProfileInfo!
     createdAt: String
     escrow: Escrow
-    
   }
 
   input OrderInput {
@@ -30,7 +29,7 @@ const orderType = gql`
     description: String
     status: OrderStatus!
     workingUserId: String!
-    amount: Int!
+    amount: Float!
     platformProfileId: String!
   }
 

@@ -30,9 +30,8 @@ const PaymentWithdrawlPopup = dynamic(
 
 const Earnings = () => {
   const { data, error, loading } = useQuery(LOAD_ESCROW_AMOUNT);
-  const [showPaymentWithdrawlPopup, setShowPaymentWithdrawlPopup] = useState(
-    false
-  );
+  const [showPaymentWithdrawlPopup, setShowPaymentWithdrawlPopup] =
+    useState(false);
   const [pending, setPending] = useState(0);
   const [holding, setHolding] = useState(0);
   const [account, setAccount] = useState(0);
@@ -43,7 +42,6 @@ const Earnings = () => {
     let holdAmount = 0;
     const res = data.myEscrow;
     res.escrows.map((escrow) => {
-      console.log("escrow is = ", escrow);
       if (escrow.status === "company_holds") {
         pendingAmount += +escrow.order.amount;
       } else if (escrow.status === "company_holds_for_five_days") {
@@ -53,7 +51,6 @@ const Earnings = () => {
     setPending(pendingAmount);
     setHolding(holdAmount);
     setAccount(res.amount);
-    console.log("data is = ", data);
   }, [data]);
 
   const onClickAccount = () => {
