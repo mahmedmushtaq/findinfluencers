@@ -26,7 +26,7 @@ const start = async () => {
     console.log(err);
   }
 
-  const expressServer = app.listen(process.env.PORT, () => {
+  const expressServer = app.listen(process.env.PORT || 8080, () => {
     console.log("Server is listening on the port ", process.env.PORT);
   });
 

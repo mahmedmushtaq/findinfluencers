@@ -8,10 +8,9 @@
     "clean:build": "tsc --build --clean",
     "build": "rimraf ./build && tsc",
     "prestart": "npm run build",
-    "start": "node build/index.js"
-  },
-  "engines": {
-    "node": "12.22.1"
+    "start": "node build/index.js",
+    "docker:build": "docker build -t influencer-backend .",
+    "docker:run": "docker run -p 8000:8000 influencer-backend"
   },
   "keywords": [],
   "author": "",
