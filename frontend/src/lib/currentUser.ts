@@ -6,8 +6,9 @@ export const getCurrentUser = async (context) => {
     let response;
     if (typeof window === "undefined") {
       // on server side call api to check user is logged In
-      console.log("process.env.HOST ", process.env.HOST);
+
       const { req } = context;
+      console.log("process.env.HOST ", process.env.HOST);
       response = await fetchData(process.env.HOST + "/api/auth/user", {
         headers: req.headers,
       });
