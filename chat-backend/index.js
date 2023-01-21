@@ -19,11 +19,9 @@ app.use(router);
 const server = http.createServer(app);
 SocketServer(server);
 
-const port = config.port;
+const port = config.port || 8080;
 
 app.get("/", (req, res) => {
-  console.log(process.env.NODE_ENV);
-  console.log(process.env);
   res.send("deployed");
 });
 
