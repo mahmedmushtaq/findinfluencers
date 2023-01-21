@@ -12,6 +12,9 @@
     "docker:build": "docker build -t influencer-backend .",
     "docker:run": "docker run -p 8000:8000 influencer-backend"
   },
+  "engines": {
+    "node": "12.22.1"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

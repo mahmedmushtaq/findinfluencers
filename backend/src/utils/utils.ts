@@ -1,5 +1,9 @@
 import fs from "fs";
 import path from "path";
+import { promisify } from "util";
+
+const mkdirAsync = promisify(fs.mkdir);
+const existAsync = promisify(fs.exists);
 
 export const transformMongooseResponse = {
   toJSON: {
@@ -29,31 +33,40 @@ export const saveFile = async (publicPath: string, file: any) => {
     const fileStream = createReadStream();
     const fileName = generateImageUniqueName(filename);
 
-    console.log("fileName is = ", fileName);
+    const dir = path.resolve(__dirname + `/../../public/${publicPath}`);
 
     // save file to  ../../assets/platformPic/${fileName}
 
-    fileStream
-      .pipe(
-        fs.createWriteStream(
-          path.join(
-            path.resolve(__dirname + `/../../public/${publicPath}`),
-            `${fileName}`
+    try {
+      // TODO:- reactivate this when we shift our code to latest node version
+      // const isDirExist = await existAsync(dir);
+      // if (!isDirExist) {
+      //   await mkdirAsync(dir);
+      // }
+      fileStream
+        .pipe(
+          fs.createWriteStream(
+            path.join(
+              path.resolve(__dirname + `/../../public/${publicPath}`),
+              `${fileName}`
+            )
           )
         )
-      )
-      .on("finish", () => {
-        singleFile.filename = fileName;
-        setTimeout(() => {
-          return resolve(singleFile);
-        }, 50);
+        .on("finish", () => {
+          singleFile.filename = fileName;
+          setTimeout(() => {
+            return resolve(singleFile);
+          }, 50);
 
-        //@ts-ignore
-      })
-      .on("error", (e: any) => {
-        console.log("error on transferring file is = ", e);
-        return reject(e);
-      });
+          //@ts-ignore
+        })
+        .on("error", (e: any) => {
+          console.log("error on transferring file is = ", e);
+          return reject(e);
+        });
+    } catch (err) {
+      console.log("error in saving file ", err);
+    }
   });
 };
 

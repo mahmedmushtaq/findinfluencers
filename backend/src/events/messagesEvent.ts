@@ -7,9 +7,13 @@ export const newUserEvent = async (data: {
   email: string;
   password: string;
 }) => {
-  // send new user request to messages services
-  const res = await axios.post(REGISTRATION_URL_ENDPOINT, data);
-  return res.data;
+  try {
+    // send new user request to messages services
+    const res = await axios.post(REGISTRATION_URL_ENDPOINT, data);
+    return res.data;
+  } catch (err) {
+    console.log("error in sending new suer event ", err);
+  }
 };
 
 export const updateUserEvent = async (
@@ -20,8 +24,12 @@ export const updateUserEvent = async (
     password?: string;
   }
 ) => {
-  const res = await axios.post(UPDATE_URL_ENDPOINT, data, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return res.data;
+  try {
+    const res = await axios.post(UPDATE_URL_ENDPOINT, data, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return res.data;
+  } catch (err) {
+    console.log("error in sending update user event", err);
+  }
 };

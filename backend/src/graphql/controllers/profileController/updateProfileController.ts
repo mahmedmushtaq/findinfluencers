@@ -113,7 +113,6 @@ export const updateProfileImages = async (
       return unlinkFile;
     } catch (err) {
       console.log("err on deleting file is = ", err);
-      return;
     }
   });
 
