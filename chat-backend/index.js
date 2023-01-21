@@ -19,7 +19,7 @@ app.use(router);
 const server = http.createServer(app);
 SocketServer(server);
 
-const port = config.port || 8080;
+const port = config.port;
 
 app.get("/", (req, res) => {
   console.log(process.env.NODE_ENV);
@@ -30,4 +30,3 @@ app.get("/", (req, res) => {
 server.listen(port, () => {
   console.log(`app is listening on the port ${port}`);
 });
-
