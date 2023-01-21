@@ -8,7 +8,7 @@ let socketCon: SocketConnection;
 const start = async () => {
   console.log("starting up...");
   if (!process.env!.JWT_SECRET!) {
-    throw new Error("JWT key must be valid");
+    console.log("JWT key must be present");
   }
 
   console.log(process.env!.MONGODB_URI!);
@@ -26,7 +26,7 @@ const start = async () => {
     console.log(err);
   }
 
-  const expressServer = app.listen(8080, () => {
+  const expressServer = app.listen(process.env.PORT || 8080, () => {
     console.log("Server is listening on the port ", process.env.PORT);
   });
 
