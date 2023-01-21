@@ -1,4 +1,4 @@
-FROM node:12.22.1-alpine3.12
+FROM node:16.13.2-alpine
 
 WORKDIR '/app'
 
@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8080
 
-CMD ["npm", "run", "build"]
+CMD ["npm", "run", "start"]

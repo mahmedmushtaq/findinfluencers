@@ -1,7 +1,7 @@
 const User = require("../models").User;
-const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const key = require("../config/app");
+const { Password } = require("../utils/password");
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
@@ -11,7 +11,7 @@ exports.login = async (req, res) => {
     if (!user)
       return res.status(404).send({ message: "Incorrect credentials" });
 
-    if (!bcrypt.compareSync(password, user.password)) {
+    if (!Password.compare(password, user.password)) {
       return res.status(404).send({ message: "Incorrect credentials" });
     }
 
