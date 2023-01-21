@@ -26,14 +26,11 @@ const start = async () => {
     console.log(err);
   }
 
-  const expressServer = app.listen(process.env.PORT || 8080, () => {
+  const expressServer = app.listen(8080, () => {
     console.log("Server is listening on the port ", process.env.PORT);
   });
 
-  socketCon = new SocketConnection(
-    expressServer,
-    process.env.ALLOW_CORS_DOMAIN!
-  );
+  socketCon = new SocketConnection(expressServer, "*");
   socketCon.startServer();
 };
 
