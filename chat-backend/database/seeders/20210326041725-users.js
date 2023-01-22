@@ -1,6 +1,6 @@
 "use strict";
 
-const { Password } = require("../../utils/password");
+const Password = require("../../utils/password");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {

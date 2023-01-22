@@ -3,7 +3,7 @@
 const config = require("../config/app");
 
 const { Model } = require("sequelize");
-const { Password } = require("../utils/password");
+const Password = require("../utils/password");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
