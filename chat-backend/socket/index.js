@@ -11,6 +11,7 @@ const SocketServer = (server) => {
     cors: { origin: "*", methods: ["GET", "POST"] },
   });
   io.on("connect", (socket) => {
+    console.log("new connection setup ", socket)
     socket.on("chats", async (user) => {
       // console.log("chats = ", chats);
       const userId = user.id;

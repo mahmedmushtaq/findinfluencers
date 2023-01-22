@@ -6,9 +6,9 @@
       "watch": false,
       "env": {
         "PORT": "8001",
-        "APP_URL": "http://34.125.215.29/messages",
-        "HOST": "http://34.125.215.29/messages",
-        "IMAGE_URL": "http://34.125.215.29/messages",
+        "APP_URL": "http://34.125.215.29",
+        "HOST": "http://34.125.215.29",
+        "IMAGE_URL": "http://34.125.215.29",
         "JWT_SECRET": ";r{mC>j3C4W]!^JvuloW6o~VuY@03Y",
         "DB_USER": "dvpgcvkz",
         "DB_PASSWORD": "F_YpghPpHdVvr1UvH3xK0BPpicIJmZI7",

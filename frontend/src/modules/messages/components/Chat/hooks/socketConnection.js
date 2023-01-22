@@ -21,24 +21,14 @@ const ENDPOINT = process.env.CHAT_APP_URL;
 const useSocket = (user, dispatch) => {
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
+
     dispatch(setSocket(socket));
     (async () => {
       try {
-        console.log("token is = ", user.token);
         API.defaults.headers["Authorization"] = `Bearer ${user.token}`;
         const res = await dispatch(fetchChats());
 
         console.log(" === load all chats ======= ", res);
-
-        // socket.emit("chats", user);
-
-        // socket.on("chats", (chats) => {
-        //   console.log(
-        //     " ============= chats are received ============= ",
-        //     chats
-        //   );
-        //   dispatch(chatsList(chats));
-        // });
 
         socket.emit("join", user);
         socket.on("typing", (user) => {
@@ -84,7 +74,9 @@ const useSocket = (user, dispatch) => {
         socket.on("delete-chat", (chatId) => {
           dispatch(deleteChat(chatId));
         });
-      } catch (err) {}
+      } catch (err) {
+        console.log("error in socket connection is ", err);
+      }
     })();
 
     return () => {

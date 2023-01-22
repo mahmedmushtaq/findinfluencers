@@ -19,11 +19,10 @@ const AddUserToChatListModel = ({ login, ignore }) => {
 
     try {
       await chatService.createChat(data.searchUser.id);
+      login();
     } catch (err) {
       console.log("addUser Error is = ", err);
     }
-
-    login();
   };
 
   return (

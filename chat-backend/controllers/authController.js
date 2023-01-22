@@ -1,7 +1,7 @@
 const User = require("../models").User;
 const jwt = require("jsonwebtoken");
 const key = require("../config/app");
-const { Password } = require("../utils/password");
+const Password = require("../utils/password");
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
@@ -38,8 +38,6 @@ exports.register = async (req, res) => {
   } catch (err) {
     return res.status(500).send({ message: err.message });
   }
-
-  return res.send(req.body);
 };
 
 const generateToken = (user) => {

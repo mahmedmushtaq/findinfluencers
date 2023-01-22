@@ -10,7 +10,8 @@
     "db:migrate": "npx sequelize-cli db:migrate",
     "start:production": "pm2 delete app.config.json && pm2 start app.config.json",
     "docker:build": "docker build -t influencer-chat-backend .",
-    "docker:run": "docker run -p 8001:8001 influencer-chat-backend"
+    "docker:run": "docker run -p 8001:8001 influencer-chat-backend",
+    "delete": "pm2 delete app.config.json"
   },
   "keywords": [],
   "author": "",
@@ -25,5 +26,8 @@
     "sequelize": "^6.6.2",
     "sequelize-cli": "^6.2.0",
     "socket.io": "^4.0.0"
+  },
+  "devDependencies": {
+    "pm2": "^5.2.2"
   }
 }
