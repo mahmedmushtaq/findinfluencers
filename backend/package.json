@@ -9,6 +9,7 @@
     "build": "rimraf ./build && tsc",
     "prestart": "npm run build",
     "start": "node build/index.js",
+    "start:production": "npm run build && pm2 delete app.config.json && pm2 start app.config.json",
     "docker:build": "docker build -t influencer-backend .",
     "docker:run": "docker run -p 8000:8000 influencer-backend"
   },
@@ -41,5 +42,7 @@
     "ts-node-dev": "^1.1.6",
     "typescript": "^4.2.4"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "pm2": "^5.2.2"
+  }
 }
