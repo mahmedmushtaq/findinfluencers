@@ -15,11 +15,12 @@ exports.login = async (req, res) => {
       return res.status(404).send({ message: "Incorrect credentials" });
     }
 
+    res.send(user);
     //  return res.send(user);
     // generate token
-    const token = generateToken(user.get({ raw: true }));
-    token.user.avatar = user.avatar;
-    return res.send(token);
+    // const token = generateToken(user.get({ raw: true }));
+    // token.user.avatar = user.avatar;
+    // return res.send(token);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
@@ -31,9 +32,9 @@ exports.register = async (req, res) => {
     console.log("req.body is = ", req.body);
     const user = await User.create(req.body);
     console.log("user created in chat backend ", user);
-    const token = generateToken(user.get({ raw: true }));
-    token.avatar = user.avatar;
-    return res.send(token);
+    // const token = generateToken(user.get({ raw: true }));
+    //token.avatar = user.avatar;
+    return res.send(user);
   } catch (err) {
     return res.status(500).send({ message: err.message });
   }
