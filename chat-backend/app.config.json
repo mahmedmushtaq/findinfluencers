@@ -3,7 +3,7 @@
     {
       "name": "influencer-chat-backend",
       "script": "index.js",
-      "watch": true,
+      "watch": false,
       "env": {
         "PORT": "8001",
         "APP_URL": "http://34.125.215.29/messages",
