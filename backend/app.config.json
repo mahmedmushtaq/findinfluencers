@@ -3,13 +3,13 @@
     {
       "name": "infleuncer-backend",
       "script": "build/index.js",
-      "watch": true,
+      "watch": false,
       "env": {
         "PORT": "8000",
         "NODE_ENV": "development",
         "JWT_SECRET": ";r{mC>j3C4W]!^JvuloW6o~VuY@03Y",
         "MONGODB_URI": "mongodb+srv://user:xkmVddwQpy3FDCN7@cluster0.q7pjyu2.mongodb.net/?retryWrites=true&w=majority",
-        "MESSAGES_SERVER_URL": "https://influencer-chat-backend-qf6bggeida-uc.a.run.app",
+        "MESSAGES_SERVER_URL": "http://34.125.215.29/messages",
         "STRIPE_API_KEY": "sk_test_xwpkPhviumHanTkDDwl3hdYi00tdQOjoyE"
       }
     }
